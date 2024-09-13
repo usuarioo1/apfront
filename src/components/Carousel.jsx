@@ -5,7 +5,7 @@ const Carousel = () => {
         <div className="carousel w-full">
             <div id="slide1" className="carousel-item relative w-full">
                 <img
-                    src="https://img.daisyui.com/images/stock/photo-1625726411847-8cbb60cc71e6.webp"
+                    src="https://res.cloudinary.com/dpbpyzl96/image/upload/v1725584647/apweb/jx20nvh38ceycoruo7ai.webp"
                     className="w-full" />
                 <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
                     <a href="#slide4" className="btn btn-circle">❮</a>
@@ -30,15 +30,7 @@ const Carousel = () => {
                     <a href="#slide4" className="btn btn-circle">❯</a>
                 </div>
             </div>
-            <div id="slide4" className="carousel-item relative w-full">
-                <img
-                    src="https://img.daisyui.com/images/stock/photo-1665553365602-b2fb8e5d1707.webp"
-                    className="w-full" />
-                <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-                    <a href="#slide3" className="btn btn-circle">❮</a>
-                    <a href="#slide1" className="btn btn-circle">❯</a>
-                </div>
-            </div>
+
         </div>
     )
 }

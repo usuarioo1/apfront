@@ -1,5 +1,6 @@
 'use client'
 import React, { useState } from 'react';
+import Link from 'next/link';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -9,7 +10,7 @@ const Navbar = () => {
     };
 
     return (
-        <div className="navbar bg-white relative z-50">
+        <div className="navbar bg-white relative z-50 h-20">
             <div className="flex-1">
                 <a className="btn btn-ghost text-xl">daisyUI</a>
             </div>
@@ -25,18 +26,18 @@ const Navbar = () => {
             </div>
             <div className="hidden md:flex flex-none">
                 <ul className="menu menu-horizontal px-1">
-                    <li><a href="#">Inicio</a></li>
-                    <li><a href="#">Quienes Somos</a></li>
+                    <li className='text-xl'><a href="#">Inicio</a></li>
+                    <li className='text-xl'><Link href='/about'>Quienes Somos</Link></li>
                     <li>
                         <details>
-                            <summary>Productos</summary>
+                            <summary className='text-xl' >Productos</summary>
                             <ul className="bg-white rounded-t-none p-2 z-50">
                                 <li><a href="#">Link 1</a></li>
                                 <li><a href="#">Link 2</a></li>
                             </ul>
                         </details>
                     </li>
-                    <li><a href="#">Contacto</a></li>
+                    <li className='text-xl'><a href="#">Contacto</a></li>
                 </ul>
             </div>
 
