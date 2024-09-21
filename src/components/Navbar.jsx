@@ -29,13 +29,13 @@ const Navbar = () => {
             </div>
             <div className="hidden md:flex flex-none">
                 <ul className="menu menu-horizontal px-1">
-                    <li className='text-xl'><a href="#">Inicio</a></li>
+                    <li className='text-xl'><Link href="/">Inicio</Link></li>
                     <li className='text-xl'><Link href='/about'>Quienes Somos</Link></li>
                     <li>
                         <details>
                             <summary className='text-xl'>Productos</summary>
                             <ul className="bg-white rounded-t-none p-2 z-50">
-                                <li><a href="#">Link 1</a></li>
+                                <li><Link href="/anillos">Anillos</Link></li>
                                 <li><a href="#">Link 2</a></li>
                             </ul>
                         </details>
@@ -59,7 +59,7 @@ const Navbar = () => {
                         <div className="card-body">
                             <span className="font-bold text-lg">{cantidadTotal} Productos</span>
                             <div className="card-actions">
-                                <Link href='/viewCart'>
+                                <Link href='/cart'>
                                     <button className="btn btn-primary btn-block">Ver Carrito</button>
                                 </Link>
                             </div>
@@ -71,13 +71,13 @@ const Navbar = () => {
             {isOpen && (
                 <div className="md:hidden absolute top-16 left-0 w-full bg-white shadow-lg z-50 mt-4">
                     <ul className="menu p-4">
-                        <li><a href="#">Inicio</a></li>
+                        <li><Link href="/">Inicio</Link></li>
                         <li><a href="#">Quienes Somos</a></li>
                         <li>
                             <details>
                                 <summary>Productos</summary>
                                 <ul className="bg-white rounded-t-none p-2 z-50">
-                                    <li><a href="#">Link 1</a></li>
+                                <li><Link href="/anillos">Anillos</Link></li>
                                     <li><a href="#">Link 2</a></li>
                                 </ul>
                             </details>
