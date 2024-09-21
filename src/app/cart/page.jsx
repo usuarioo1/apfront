@@ -7,7 +7,7 @@ const Carrito = () => {
     const { cartItems, addItem, removeItem } = useContext(CartContext);
 
     const calcularTotal = () => {
-        return cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0).toFixed(2);
+        return cartItems.reduce((acc, item) => acc + item.precio * item.quantity, 0).toFixed(2);
     };
 
     return (
@@ -35,7 +35,7 @@ const Carrito = () => {
                             {cartItems.map((item) => (
                                 <tr key={item._id} className="border-t">
                                     <td className="p-4 text-gray-700">{item.name}</td>
-                                    <td className="p-4 text-gray-700">${item.price.toFixed(2)}</td>
+                                    <td className="p-4 text-gray-700">${item.precio.toFixed(2)}</td>
                                     <td className="p-4 text-gray-700">
                                         <div className="flex items-center justify-center">
                                             <button
@@ -53,7 +53,7 @@ const Carrito = () => {
                                             </button>
                                         </div>
                                     </td>
-                                    <td className="p-4 text-gray-700">${(item.price * item.quantity).toFixed(2)}</td>
+                                    <td className="p-4 text-gray-700">${(item.precio * item.quantity).toFixed(2)}</td>
                                 </tr>
                             ))}
                         </tbody>
