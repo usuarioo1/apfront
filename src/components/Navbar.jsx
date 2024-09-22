@@ -34,13 +34,18 @@ const Navbar = () => {
                     <li>
                         <details>
                             <summary className='text-xl'>Productos</summary>
-                            <ul className="bg-white rounded-t-none p-2 z-50">
-                                <li><Link href="/anillos">Anillos</Link></li>
-                                <li><a href="#">Link 2</a></li>
+                            <ul className="bg-white rounded-t-none p-2 z-50 w-full">
+                                <li className='text-xl'><Link href="/anillos">Anillos</Link></li>
+                                <li className='text-xl'><Link href="#">Colgantes</Link></li>
+                                <li className='text-xl'><Link href="#">Pulseras</Link></li>
+                                <li className='text-xl'><Link href="#">Conjuntos</Link></li>
+                                <li className='text-xl'><Link href="#">Collares</Link></li>
+                                <li className='text-xl'><Link href="#">Aros</Link></li>
+                                <li className='text-xl'><Link href="#">Figuras</Link></li>
                             </ul>
                         </details>
                     </li>
-                    <li className='text-xl'><a href="#">Contacto</a></li>
+                    <li className='text-xl'><Link href="/contacto">Contacto</Link></li>
                 </ul>
             </div>
 
@@ -76,9 +81,14 @@ const Navbar = () => {
                         <li>
                             <details>
                                 <summary>Productos</summary>
-                                <ul className="bg-white rounded-t-none p-2 z-50">
+                                <ul className="bg-slate-100 rounded-md p-2 z-50 w-auto">
                                 <li><Link href="/anillos">Anillos</Link></li>
-                                    <li><a href="#">Link 2</a></li>
+                                <li><Link href="#">Colgantes</Link></li>
+                                <li><Link href="#">Pulseras</Link></li>
+                                <li><Link href="#">Conjuntos</Link></li>
+                                <li><Link href="#">Collares</Link></li>
+                                <li><Link href="#">Aros</Link></li>
+                                <li><Link href="#">Figuras</Link></li>
                                 </ul>
                             </details>
                         </li>

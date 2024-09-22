@@ -26,6 +26,7 @@ const Carrito = () => {
                         <thead>
                             <tr className="bg-gray-100">
                                 <th className="p-4 text-gray-600 font-medium">Producto</th>
+                                <th className="p-4 text-gray-600 font-medium">Imagen</th>
                                 <th className="p-4 text-gray-600 font-medium">Precio</th>
                                 <th className="p-4 text-gray-600 font-medium">Cantidad</th>
                                 <th className="p-4 text-gray-600 font-medium">Total</th>
@@ -35,6 +36,9 @@ const Carrito = () => {
                             {cartItems.map((item) => (
                                 <tr key={item._id} className="border-t">
                                     <td className="p-4 text-gray-700">{item.name}</td>
+                                    <td className="p-4">
+                                        <img src={item.img} alt={item.name} className="w-16 h-16 object-cover rounded"/>
+                                    </td>
                                     <td className="p-4 text-gray-700">${item.precio.toFixed(2)}</td>
                                     <td className="p-4 text-gray-700">
                                         <div className="flex items-center justify-center">
@@ -63,7 +67,7 @@ const Carrito = () => {
             <div className="mt-8 text-center">
                 <h2 className="text-2xl font-semibold text-gray-800">Total: ${calcularTotal()}</h2>
                 <button className="mt-4 px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
-                    Finalizar Compra
+                    <Link href={'/form'}> Finalizar Compra</Link>
                 </button>
             </div>
         </div>
