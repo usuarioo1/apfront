@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@mercadopago/sdk-js": "^0.0.3",
+    "@mercadopago/sdk-react": "^0.0.19",
+    "axios": "^1.7.7",
     "next": "14.2.7",
     "react": "^18",
     "react-dom": "^18",
