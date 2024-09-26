@@ -2,6 +2,7 @@
 import { useContext } from 'react';
 import { CartContext } from '@/contexts/CartContext';
 import Link from 'next/link';
+import Pago from '@/components/Pago';
 
 const Carrito = () => {
     const { cartItems, addItem, removeItem } = useContext(CartContext);
@@ -69,6 +70,7 @@ const Carrito = () => {
                 <button className="mt-4 px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
                     <Link href={'/form'}> Finalizar Compra</Link>
                 </button>
+                <Pago />
             </div>
         </div>
     );
