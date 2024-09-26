@@ -10,7 +10,7 @@ const Pago = () => {
     const createPreference = async () => {
         try {
             const response = await axios.post("http://localhost:5000/create_preference", {
-                title: "hola",
+                title: "producto",
                 quantity: 1,
                 price: 100
             });
