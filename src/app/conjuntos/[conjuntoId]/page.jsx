@@ -1,0 +1,64 @@
+'use client';
+import React, { useState, useEffect, useContext } from 'react';
+import { CartContext } from '@/contexts/CartContext';
+import { getConjuntoById } from '../conjuntosApi';  // Función para obtener el conjunto por ID
+
+const DetallesConjunto = ({ params }) => {
+    const { conjuntoId } = params;  // Tomamos el ID del conjunto desde los parámetros de la ruta
+    const [conjunto, setConjunto] = useState(null);
+    const { addItem } = useContext(CartContext);  // Para añadir el conjunto al carrito
+
+    useEffect(() => {
+        const fetchConjunto = async () => {
+            try {
+                const data = await getConjuntoById(conjuntoId);  // Obtenemos el conjunto por su ID
+                if (data) {
+                    setConjunto(data);  // Guardamos los detalles del conjunto
+                } else {
+                    console.log('Conjunto no encontrado');
+                }
+            } catch (error) {
+                console.error('Error al obtener el conjunto:', error);
+            }
+        };
+
+        fetchConjunto();
+    }, [conjuntoId]);
+
+    if (!conjunto) {
+        return <div><h2>Conjunto no encontrado</h2></div>;  // Muestra un mensaje si no se encuentra el conjunto
+    }
+
+    const handleAddToCart = () => {
+        addItem(conjunto);  // Añadimos el conjunto al carrito
+        console.log('Conjunto añadido al carrito:', conjunto);
+    };
+
+    return (
+        <div className="bg-white shadow-lg rounded-lg overflow-hidden w-9/12 m-auto mt-24 mb-20">
+            <div className="w-full md:flex">
+                <img className="h-full w-full object-contain md:w-1/4 md:h-auto" src={conjunto.img} alt={conjunto.name} />
+                <div className="w-full md:w-3/4 p-4 md:pl-8 flex flex-col justify-start items-start">
+                    <h2 className="text-gray-800 font-semibold text-3xl">{conjunto.name}</h2>
+                    <p className="text-gray-600 mt-2">Código: {conjunto.codigo || 'No disponible'}</p>
+                    <hr className="border-gray-300 my-2 w-full" />
+                    <div className="flex items-center mt-2">
+                        <p className="text-gray-900 font-bold text-xl mr-4">Precio: ${conjunto.precio}</p>
+                        <button onClick={handleAddToCart} className="bg-yellow-400 hover:bg-yellow-500 text-white font-bold py-2 px-4 rounded">
+                            Agregar al carrito
+                        </button>
+                    </div>
+                    <hr className="border-gray-300 my-2 w-full" />
+                    <p className="text-gray-600 mt-2">{conjunto.descripcion}</p>
+                    <p className="text-gray-600 mt-2">
+                        <strong>Material:</strong> {conjunto.material}<br />
+                        <strong>Tamaño:</strong> {conjunto.tamaño}<br />
+                        <strong>Peso:</strong> {conjunto.peso}
+                    </p>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default DetallesConjunto;
