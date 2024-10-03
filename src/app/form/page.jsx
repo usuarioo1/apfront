@@ -1,10 +1,13 @@
 'use client';
 
 import React, { useContext, useState } from 'react';
+import { useRouter } from 'next/navigation';  // Importar useRouter para redirigir
 import { CartContext } from '@/contexts/CartContext';
+import Pago from '@/components/Pago';
 
 export default function Component() {
     const { cartItems } = useContext(CartContext); // Obtener los productos del carrito
+    const router = useRouter(); // Definir useRouter para redireccionar después del submit
     const regiones = [
         "Arica y Parinacota",
         "Tarapacá",
@@ -42,12 +45,37 @@ export default function Component() {
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('Datos del formulario:', formData);
-        // Lógica para enviar los datos al servidor
+    
+        // Datos a enviar al backend
+        const dataToSend = {
+            ...formData, // Información del formulario
+            cartItems,   // Productos seleccionados del carrito
+            total: calcularTotal() // Total de la compra
+        };
+    
+        try {
+            const response = await fetch('http://localhost:4000/save_order', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(dataToSend),
+            });
+    
+            const result = await response.json();
+            console.log('Resultado del backend:', result);
+            
+            // Si el envío es exitoso, redirigir a la página de checkout
+            if (response.ok) {
+                router.push('/checkout'); // Redirigir después de guardar la orden
+            }
+        } catch (error) {
+            console.error('Error al enviar los datos:', error);
+        }
     };
-
+    
     const calcularTotal = () => {
         return cartItems.reduce((acc, item) => acc + item.precio * item.quantity, 0).toFixed(2);
     };
@@ -152,7 +180,7 @@ export default function Component() {
                                 type="submit"
                                 className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                             >
-                                Enviar
+                                Finalizar Compra
                             </button>
                         </div>
                     </form>
@@ -176,6 +204,10 @@ export default function Component() {
                         </div>
                     )}
                 </div>
+            </div>
+            {/* Componente Pago, fuera del formulario */}
+            <div className="mt-6">
+                <Pago total={calcularTotal()} />
             </div>
         </div>
     );

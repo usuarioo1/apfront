@@ -68,9 +68,8 @@ const Carrito = () => {
             <div className="mt-8 text-center">
                 <h2 className="text-2xl font-semibold text-gray-800">Total: ${calcularTotal()}</h2>
                 <button className="mt-4 px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
-                    <Link href={'/form'}> Finalizar Compra</Link>
+                    <Link href={'/form'}>Continuar con la Compra</Link>
                 </button>
-                <Pago />
             </div>
         </div>
     );
