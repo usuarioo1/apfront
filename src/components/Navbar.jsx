@@ -77,7 +77,7 @@ const Navbar = () => {
                 <div className="md:hidden absolute top-16 left-0 w-full bg-white shadow-lg z-50 mt-4">
                     <ul className="menu p-4">
                         <li><Link href="/">Inicio</Link></li>
-                        <li><a href="#">Quienes Somos</a></li>
+                        <li><Link href="#">Quienes Somos</Link></li>
                         <li>
                             <details>
                                 <summary>Productos</summary>
@@ -92,7 +92,7 @@ const Navbar = () => {
                                 </ul>
                             </details>
                         </li>
-                        <li><a href="#">Contacto</a></li>
+                        <li><Link href="#">Contacto</Link></li>
                     </ul>
                 </div>
             )}
