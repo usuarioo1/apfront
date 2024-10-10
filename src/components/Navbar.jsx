@@ -2,6 +2,7 @@
 import React, { useState, useContext } from 'react';
 import Link from 'next/link';
 import { CartContext } from '@/contexts/CartContext'; // Asegúrate de tener este contexto creado
+import Image from 'next/image';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -14,11 +15,18 @@ const Navbar = () => {
 
     return (
         <div className="navbar bg-white relative z-50 h-20">
+            <Link href='/'>
             <div className="flex-1">
-                <a className="btn btn-ghost text-xl">daisyUI</a>
-            </div>
-            <div className="flex-1 text-center">
-                <span className="text-2xl font-semibold">Artesanías Pachy</span>
+                <Image 
+                src='https://res.cloudinary.com/dpbpyzl96/image/upload/v1728514810/apweb/logo/pb5gdsfxr9kmgcuyewe6.png'
+                alt='logo'
+                width={400}
+                height={100} />
+                
+            </div></Link>
+            {/* Muestra "Artesanías Pachy" solo en pantallas medianas o más grandes */}
+            <div className="hidden md:flex flex-1 text-center">
+                
             </div>
             <div className="flex-none md:hidden">
                 <button onClick={toggleMenu} className="btn btn-ghost">
@@ -86,7 +94,7 @@ const Navbar = () => {
                                 <li><Link href="/colgantes">Colgantes</Link></li>
                                 <li><Link href="/pulseras">Pulseras</Link></li>
                                 <li><Link href="/conjuntos">Conjuntos</Link></li>
-                                <li><Link href="collares">Collares</Link></li>
+                                <li><Link href="/collares">Collares</Link></li>
                                 <li><Link href="/aros">Aros</Link></li>
                                 <li><Link href="/figuras">Figuras</Link></li>
                                 </ul>
