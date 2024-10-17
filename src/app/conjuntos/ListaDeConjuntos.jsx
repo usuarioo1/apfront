@@ -36,10 +36,6 @@ const ListaDeConjuntos = () => {
         ); // Mensaje de carga
     }
 
-    if (conjuntos.length === 0) {
-        return <div><h2>No hay conjuntos disponibles</h2></div>;  // Mensaje si no hay conjuntos
-    }
-
     // Función para añadir un conjunto al carrito
     const handleAddToCart = (conjunto) => {
         addItem(conjunto);  // Añadimos el conjunto al carrito
@@ -47,25 +43,33 @@ const ListaDeConjuntos = () => {
     };
 
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-8 p-4">
-            {conjuntos.map((conjunto) => (
-                <div key={conjunto.id} className="bg-white shadow-lg rounded-lg overflow-hidden">
-                    <img src={conjunto.img} alt={conjunto.name} className="h-48 w-full object-cover" />
-                    <div className="p-4">
-                        <h3 className="text-gray-800 font-semibold text-lg">{conjunto.name}</h3>
-                        <p className="text-gray-600 mt-2">Precio: ${conjunto.precio}</p>
-                        <button
-                            className="w-full bg-gray-800 text-white text-sm py-2 px-4 rounded-md hover:bg-gray-700 transition-colors duration-300"
-                            onClick={() => handleAddToCart(conjunto)} // Llamamos a handleAddToCart cuando el usuario hace clic en el botón
-                        >
-                            Añadir al Carrito
-                        </button>
-                        <Link href={`/conjuntos/${conjunto.id}`}>
-                            <a className="text-blue-500 hover:underline mt-2 block">Ver detalles</a>
+        <div className="p-4 bg-gray-100 min-h-screen">
+            <h1 className="text-3xl font-bold mb-8 text-center text-gray-800">Lista de Conjuntos</h1>
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+                {conjuntos.map((conjunto) => (
+                    <div key={conjunto._id} className="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg">
+                        <Link href={`/conjuntos/${conjunto._id}`}>
+                            <div className="aspect-square relative">
+                                <img
+                                    src={conjunto.img}
+                                    alt={conjunto.name}
+                                    className="absolute inset-0 w-full h-full object-cover"
+                                />
+                            </div>
                         </Link>
+                        <div className="p-4">
+                            <h2 className="text-lg font-semibold text-gray-800 mb-2 text-center">{conjunto.name}</h2>
+                            <p className="text-center text-gray-600 mb-4">Precio: ${conjunto.precio}</p>
+                            <button
+                                className="w-full bg-blue-600 text-white text-sm py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors duration-300"
+                                onClick={() => handleAddToCart(conjunto)} // Llamamos a handleAddToCart cuando el usuario hace clic en el botón
+                            >
+                                Añadir al Carrito
+                            </button>
+                        </div>
                     </div>
-                </div>
-            ))}
+                ))}
+            </div>
         </div>
     );
 };

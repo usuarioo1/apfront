@@ -13,11 +13,7 @@ const ListaDePulseras = () => {
         const fetchPulseras = async () => {
             try {
                 const data = await getPulseras();  // Obtenemos la lista de pulseras
-                if (data) {
-                    setPulseras(data);  // Guardamos las pulseras en el estado
-                } else {
-                    console.log('No se encontraron pulseras');
-                }
+                setPulseras(data);  // Guardamos las pulseras en el estado
             } catch (error) {
                 console.error('Error al obtener las pulseras:', error);
             } finally {
@@ -47,25 +43,32 @@ const ListaDePulseras = () => {
     };
 
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-8 p-4">
-            {pulseras.map((pulsera) => (
-                <div key={pulsera.id} className="bg-white shadow-lg rounded-lg overflow-hidden">
-                    <img src={pulsera.img} alt={pulsera.name} className="h-48 w-full object-cover" />
-                    <div className="p-4">
-                        <h3 className="text-gray-800 font-semibold text-lg">{pulsera.name}</h3>
-                        <p className="text-gray-600 mt-2">Precio: ${pulsera.precio}</p>
-                        <button
-                            className="w-full bg-gray-800 text-white text-sm py-2 px-4 rounded-md hover:bg-gray-700 transition-colors duration-300"
-                            onClick={() => handleAddToCart(pulsera)} // Llamamos a handleAddToCart cuando el usuario hace clic en el botón
-                        >
-                            Añadir al Carrito
-                        </button>
-                        <Link href={`/pulseras/${pulsera.id}`}>
-                            <a className="text-blue-500 hover:underline mt-2 block">Ver detalles</a>
+        <div className="p-4 bg-gray-100 min-h-screen">
+            <h1 className="text-3xl font-bold mb-8 text-center text-gray-800">Lista de Pulseras</h1>
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+                {pulseras.map((pulsera) => (
+                    <div key={pulsera._id} className="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg">
+                        <Link href={`/pulseras/${pulsera._id}`}>
+                            <div className="aspect-square relative">
+                                <img
+                                    src={pulsera.img}
+                                    alt={pulsera.name}
+                                    className="absolute inset-0 w-full h-full object-cover"
+                                />
+                            </div>
                         </Link>
+                        <div className="p-4">
+                            <h2 className="text-lg font-semibold text-gray-800 mb-2 text-center">{pulsera.name}</h2>
+                            <button
+                                className="w-full bg-blue-600 text-white text-sm py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors duration-300"
+                                onClick={() => handleAddToCart(pulsera)} // Llamamos a handleAddToCart cuando el usuario hace clic en el botón
+                            >
+                                Añadir al Carrito
+                            </button>
+                        </div>
                     </div>
-                </div>
-            ))}
+                ))}
+            </div>
         </div>
     );
 };

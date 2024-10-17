@@ -55,8 +55,8 @@ export default function ListaDeCollares() {
                         <div className="p-4">
                             <h2 className="text-lg font-semibold text-gray-800 mb-2 text-center">{collar.name}</h2>
                             <button
-                                className="w-full bg-gray-800 text-white text-sm py-2 px-4 rounded-md hover:bg-gray-700 transition-colors duration-300"
-                                onClick={() => handleAddToCart(collar)}  // Llamamos a handleAddToCart cuando el usuario hace clic en el botón
+                                className="w-full bg-blue-600 text-white text-sm py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors duration-300"
+                                onClick={() => handleAddToCart(collar)} // Llamamos a handleAddToCart cuando el usuario hace clic en el botón
                             >
                                 Añadir al Carrito
                             </button>
