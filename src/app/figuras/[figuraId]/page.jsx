@@ -44,17 +44,13 @@ const DetallesFigura = ({ params }) => {
                     <hr className="border-gray-300 my-2 w-full" />
                     <div className="flex items-center mt-2">
                         <p className="text-gray-900 font-bold text-xl mr-4">Precio: ${figura.precio}</p>
-                        <button onClick={handleAddToCart} className="bg-yellow-400 hover:bg-yellow-500 text-white font-bold py-2 px-4 rounded">
+                        <button onClick={handleAddToCart} className="bg-blue-700 hover:bg-blue-800 text-white font-bold py-2 px-6 rounded-full transition-colors duration-300">
                             Agregar al carrito
                         </button>
                     </div>
                     <hr className="border-gray-300 my-2 w-full" />
                     <p className="text-gray-600 mt-2">{figura.descripcion}</p>
-                    <p className="text-gray-600 mt-2">
-                        <strong>Material:</strong> {figura.material}<br />
-                        <strong>Tamaño:</strong> {figura.tamaño}<br />
-                        <strong>Peso:</strong> {figura.peso}
-                    </p>
+                    
                 </div>
             </div>
         </div>
