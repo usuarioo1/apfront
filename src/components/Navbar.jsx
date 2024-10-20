@@ -71,12 +71,12 @@ const Navbar = () => {
                             <span className="badge badge-sm indicator-item">{cantidadTotal}</span>
                         </div>
                     </div>
-                    <div tabIndex={0} className="mt-3 card card-compact dropdown-content w-52 bg-base-100 shadow z-50">
+                    <div tabIndex={0} className="mt-3 card card-compact dropdown-content w-52 shadow z-50 bg-slate-100">
                         <div className="card-body">
                             <span className="font-bold text-lg">{cantidadTotal} Productos</span>
                             <div className="card-actions">
                                 <Link href='/cart'>
-                                    <button className="btn btn-primary btn-block">Ver Carrito</button>
+                                    <button className="btn btn-primary btn-block bg-blue-700">Ver Carrito</button>
                                 </Link>
                             </div>
                         </div>
@@ -85,7 +85,7 @@ const Navbar = () => {
             </div>
 
             {isOpen && (
-                <div className="md:hidden absolute top-16 left-0 w-full bg-white shadow-lg z-50 mt-4">
+                <div className="md:hidden absolute top-16 left-0 w-full bg-white shadow-lg z-50 mt-4 ">
                     <ul className="menu p-4">
                         <li><Link href="/">Inicio</Link></li>
                         <li><Link href="#">Quienes Somos</Link></li>
@@ -103,7 +103,7 @@ const Navbar = () => {
                                 </ul>
                             </details>
                         </li>
-                        <li><Link href="#">Contacto</Link></li>
+                        <li><Link href="/contacto">Contacto</Link></li>
 
                         {/* Carrito de compras en pantallas pequeñas */}
                         <li>
@@ -116,12 +116,12 @@ const Navbar = () => {
                                         <span className="badge badge-sm indicator-item">{cantidadTotal}</span>
                                     </div>
                                 </div>
-                                <div tabIndex={0} className="mt-3 card card-compact dropdown-content w-52 bg-blue-700 shadow z-50">
+                                <div tabIndex={0} className="mt-3 card card-compact dropdown-content w-52 bg-slate-100 shadow z-50">
                                     <div className="card-body">
                                         <span className="font-bold text-lg">{cantidadTotal} Productos</span>
                                         <div className="card-actions">
                                             <Link href='/cart'>
-                                                <button className="btn btn-primary btn-block">Ver Carrito</button>
+                                                <button className="btn btn-primary btn-block bg-blue-700">Ver Carrito</button>
                                             </Link>
                                         </div>
                                     </div>

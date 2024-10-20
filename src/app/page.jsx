@@ -6,7 +6,7 @@ import Lapislazuli from "@/components/Lapislazuli";
 
 const HomePage = () => {
 
-  const imageUrl = 'https://www.corsojewelry.com/cdn/shop/articles/16-LAPISLAZULI.jpg?v=1715104454';
+  const imageUrl = 'https://res.cloudinary.com/dpbpyzl96/image/upload/v1729386317/apweb/b4anjv95ulg2sqkmc9cj.jpg';
   return (
     <div>
       <Carousel />

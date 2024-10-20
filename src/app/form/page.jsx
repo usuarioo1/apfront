@@ -47,14 +47,14 @@ export default function Component() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-    
+
         // Datos a enviar al backend
         const dataToSend = {
             ...formData, // Información del formulario
             cartItems,   // Productos seleccionados del carrito
             total: calcularTotal() // Total de la compra
         };
-    
+
         try {
             const response = await fetch('http://localhost:4000/save_order', {
                 method: 'POST',
@@ -63,10 +63,10 @@ export default function Component() {
                 },
                 body: JSON.stringify(dataToSend),
             });
-    
+
             const result = await response.json();
             console.log('Resultado del backend:', result);
-            
+
             // Si el envío es exitoso, redirigir a la página de checkout
             if (response.ok) {
                 router.push('/checkout'); // Redirigir después de guardar la orden
@@ -75,9 +75,9 @@ export default function Component() {
             console.error('Error al enviar los datos:', error);
         }
     };
-    
+
     const calcularTotal = () => {
-        return cartItems.reduce((acc, item) => acc + item.precio * item.quantity, 0).toFixed(2);
+        return cartItems.reduce((acc, item) => acc + item.precio * item.quantity, 0);
     };
 
     return (
@@ -194,21 +194,31 @@ export default function Component() {
                     ) : (
                         <div>
                             {cartItems.map((item) => (
-                                <div key={item._id} className="mb-4">
-                                    <p className="text-gray-700 font-medium">{item.name} x {item.quantity}</p>
-                                    <p className="text-gray-600">Precio: ${item.precio.toFixed(2)}</p>
+                                <div key={item._id} className="mb-4 flex justify-between items-center"> {/* Flex para alinear elementos */}
+                                    <div className="flex-1"> {/* Permite que el texto ocupe el espacio disponible */}
+                                        <p className="text-gray-700 font-medium">{item.name} x {item.quantity}</p>
+                                        <p className="text-gray-600 mt-1">Precio: ${item.precio}</p> {/* Precio debajo del nombre */}
+                                    </div>
+                                    <div className="ml-4"> {/* Margen a la izquierda para separación */}
+                                        <img
+                                            src={item.img}
+                                            alt=""
+                                            className="w-12 h-12 object-cover rounded" // Ajustes para la imagen
+                                        />
+                                    </div>
+                                    <hr className="my-2 border-gray-300" /> {/* Línea divisoria */}
                                 </div>
                             ))}
-                            <hr className="my-4" />
                             <p className="text-lg font-semibold text-gray-800">Total: ${calcularTotal()}</p>
                         </div>
                     )}
                 </div>
+
             </div>
             {/* Componente Pago, fuera del formulario */}
-            <div className="mt-6">
+            {/* <div className="mt-6">
                 <Pago total={calcularTotal()} />
-            </div>
+            </div> */}
         </div>
     );
 }

@@ -33,9 +33,13 @@ const Pago = ({ total }) => {  // Recibe el total como prop
     }, []);
 
     return (
-        <div  className="flex justify-center">
+        <div className="flex flex-col items-center">
             <button className="btn btn-wide text-white" onClick={handleBuy}>Pagar</button>
-            {preferenceId && <Wallet initialization={{ preferenceId: preferenceId }} />}
+            {preferenceId && (
+                <div className="mt-4"> {/* Añadido un margen superior para separación */}
+                    <Wallet initialization={{ preferenceId: preferenceId }} />
+                </div>
+            )}
         </div>
     );
 };

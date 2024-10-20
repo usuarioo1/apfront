@@ -8,7 +8,7 @@ const Carrito = () => {
     const { cartItems, addItem, removeItem } = useContext(CartContext);
 
     const calcularTotal = () => {
-        return cartItems.reduce((acc, item) => acc + item.precio * item.quantity, 0).toFixed(2);
+        return cartItems.reduce((acc, item) => acc + item.precio * item.quantity, 0);
     };
 
     return (
@@ -40,7 +40,7 @@ const Carrito = () => {
                                     <td className="p-4">
                                         <img src={item.img} alt={item.name} className="w-16 h-16 object-cover rounded"/>
                                     </td>
-                                    <td className="p-4 text-gray-700">${item.precio.toFixed(2)}</td>
+                                    <td className="p-4 text-gray-700">${item.precio}</td>
                                     <td className="p-4 text-gray-700">
                                         <div className="flex items-center justify-center">
                                             <button
@@ -58,7 +58,7 @@ const Carrito = () => {
                                             </button>
                                         </div>
                                     </td>
-                                    <td className="p-4 text-gray-700">${(item.precio * item.quantity).toFixed(2)}</td>
+                                    <td className="p-4 text-gray-700">${(item.precio * item.quantity)}</td>
                                 </tr>
                             ))}
                         </tbody>
