@@ -1,9 +1,8 @@
 'use client';
-
 import React, { useContext, useState } from 'react';
 import { useRouter } from 'next/navigation';  // Importar useRouter para redirigir
 import { CartContext } from '@/contexts/CartContext';
-import Pago from '@/components/Pago';
+
 
 export default function Component() {
     const { cartItems } = useContext(CartContext); // Obtener los productos del carrito
