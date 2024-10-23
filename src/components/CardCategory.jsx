@@ -12,7 +12,7 @@ const CardCategory = () => {
                     <figure>
                         <img
                             className=''
-                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbH141TM62ZQ1jzKNw4cAGcd85M6l5rPSoSA&s"
+                            src="https://res.cloudinary.com/dpbpyzl96/image/upload/v1729644121/apweb/categorias/kceeikppxfbnmmvvf24n.jpg"
                             alt="Shoes" />
                     </figure>
                 </div>
@@ -25,7 +25,7 @@ const CardCategory = () => {
                     <figure>
                         <img
                             className=''
-                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbH141TM62ZQ1jzKNw4cAGcd85M6l5rPSoSA&s"
+                            src="https://res.cloudinary.com/dpbpyzl96/image/upload/v1729644005/apweb/categorias/aytpslpajger7xqgphuw.jpg"
                             alt="Shoes" />
                     </figure>
                 </div>
@@ -51,7 +51,7 @@ const CardCategory = () => {
                     <figure>
                         <img
                             className=''
-                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbH141TM62ZQ1jzKNw4cAGcd85M6l5rPSoSA&s"
+                            src="https://res.cloudinary.com/dpbpyzl96/image/upload/v1729643715/apweb/categorias/gfvdovj17bxnqwpxsc8r.jpg"
                             alt="Shoes" />
                     </figure>
                 </div>
