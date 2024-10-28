@@ -1,5 +1,7 @@
+import { apiColgantes } from "@/utils/api";
+
 export async function getColgantes() {
-    const res = await fetch('http://localhost:4000/colgantes');
+    const res = await fetch(apiColgantes);
     const data = await res.json();
     return data.info; // Accede a la propiedad "info"
 }
@@ -7,7 +9,7 @@ export async function getColgantes() {
 // anillosApi.js
 export const getColgantesById = async (id) => {
     try {
-        const response = await fetch(`http://localhost:4000/colgantes/${id}`);  // Ajusta la ruta según tu backend
+        const response = await fetch(`${apiColgantes}/${id}`);  // Ajusta la ruta según tu backend
         const data = await response.json();
 
         // Asegurarse de que la propiedad 'info' existe en el objeto de respuesta

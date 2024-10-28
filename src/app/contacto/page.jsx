@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import { apiContactos } from '@/utils/api';
 
 export default function ContactForm() {
     const [formData, setFormData] = useState({
@@ -23,7 +24,7 @@ export default function ContactForm() {
         e.preventDefault();
 
         try {
-            const response = await axios.post('http://localhost:4000/contactos', {
+            const response = await axios.post(apiContactos, {
                 name: formData.name,
                 mail: formData.email, // Asegúrate de que coincida con el esquema del backend
                 phone: formData.phone,

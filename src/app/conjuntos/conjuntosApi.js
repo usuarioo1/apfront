@@ -1,5 +1,7 @@
+import { apiConjuntos } from "@/utils/api";
+
 export async function getConjuntos() {
-    const res = await fetch('http://localhost:4000/conjuntos');
+    const res = await fetch(apiConjuntos);
     const data = await res.json();
     return data.info; // Accede a la propiedad "info"
 }
@@ -7,7 +9,7 @@ export async function getConjuntos() {
 // anillosApi.js
 export const getConjuntoById = async (id) => {
     try {
-        const response = await fetch(`http://localhost:4000/conjuntos/${id}`);  // Ajusta la ruta según tu backend
+        const response = await fetch(`${apiConjuntos}/${id}`);  // Ajusta la ruta según tu backend
         const data = await response.json();
 
         // Asegurarse de que la propiedad 'info' existe en el objeto de respuesta

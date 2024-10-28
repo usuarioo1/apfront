@@ -1,5 +1,7 @@
+import { apiAros } from "@/utils/api";
+
 export async function getAros() {
-    const res = await fetch('http://localhost:4000/aros');
+    const res = await fetch(apiAros);
     const data = await res.json();
     return data.info; // Accede a la propiedad "info"
 }
@@ -7,7 +9,7 @@ export async function getAros() {
 // anillosApi.js
 export const getArosById = async (id) => {
     try {
-        const response = await fetch(`http://localhost:4000/aros/${id}`);  // Ajusta la ruta según tu backend
+        const response = await fetch(`${apiAros}/${id}`);  // Ajusta la ruta según tu backend
         const data = await response.json();
 
         // Asegurarse de que la propiedad 'info' existe en el objeto de respuesta

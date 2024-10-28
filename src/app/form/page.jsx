@@ -2,6 +2,7 @@
 import React, { useContext, useState } from 'react';
 import { useRouter } from 'next/navigation';  // Importar useRouter para redirigir
 import { CartContext } from '@/contexts/CartContext';
+import { apiSaveOrder } from '@/utils/api';
 
 
 export default function Component() {
@@ -55,7 +56,7 @@ export default function Component() {
         };
 
         try {
-            const response = await fetch('http://localhost:4000/save_order', {
+            const response = await fetch(apiSaveOrder, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

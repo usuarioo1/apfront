@@ -1,5 +1,7 @@
+import { apiFiguras } from "@/utils/api";
+
 export async function getFiguras() {
-    const res = await fetch('http://localhost:4000/figuras');
+    const res = await fetch(apiFiguras);
     const data = await res.json();
     return data.info; // Accede a la propiedad "info"
 }
@@ -7,7 +9,7 @@ export async function getFiguras() {
 // anillosApi.js
 export const getFiguraById = async (id) => {
     try {
-        const response = await fetch(`http://localhost:4000/figuras/${id}`);
+        const response = await fetch(`${apiFiguras}/${id}`);
         const data = await response.json();
 
         // Asegúrate de que la propiedad 'info' existe en el objeto de respuesta

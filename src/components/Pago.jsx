@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
 import axios from "axios";
+import { apiCreatePreference } from "@/utils/api";
 
 const Pago = ({ total }) => {  // Recibe el total como prop
     const [preferenceId, setPreferenceId] = useState(null);
 
     const createPreference = async () => {
         try {
-            const response = await axios.post("http://localhost:5000/create_preference", {
+            const response = await axios.post(apiCreatePreference, {
                 title: "Productos del carrito",
                 quantity: 1,
                 price: total  // Usa el total del carrito en lugar de un valor fijo

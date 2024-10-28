@@ -1,5 +1,7 @@
+import { apiPulseras } from "@/utils/api";
+
 export async function getPulseras() {
-    const res = await fetch('http://localhost:4000/pulseras');
+    const res = await fetch(apiPulseras);
     const data = await res.json();
     return data.info; // Accede a la propiedad "info"
 }
@@ -7,7 +9,7 @@ export async function getPulseras() {
 // anillosApi.js
 export const getPulseraById = async (id) => {
     try {
-        const response = await fetch(`http://localhost:4000/pulseras/${id}`);  // Ajusta la ruta según tu backend
+        const response = await fetch(`${apiPulseras}/${id}`);  // Ajusta la ruta según tu backend
         const data = await response.json();
 
         // Asegurarse de que la propiedad 'info' existe en el objeto de respuesta

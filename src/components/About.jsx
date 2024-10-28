@@ -1,4 +1,4 @@
-import { FaBullseye, FaGlobe, FaHeart } from 'react-icons/fa';
+import { FaGlobe } from 'react-icons/fa';
 
 export default function Component() {
     return (
