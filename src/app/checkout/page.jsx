@@ -8,7 +8,7 @@ const CheckoutPage = () => {
     const { cartItems } = useContext(CartContext); // Obtener los productos del carrito
 
     const calcularTotal = () => {
-        return cartItems.reduce((acc, item) => acc + item.precio * item.quantity, 0).toFixed(2);
+        return cartItems.reduce((acc, item) => acc + item.precio * item.quantity, 0).toFixed(0);
     };
 
     return (
@@ -31,7 +31,7 @@ const CheckoutPage = () => {
                             {cartItems.map((item) => (
                                 <div key={item._id} className="mb-4">
                                     <p className="text-gray-700 font-medium">{item.name} x {item.quantity}</p>
-                                    <p className="text-gray-600">Precio: ${item.precio.toFixed(2)}</p>
+                                    <p className="text-gray-600">Precio: ${item.precio.toFixed(0)}</p>
                                 </div>
                             ))}
                             <hr className="my-4" />
