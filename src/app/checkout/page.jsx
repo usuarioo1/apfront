@@ -53,8 +53,9 @@ const CheckoutPage = () => {
                     <p className="py-4">
                         Debes enviar una foto del comprobante de pago al correo:
                         <a href="mailto:artesaniaspachyml@gmail.com" className="text-blue-600"> artesaniaspachyml@gmail.com</a>
-                        con el asunto "Pago vía transferencia".
+                        con el asunto &quot;Pago vía transferencia&quot;.
                     </p>
+
                     <p className="py-2 font-semibold">Los datos para transferir son:</p>
                     <ul className="list-disc pl-5">
                         <li>Nombre: Héctor González Jofré</li>
