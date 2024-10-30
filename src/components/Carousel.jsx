@@ -8,11 +8,11 @@ const Carousel = () => {
                     src="https://res.cloudinary.com/dpbpyzl96/image/upload/v1725584647/apweb/jx20nvh38ceycoruo7ai.webp"
                     className="w-full" />
                 <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-                    <a href="#slide4" className="btn btn-circle">❮</a>
-                    <a href="#slide2" className="btn btn-circle">❯</a>
+                    {/* <a href="#slide4" className="btn btn-circle">❮</a>
+                    <a href="#slide2" className="btn btn-circle">❯</a> */}
                 </div>
             </div>
-            <div id="slide2" className="carousel-item relative w-full">
+            {/* <div id="slide2" className="carousel-item relative w-full">
                 <img
                     src="https://img.daisyui.com/images/stock/photo-1609621838510-5ad474b7d25d.webp"
                     className="w-full" />
@@ -29,7 +29,7 @@ const Carousel = () => {
                     <a href="#slide2" className="btn btn-circle">❮</a>
                     <a href="#slide4" className="btn btn-circle">❯</a>
                 </div>
-            </div>
+            </div> */}
 
         </div>
     )

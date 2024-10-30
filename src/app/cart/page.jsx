@@ -2,7 +2,7 @@
 import { useContext } from 'react';
 import { CartContext } from '@/contexts/CartContext';
 import Link from 'next/link';
-import Pago from '@/components/Pago';
+
 
 const Carrito = () => {
     const { cartItems, addItem, removeItem } = useContext(CartContext);

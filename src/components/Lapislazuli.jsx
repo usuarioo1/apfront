@@ -11,7 +11,7 @@ export default function Component() {
                 </div>
                 <div className="w-full lg:w-3/5 p-4 lg:p-8 bg-[#f0f4f8]">
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-                        <h2 className="text-2xl sm:text-3xl font-bold text-[#2c4b6c]">Lapislázuli</h2>
+                        <h2 className="text-2xl sm:text-3xl font-bold text-[#2c4b6c]">El Lapislázuli</h2>
                         {/* <div className="mt-2 sm:mt-0 px-4 py-2 text-center text-[#2c4b6c] bg-[#d8e3f0] rounded-lg">
                             Explora Ahora
                         </div> */}
