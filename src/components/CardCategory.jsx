@@ -38,7 +38,7 @@ const CardCategory = () => {
                     <figure>
                         <img
                             className=''
-                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbH141TM62ZQ1jzKNw4cAGcd85M6l5rPSoSA&s"
+                            src="https://res.cloudinary.com/dpbpyzl96/image/upload/v1730500737/apweb/categorias/bhnzzfx46uj9jqgblnyc.jpg"
                             alt="Shoes" />
                     </figure>
                 </div>
@@ -82,10 +82,10 @@ const CardCategory = () => {
                     </figure>
                 </div>
             </Link>
-            <Link href='/anillos'>
+            <Link href='/ofertas'>
                 <div className="card bg-white w-96 shadow-xl">
                     <div className="card-body">
-                        <h2 className="text-center text-2xl font-bold">ANILLOS</h2>
+                        <h2 className="text-center text-2xl font-bold">Ofertas</h2>
                     </div>
                     <figure>
                         <img

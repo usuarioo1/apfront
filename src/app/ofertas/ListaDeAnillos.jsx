@@ -39,11 +39,11 @@ export default function ListaDeAnillos() {
 
     return (
         <div className="p-4 bg-gray-100 min-h-screen">
-            <h1 className="text-3xl font-bold mb-8 text-center text-gray-800">Lista de Anillos</h1>
+            <h1 className="text-3xl font-bold mb-8 text-center text-gray-800">Aprovecha nuestras ofertas</h1>
             <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
                 {anillos.map((anillo) => (
                     <div key={anillo._id} className="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg">
-                        <Link href={`/anillos/${anillo._id}`}>
+                        <Link href={`/ofertas/${anillo._id}`}>
                             <div className="aspect-square relative">
                                 <img
                                     src={anillo.img}

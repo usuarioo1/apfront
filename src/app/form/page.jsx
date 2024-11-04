@@ -4,7 +4,6 @@ import { useRouter } from 'next/navigation';  // Importar useRouter para redirig
 import { CartContext } from '@/contexts/CartContext';
 import { apiSaveOrder } from '@/utils/api';
 
-
 export default function Component() {
     const { cartItems } = useContext(CartContext); // Obtener los productos del carrito
     const router = useRouter(); // Definir useRouter para redireccionar después del submit
@@ -37,6 +36,8 @@ export default function Component() {
         referencia: ''
     });
 
+    const [isLoading, setIsLoading] = useState(false); // Estado para el botón de carga
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData(prevState => ({
@@ -47,6 +48,7 @@ export default function Component() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setIsLoading(true); // Activar el estado de carga al enviar
 
         // Datos a enviar al backend
         const dataToSend = {
@@ -73,6 +75,8 @@ export default function Component() {
             }
         } catch (error) {
             console.error('Error al enviar los datos:', error);
+        } finally {
+            setIsLoading(false); // Desactivar el estado de carga
         }
     };
 
@@ -179,8 +183,9 @@ export default function Component() {
                             <button
                                 type="submit"
                                 className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                disabled={isLoading} // Desactivar el botón mientras está en carga
                             >
-                                Finalizar Compra
+                                {isLoading ? 'Procesando...' : 'Finalizar Compra'} {/* Mostrar "Procesando..." mientras carga */}
                             </button>
                         </div>
                     </form>
@@ -194,31 +199,26 @@ export default function Component() {
                     ) : (
                         <div>
                             {cartItems.map((item) => (
-                                <div key={item._id} className="mb-4 flex justify-between items-center"> {/* Flex para alinear elementos */}
-                                    <div className="flex-1"> {/* Permite que el texto ocupe el espacio disponible */}
+                                <div key={item._id} className="mb-4 flex justify-between items-center">
+                                    <div className="flex-1">
                                         <p className="text-gray-700 font-medium">{item.name} x {item.quantity}</p>
-                                        <p className="text-gray-600 mt-1">Precio: ${item.precio}</p> {/* Precio debajo del nombre */}
+                                        <p className="text-gray-600 mt-1">Precio: ${item.precio}</p>
                                     </div>
-                                    <div className="ml-4"> {/* Margen a la izquierda para separación */}
+                                    <div className="ml-4">
                                         <img
                                             src={item.img}
                                             alt=""
-                                            className="w-12 h-12 object-cover rounded" // Ajustes para la imagen
+                                            className="w-12 h-12 object-cover rounded"
                                         />
                                     </div>
-                                    <hr className="my-2 border-gray-300" /> {/* Línea divisoria */}
+                                    <hr className="my-2 border-gray-300" />
                                 </div>
                             ))}
                             <p className="text-lg font-semibold text-gray-800">Total: ${calcularTotal()}</p>
                         </div>
                     )}
                 </div>
-
             </div>
-            {/* Componente Pago, fuera del formulario */}
-            {/* <div className="mt-6">
-                <Pago total={calcularTotal()} />
-            </div> */}
         </div>
     );
 }

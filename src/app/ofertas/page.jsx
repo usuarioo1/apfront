@@ -14,7 +14,7 @@ const page = () => {
         style={{ backgroundImage: `url(${imageUrl})` }}
       ></div>
       <div className="absolute inset-0 bg-black opacity-50"></div>
-      <span className="relative">Anillos</span>
+      <span className="relative">Ofertas</span>
     </div>
     <ListaDeAnillos />
     </div>
