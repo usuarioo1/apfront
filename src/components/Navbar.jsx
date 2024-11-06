@@ -46,7 +46,7 @@ const Navbar = () => {
                         <details>
                             <summary className='text-xl'>Productos</summary>
                             <ul className="bg-white rounded-t-none p-2 z-50 w-full">
-                                <li className='text-xl'><Link href="/anillos">Anillos</Link></li>
+                                <li className='text-xl'><Link href="/ofertas">Ofertas</Link></li>
                                 <li className='text-xl'><Link href="/colgantes">Colgantes</Link></li>
                                 <li className='text-xl'><Link href="/pulseras">Pulseras</Link></li>
                                 <li className='text-xl'><Link href="/conjuntos">Conjuntos</Link></li>
@@ -93,7 +93,7 @@ const Navbar = () => {
                             <details>
                                 <summary>Productos</summary>
                                 <ul className="bg-slate-100 rounded-md p-2 z-50 w-auto">
-                                    <li><Link href="/anillos">Anillos</Link></li>
+                                    <li><Link href="/ofertas">Ofertas</Link></li>
                                     <li><Link href="/colgantes">Colgantes</Link></li>
                                     <li><Link href="/pulseras">Pulseras</Link></li>
                                     <li><Link href="/conjuntos">Conjuntos</Link></li>
