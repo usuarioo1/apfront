@@ -88,7 +88,7 @@ const Navbar = () => {
                 <div className="md:hidden absolute top-16 left-0 w-full bg-white shadow-lg z-50 mt-4 ">
                     <ul className="menu p-4">
                         <li><Link href="/">Inicio</Link></li>
-                        <li><Link href="#">Quienes Somos</Link></li>
+                        <li><Link href="/about">Quienes Somos</Link></li>
                         <li>
                             <details>
                                 <summary>Productos</summary>
