@@ -95,6 +95,19 @@ const CardCategory = () => {
                     </figure>
                 </div>
             </Link>
+            <Link href='/cadenas'>
+                <div className="card bg-white w-96 shadow-xl">
+                    <div className="card-body">
+                        <h2 className="text-center text-2xl font-bold">Cadenas</h2>
+                    </div>
+                    <figure>
+                        <img
+                            className=''
+                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbH141TM62ZQ1jzKNw4cAGcd85M6l5rPSoSA&s"
+                            alt="Shoes" />
+                    </figure>
+                </div>
+            </Link>
 
         </div>
     )
