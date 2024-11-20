@@ -54,6 +54,7 @@ const Navbar = () => {
                                 <li className='text-xl'><Link href="/aros">Aros</Link></li>
                                 <li className='text-xl'><Link href="/figuras">Figuras</Link></li>
                                 <li className='text-xl'><Link href="/cadenas">Cadenas</Link></li>
+                                <li className='text-xl'><Link href="/accesorios">Accesorios</Link></li>
                             </ul>
                         </details>
                     </li>
@@ -102,6 +103,7 @@ const Navbar = () => {
                                     <li><Link href="/aros">Aros</Link></li>
                                     <li><Link href="/figuras">Figuras</Link></li>
                                     <li><Link href="/cadenas">Cadenas</Link></li>
+                                    <li><Link href="/accesorios">Accesorios</Link></li>
                                 </ul>
                             </details>
                         </li>

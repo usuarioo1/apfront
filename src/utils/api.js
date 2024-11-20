@@ -10,3 +10,4 @@ export const apiSaveOrder = process.env.NEXT_PUBLIC_SAVE_ORDER;
 export const apiPulseras = process.env.NEXT_PUBLIC_PULSERAS;
 export const apiCreatePreference = process.env.NEXT_PUBLIC_CREATE_PREFERENCE;
 export const apiCadenas = process.env.NEXT_PUBLIC_CADENAS;
+export const apiAccesorios = process.env.NEXT_PUBLIC_ACCESORIOS
