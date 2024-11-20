@@ -2,7 +2,7 @@ import { apiAccesorios } from "@/utils/api";
 
 export async function getAccesorios(){
     const res = await fetch(apiAccesorios);
-    const data = res.json();
+    const data = await res.json();
     return data.info; //accedo a info que es la categoria superior de la categoria
 }
 

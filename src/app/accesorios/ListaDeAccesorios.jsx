@@ -5,8 +5,6 @@ import Link from 'next/link'
 import { CartContext } from '@/contexts/CartContext' // Importamos el contexto
 
 
-import React from 'react'
-
 const ListaDeAccesorios = () => {
     const [accesorios, setAccesorios] = useState([])
     const [loading, setLoading] = useState(true)
@@ -73,4 +71,4 @@ const ListaDeAccesorios = () => {
     )
 }
 
-export default ListaDeAccesorios
+export default ListaDeAccesorios;

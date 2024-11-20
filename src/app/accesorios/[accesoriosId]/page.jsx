@@ -25,7 +25,7 @@ const DetallesAccesorios = () => {
         };
 
         fetchAccesorio();
-    }, [aroId]);
+    }, [accesoriosId]);
 
     if (!accesorio) {
         return <div><h2>Accesorio no encontrado</h2></div>;  // Muestra un mensaje si el aro no se encuentra
