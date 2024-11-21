@@ -42,7 +42,10 @@ export default function ListaDeAnillos() {
             <h1 className="text-3xl font-bold mb-8 text-center text-gray-800">Aprovecha nuestras ofertas</h1>
             <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
                 {anillos.map((anillo) => (
-                    <div key={anillo._id} className="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg">
+                    <div
+                        key={anillo._id}
+                        className="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg flex flex-col justify-between"
+                    >
                         <Link href={`/ofertas/${anillo._id}`}>
                             <div className="aspect-square relative">
                                 <img
@@ -52,21 +55,23 @@ export default function ListaDeAnillos() {
                                 />
                             </div>
                         </Link>
-                        <div className="p-4">
-                            <h2 className="text-lg font-semibold text-gray-800 mb-2 text-center">{anillo.name}</h2>
-                            <p className="text-center text-gray-600">Precio: ${anillo.precio}</p>
-                            <p className="text-center text-gray-600 mb-2">stock : {anillo.stock}</p>
+                        <div className="p-4 flex flex-col flex-grow">
+                            <div className="flex-grow">
+                                <h2 className="text-lg font-semibold text-gray-800 mb-2 text-center">{anillo.name}</h2>
+                                <p className="text-center text-gray-600">Precio: ${anillo.precio}</p>
+                                <p className="text-center text-gray-600 mb-2">stock : {anillo.stock}</p>
+                            </div>
                             <button
-                                className="w-full bg-blue-600 text-white text-sm py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors duration-300"
-                                onClick={() => handleAddToCart(anillo)} // Llamamos a handleAddToCart cuando el usuario hace clic en el botón
+                                className="w-full bg-blue-600 text-white text-sm py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors duration-300 mt-4"
+                                onClick={() => handleAddToCart(anillo)}
                             >
                                 Añadir al Carrito
                             </button>
-
                         </div>
                     </div>
                 ))}
             </div>
         </div>
+
     )
 }

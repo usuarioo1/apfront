@@ -47,7 +47,10 @@ const ListaDeConjuntos = () => {
             <h1 className="text-3xl font-bold mb-8 text-center text-gray-800">Lista de Conjuntos</h1>
             <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
                 {conjuntos.map((conjunto) => (
-                    <div key={conjunto._id} className="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg">
+                    <div
+                        key={conjunto._id}
+                        className="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg flex flex-col justify-between"
+                    >
                         <Link href={`/conjuntos/${conjunto._id}`}>
                             <div className="aspect-square relative">
                                 <img
@@ -57,13 +60,15 @@ const ListaDeConjuntos = () => {
                                 />
                             </div>
                         </Link>
-                        <div className="p-4">
-                            <h2 className="text-lg font-semibold text-gray-800 mb-2 text-center">{conjunto.name}</h2>
-                            <p className="text-center text-gray-600">Precio: ${conjunto.precio}</p>
-                            <p className="text-center text-gray-600 mb-2">stock : {conjunto.stock}</p>
+                        <div className="p-4 flex flex-col flex-grow">
+                            <div className="flex-grow">
+                                <h2 className="text-lg font-semibold text-gray-800 mb-2 text-center">{conjunto.name}</h2>
+                                <p className="text-center text-gray-600">Precio: ${conjunto.precio}</p>
+                                <p className="text-center text-gray-600 mb-2">stock : {conjunto.stock}</p>
+                            </div>
                             <button
-                                className="w-full bg-blue-600 text-white text-sm py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors duration-300"
-                                onClick={() => handleAddToCart(conjunto)} // Llamamos a handleAddToCart cuando el usuario hace clic en el botón
+                                className="w-full bg-blue-600 text-white text-sm py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors duration-300 mt-4"
+                                onClick={() => handleAddToCart(conjunto)}
                             >
                                 Añadir al Carrito
                             </button>
@@ -72,6 +77,7 @@ const ListaDeConjuntos = () => {
                 ))}
             </div>
         </div>
+
     );
 };
 
