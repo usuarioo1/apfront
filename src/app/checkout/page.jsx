@@ -8,7 +8,12 @@ const CheckoutPage = () => {
     const { cartItems } = useContext(CartContext); // Obtener los productos del carrito
 
     const calcularTotal = () => {
-        return cartItems.reduce((acc, item) => acc + item.precio * item.quantity, 0).toFixed(0);
+        const total = cartItems.reduce((acc, item) => acc + item.precio * item.quantity, 0);
+
+        // Verificar si el total es mayor a 100000 y, en ese caso, dividirlo por 1.5
+        const totalConDescuento = total > 100000 ? total / 1.5 : total;
+
+        return totalConDescuento.toFixed(0); // Redondear el total a entero
     };
 
     return (
@@ -36,6 +41,9 @@ const CheckoutPage = () => {
                             ))}
                             <hr className="my-4" />
                             <p className="text-lg font-semibold text-gray-800">Total: ${calcularTotal()}</p>
+                            {cartItems.reduce((acc, item) => acc + item.precio * item.quantity, 0) > 100000 && (
+                                <span className="text-sm text-gray-500"> (Compra por mayor)</span>
+                            )}
                         </div>
                     )}
                 </div>

@@ -50,6 +50,9 @@ const DetallesColgante = ({ params }) => {
                             Agregar al carrito
                         </button>
                     </div>
+                    
+                    <hr className="border-gray-300 my-2 w-full" />
+                    <strong><p className="text-gray-900 font-bold text-xl mr-4">Por mayor: ${Math.round(colgante.precio/1.5)}</p></strong>
                     <hr className="border-gray-300 my-2 w-full" />
                     <p className="text-gray-600 mt-2">{colgante.descripcion}</p>
                     

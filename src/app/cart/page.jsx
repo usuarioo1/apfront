@@ -3,13 +3,25 @@ import { useContext } from 'react';
 import { CartContext } from '@/contexts/CartContext';
 import Link from 'next/link';
 
-
 const Carrito = () => {
     const { cartItems, addItem, removeItem } = useContext(CartContext);
 
+    // Calcular el total del carrito
     const calcularTotal = () => {
         return cartItems.reduce((acc, item) => acc + item.precio * item.quantity, 0);
     };
+
+    // Obtener el total con posible precio por mayor
+    const obtenerTotalConDescuento = () => {
+        const total = calcularTotal();
+        if (total > 100000) {
+            const totalMayor = Math.round(total / 1.5); // Dividir por 1.5 y redondear
+            return { total: totalMayor, esMayor: true };
+        }
+        return { total, esMayor: false };
+    };
+
+    const { total, esMayor } = obtenerTotalConDescuento();
 
     return (
         <div className="container mx-auto p-6">
@@ -38,7 +50,7 @@ const Carrito = () => {
                                 <tr key={item._id} className="border-t">
                                     <td className="p-4 text-gray-700">{item.name}</td>
                                     <td className="p-4">
-                                        <img src={item.img} alt={item.name} className="w-16 h-16 object-cover rounded"/>
+                                        <img src={item.img} alt={item.name} className="w-16 h-16 object-cover rounded" />
                                     </td>
                                     <td className="p-4 text-gray-700">${item.precio}</td>
                                     <td className="p-4 text-gray-700">
@@ -58,7 +70,7 @@ const Carrito = () => {
                                             </button>
                                         </div>
                                     </td>
-                                    <td className="p-4 text-gray-700">${(item.precio * item.quantity)}</td>
+                                    <td className="p-4 text-gray-700">${item.precio * item.quantity}</td>
                                 </tr>
                             ))}
                         </tbody>
@@ -66,7 +78,9 @@ const Carrito = () => {
                 </div>
             )}
             <div className="mt-8 text-center">
-                <h2 className="text-2xl font-semibold text-gray-800">Total: ${calcularTotal()}</h2>
+                <h2 className="text-2xl font-semibold text-gray-800">
+                    Total: ${total} {esMayor && <span className="text-sm text-gray-500">(precio por mayor)</span>}
+                </h2>
                 <button className="mt-4 px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
                     <Link href={'/form'}>Continuar con la Compra</Link>
                 </button>

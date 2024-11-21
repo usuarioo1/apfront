@@ -50,6 +50,8 @@ const DetallesFigura = ({ params }) => {
                         </button>
                     </div>
                     <hr className="border-gray-300 my-2 w-full" />
+                    <strong><p className="text-gray-900 font-bold text-xl mr-4">Por mayor: ${Math.round(figura.precio/1.5)}</p></strong>
+                    <hr className="border-gray-300 my-2 w-full" />
                     <p className="text-gray-600 mt-2">{figura.descripcion}</p>
                     
                 </div>

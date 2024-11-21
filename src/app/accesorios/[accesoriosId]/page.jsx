@@ -48,8 +48,12 @@ const DetallesAccesorios = () => {
                     <hr className="border-gray-300 my-2 w-full" />
                     <div className="flex items-center mt-2">
                         <p className="text-gray-900 font-bold text-xl mr-4">Precio: ${accesorio.precio}</p>
+                        
+                        
                         <button onClick={handleAddToCart} className="bg-blue-700 hover:bg-blue-800 text-white font-bold py-2 px-6 rounded-full transition-colors duration-300">Agregar al carrito</button>
                     </div>
+                    <hr className="border-gray-300 my-2 w-full" />
+                    <strong><p className="text-gray-900 font-bold text-xl mr-4">Precio por mayor: ${Math.round(accesorio.precio/1.5)}</p></strong>
                     <hr className="border-gray-300 my-2 w-full" />
                     <p className="text-gray-600 mt-2">{accesorio.descripcion}</p>
 

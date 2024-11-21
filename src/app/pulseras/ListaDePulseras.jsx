@@ -64,6 +64,11 @@ const ListaDePulseras = () => {
                             <div className="flex-grow">
                                 <h2 className="text-lg font-semibold text-gray-800 mb-2 text-center">{pulsera.name}</h2>
                                 <p className="text-center text-gray-600">Precio: ${pulsera.precio}</p>
+                                <strong>
+                                    <p className="text-center text-gray-600">
+                                        Precio por mayor: ${Math.round(pulsera.precio / 1.5)}
+                                    </p>
+                                </strong>
                                 <p className="text-center text-gray-600 mb-2">stock : {pulsera.stock}</p>
                             </div>
                             <button

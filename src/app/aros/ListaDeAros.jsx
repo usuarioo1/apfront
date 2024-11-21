@@ -59,6 +59,11 @@ export default function ListaDeAros() {
                             <div className="flex-grow">
                                 <h2 className="text-lg font-semibold text-gray-800 mb-2 text-center">{aro.name}</h2>
                                 <p className="text-center text-gray-600">Precio: ${aro.precio}</p>
+                                <strong>
+                                    <p className="text-center text-gray-600">
+                                        Precio por mayor: ${Math.round(aro.precio / 1.5)}
+                                    </p>
+                                </strong>
                                 <p className="text-center text-gray-600 mb-2">stock : {aro.stock}</p>
                             </div>
                             <button

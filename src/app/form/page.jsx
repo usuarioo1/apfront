@@ -1,6 +1,6 @@
 'use client';
 import React, { useContext, useState } from 'react';
-import { useRouter } from 'next/navigation';  // Importar useRouter para redirigir
+import { useRouter } from 'next/navigation'; // Importar useRouter para redirigir
 import { CartContext } from '@/contexts/CartContext';
 import { apiSaveOrder } from '@/utils/api';
 
@@ -46,6 +46,16 @@ export default function Component() {
         }));
     };
 
+    const calcularTotal = () => {
+        const total = cartItems.reduce((acc, item) => acc + item.precio * item.quantity, 0);
+        return total > 100000 ? total / 1.5 : total;
+    };
+
+    const isMayorCompra = () => {
+        const total = cartItems.reduce((acc, item) => acc + item.precio * item.quantity, 0);
+        return total > 100000; // Devuelve true si el total es mayor a 100000
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsLoading(true); // Activar el estado de carga al enviar
@@ -54,7 +64,7 @@ export default function Component() {
         const dataToSend = {
             ...formData, // Información del formulario
             cartItems,   // Productos seleccionados del carrito
-            total: calcularTotal() // Total de la compra
+            total: calcularTotal() // Total de la compra con la lógica aplicada
         };
 
         try {
@@ -78,10 +88,6 @@ export default function Component() {
         } finally {
             setIsLoading(false); // Desactivar el estado de carga
         }
-    };
-
-    const calcularTotal = () => {
-        return cartItems.reduce((acc, item) => acc + item.precio * item.quantity, 0);
     };
 
     return (
@@ -211,10 +217,15 @@ export default function Component() {
                                             className="w-12 h-12 object-cover rounded"
                                         />
                                     </div>
-                                    <hr className="my-2 border-gray-300" />
+                                    <hr className="my-2" />
                                 </div>
                             ))}
-                            <p className="text-lg font-semibold text-gray-800">Total: ${calcularTotal()}</p>
+                            <div className="flex justify-between items-center mt-4">
+                                <p className="text-gray-800 font-semibold">Total: ${calcularTotal().toFixed(0)}</p>
+                                {isMayorCompra() && (
+                                    <span className="text-sm text-gray-500"> (Compra por mayor)</span>
+                                )}
+                            </div>
                         </div>
                     )}
                 </div>

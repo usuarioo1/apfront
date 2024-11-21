@@ -59,6 +59,11 @@ export default function ListaDeColgantes() {
                             <div className="flex-grow">
                                 <h2 className="text-lg font-semibold text-gray-800 mb-2 text-center">{colgante.name}</h2>
                                 <p className="text-center text-gray-600">Precio: ${colgante.precio}</p>
+                                <strong>
+                                    <p className="text-center text-gray-600">
+                                        Precio por mayor: ${Math.round(colgante.precio / 1.5)}
+                                    </p>
+                                </strong>
                                 <p className="text-center text-gray-600 mb-2">stock : {colgante.stock}</p>
                             </div>
                             <button
