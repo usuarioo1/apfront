@@ -29,22 +29,22 @@ export default function Component() {
 
     // Costos de envío ficticios
     const costosEnvio = {
-        "Arica y Parinacota": 5000,
-        "Tarapacá": 6000,
-        "Antofagasta": 7000,
-        "Atacama": 5000,
-        "Coquimbo": 4000,
-        "Valparaíso": 3000,
-        "Metropolitana de Santiago": 2000,
-        "Libertador General Bernardo O'Higgins": 3500,
-        "Maule": 4000,
-        "Ñuble": 4500,
-        "Biobío": 5000,
-        "La Araucanía": 5500,
-        "Los Ríos": 6000,
-        "Los Lagos": 6500,
-        "Aysén del General Carlos Ibáñez del Campo": 8000,
-        "Magallanes y de la Antártica Chilena": 10000
+        "Arica y Parinacota": 10500,
+        "Tarapacá": 10000,
+        "Antofagasta": 9500,
+        "Atacama": 8500,
+        "Coquimbo": 7500,
+        "Valparaíso": 7000,
+        "Metropolitana de Santiago": 5000,
+        "Libertador General Bernardo O'Higgins": 6500,
+        "Maule": 7000,
+        "Ñuble": 8000,
+        "Biobío": 8500,
+        "La Araucanía": 9000,
+        "Los Ríos": 9500,
+        "Los Lagos": 10000,
+        "Aysén del General Carlos Ibáñez del Campo": 12500,
+        "Magallanes y de la Antártica Chilena": 16000
     };
 
     const [formData, setFormData] = useState({
