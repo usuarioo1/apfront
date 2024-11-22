@@ -1,19 +1,27 @@
 'use client';
 
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { CartContext } from '@/contexts/CartContext';
 import Pago from '@/components/Pago';
 
 const CheckoutPage = () => {
     const { cartItems } = useContext(CartContext); // Obtener los productos del carrito
+    const [costoEnvio, setCostoEnvio] = useState(0); // Estado para almacenar el costo de envío
+
+    // Recuperar el costo de envío desde localStorage cuando el componente se monte
+    useEffect(() => {
+        const costo = localStorage.getItem('costoEnvio');
+        if (costo) {
+            setCostoEnvio(parseInt(costo, 10)); // Establecer el costo de envío
+        }
+    }, []);
 
     const calcularTotal = () => {
+        // Calcular el total sin el costo de envío
         const total = cartItems.reduce((acc, item) => acc + item.precio * item.quantity, 0);
-
-        // Verificar si el total es mayor a 100000 y, en ese caso, dividirlo por 1.5
         const totalConDescuento = total > 100000 ? total / 1.5 : total;
-
-        return totalConDescuento.toFixed(0); // Redondear el total a entero
+        // Sumar el costo de envío al total
+        return (parseFloat(totalConDescuento) + costoEnvio).toFixed(0); // Redondear el total a entero
     };
 
     return (
@@ -33,17 +41,28 @@ const CheckoutPage = () => {
                         <p className="text-gray-600">Tu carrito está vacío</p>
                     ) : (
                         <div>
-                            {cartItems.map((item) => (
-                                <div key={item._id} className="mb-4">
-                                    <p className="text-gray-700 font-medium">{item.name} x {item.quantity}</p>
-                                    <p className="text-gray-600">Precio: ${item.precio.toFixed(0)}</p>
-                                </div>
-                            ))}
+                            {cartItems.map((item) => {
+                                const total = cartItems.reduce((acc, item) => acc + item.precio * item.quantity, 0);
+                                const descuento = total > 100000 ? 1.5 : 1;
+                                const precioDescuento = (item.precio / descuento).toFixed(0);
+
+                                return (
+                                    <div key={item._id} className="mb-4">
+                                        <p className="text-gray-700 font-medium">{item.name} x {item.quantity}</p>
+                                        <p className="text-gray-600">Precio: ${precioDescuento} <span className="text-sm text-gray-500">(c/u)</span></p>
+                                    </div>
+                                );
+                            })}
                             <hr className="my-4" />
                             <p className="text-lg font-semibold text-gray-800">Total: ${calcularTotal()}</p>
                             {cartItems.reduce((acc, item) => acc + item.precio * item.quantity, 0) > 100000 && (
                                 <span className="text-sm text-gray-500"> (Compra por mayor)</span>
                             )}
+                            {/* Mostrar el costo de envío */}
+                            <div className="mt-4">
+                                <strong><p className="text-sm text-gray-600">Costo de Envío: ${costoEnvio}</p></strong>
+                                
+                            </div>
                         </div>
                     )}
                 </div>
@@ -80,7 +99,6 @@ const CheckoutPage = () => {
                     </div>
                 </div>
             </dialog>
-
         </div>
     );
 };

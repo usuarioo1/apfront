@@ -1,3 +1,4 @@
+import FranjaInformativa from "@/components/WholeSale";
 import ListaDeCadenas from "./ListaDeCadenas";
 
 
@@ -17,6 +18,7 @@ const page = () => {
                 <div className="absolute inset-0 bg-black opacity-50"></div>
                 <span className="relative">Cadenas</span>
             </div>
+            <FranjaInformativa />
             <ListaDeCadenas />
         </div>
     )

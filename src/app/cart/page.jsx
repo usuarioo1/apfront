@@ -2,6 +2,7 @@
 import { useContext } from 'react';
 import { CartContext } from '@/contexts/CartContext';
 import Link from 'next/link';
+import FranjaInformativa from '@/components/WholeSale';
 
 const Carrito = () => {
     const { cartItems, addItem, removeItem } = useContext(CartContext);
@@ -11,19 +12,31 @@ const Carrito = () => {
         return cartItems.reduce((acc, item) => acc + item.precio * item.quantity, 0);
     };
 
-    // Obtener el total con posible precio por mayor
-    const obtenerTotalConDescuento = () => {
+    // Obtener los datos del carrito con descuento si aplica
+    const obtenerCarritoConDescuento = () => {
         const total = calcularTotal();
-        if (total > 100000) {
-            const totalMayor = Math.round(total / 1.5); // Dividir por 1.5 y redondear
-            return { total: totalMayor, esMayor: true };
-        }
-        return { total, esMayor: false };
+        const aplicarDescuento = total > 100000;
+
+        // Si aplica descuento, calcular los precios individuales con descuento
+        const itemsConDescuento = cartItems.map((item) => ({
+            ...item,
+            precioDescuento: aplicarDescuento ? Math.round(item.precio / 1.5) : item.precio,
+        }));
+
+        // Calcular el nuevo total con los precios descontados
+        const totalConDescuento = itemsConDescuento.reduce(
+            (acc, item) => acc + item.precioDescuento * item.quantity,
+            0
+        );
+
+        return { items: itemsConDescuento, total: totalConDescuento, esMayor: aplicarDescuento };
     };
 
-    const { total, esMayor } = obtenerTotalConDescuento();
+    const { items: cartItemsConDescuento, total, esMayor } = obtenerCarritoConDescuento();
 
     return (
+        <div>
+            <FranjaInformativa />
         <div className="container mx-auto p-6">
             <h1 className="text-3xl font-semibold mb-6 text-center">Carrito de Compras</h1>
             {cartItems.length === 0 ? (
@@ -46,13 +59,15 @@ const Carrito = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {cartItems.map((item) => (
+                            {cartItemsConDescuento.map((item) => (
                                 <tr key={item._id} className="border-t">
                                     <td className="p-4 text-gray-700">{item.name}</td>
                                     <td className="p-4">
                                         <img src={item.img} alt={item.name} className="w-16 h-16 object-cover rounded" />
                                     </td>
-                                    <td className="p-4 text-gray-700">${item.precio}</td>
+                                    <td className="p-4 text-gray-700">
+                                        ${item.precioDescuento} {esMayor && <span className="text-sm text-gray-500">(precio por mayor)</span>}
+                                    </td>
                                     <td className="p-4 text-gray-700">
                                         <div className="flex items-center justify-center">
                                             <button
@@ -70,7 +85,7 @@ const Carrito = () => {
                                             </button>
                                         </div>
                                     </td>
-                                    <td className="p-4 text-gray-700">${item.precio * item.quantity}</td>
+                                    <td className="p-4 text-gray-700">${item.precioDescuento * item.quantity}</td>
                                 </tr>
                             ))}
                         </tbody>
@@ -85,6 +100,7 @@ const Carrito = () => {
                     <Link href={'/form'}>Continuar con la Compra</Link>
                 </button>
             </div>
+        </div>
         </div>
     );
 };

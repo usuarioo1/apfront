@@ -59,7 +59,7 @@ const ListaDeAccesorios = () => {
                         <div className="p-4 flex flex-col flex-grow">
                             <div className="flex-grow">
                                 <h2 className="text-lg font-semibold text-gray-800 mb-2 text-center">{accesorio.name}</h2>
-                                <p className="text-center text-gray-600">Precio: ${accesorio.precio}</p>
+                                <p className="text-center text-gray-600">Precio al detalle: ${accesorio.precio}</p>
                                 <strong>
                                     <p className="text-center text-gray-600">
                                         Precio por mayor: ${Math.round(accesorio.precio / 1.5)}

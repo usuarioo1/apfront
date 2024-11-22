@@ -58,7 +58,7 @@ export default function ListaDeCollares() {
                         <div className="p-4 flex flex-col flex-grow">
                             <div className="flex-grow">
                                 <h2 className="text-lg font-semibold text-gray-800 mb-2 text-center">{collar.name}</h2>
-                                <p className="text-center text-gray-600">Precio: ${collar.precio}</p>
+                                <p className="text-center text-gray-600">Precio al detalle: ${collar.precio}</p>
                                 <strong>
                                     <p className="text-center text-gray-600">
                                         Precio por mayor: ${Math.round(collar.precio / 1.5)}

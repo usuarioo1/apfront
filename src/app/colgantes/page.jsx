@@ -1,3 +1,4 @@
+import FranjaInformativa from "@/components/WholeSale";
 import ListaDeColgantes from "./ListaDeColgantes";
 
 const page = () => {
@@ -16,6 +17,7 @@ const page = () => {
                 <div className="absolute inset-0 bg-black opacity-50"></div>
                 <span className="relative">Colgantes</span>
             </div>
+            <FranjaInformativa />
             <ListaDeColgantes/>
         </div>
     )

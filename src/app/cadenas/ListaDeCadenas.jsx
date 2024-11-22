@@ -63,7 +63,7 @@ export default function ListaDeCadenas() {
                                     {cadena.name}
                                 </h2>
                                 <p className="text-center text-gray-600">
-                                    Precio: ${cadena.precio}
+                                    Precio al detalle: ${cadena.precio}
                                 </p>
 
                                 <strong>

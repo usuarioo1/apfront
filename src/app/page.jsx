@@ -10,8 +10,10 @@ const HomePage = () => {
   return (
     <div>
       <Carousel />
+      
       <Lapislazuli />
       <Catalogo  imageUrl={imageUrl} />
+      
       <CardCategory />
       
     </div>

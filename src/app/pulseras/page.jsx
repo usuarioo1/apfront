@@ -1,3 +1,4 @@
+import FranjaInformativa from "@/components/WholeSale";
 import ListaDePulseras from "./ListaDePulseras";
 
 const page = () => {
@@ -16,6 +17,7 @@ const page = () => {
                 <div className="absolute inset-0 bg-black opacity-50"></div>
                 <span className="relative">Pulseras</span>
             </div>
+            <FranjaInformativa />
             <ListaDePulseras/>
         </div>
     )

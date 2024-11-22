@@ -63,7 +63,7 @@ const ListaDeFiguras = () => {
                         <div className="p-4 flex flex-col flex-grow">
                             <div className="flex-grow">
                                 <h2 className="text-lg font-semibold text-gray-800 mb-2 text-center">{figura.name}</h2>
-                                <p className="text-center text-gray-600">Precio: ${figura.precio}</p>
+                                <p className="text-center text-gray-600">Precio al detalle: ${figura.precio}</p>
                                 <strong>
                                     <p className="text-center text-gray-600">
                                         Precio por mayor: ${Math.round(figura.precio / 1.5)}
