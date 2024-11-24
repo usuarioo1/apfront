@@ -54,7 +54,7 @@ export default function Component() {
         rut: '',
         region: '',
         direccion: '',
-        referencia: ''
+        referencia: '',
     });
 
     const [isLoading, setIsLoading] = useState(false); // Estado para el botón de carga
