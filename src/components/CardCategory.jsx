@@ -38,7 +38,7 @@ const CardCategory = () => {
                     <figure>
                         <img
                             className=''
-                            src="https://res.cloudinary.com/dpbpyzl96/image/upload/v1730500737/apweb/categorias/bhnzzfx46uj9jqgblnyc.jpg"
+                            src="https://res.cloudinary.com/dpbpyzl96/image/upload/v1732673059/apweb/categorias/n7ig73ogksba81il4vf6.jpg"
                             alt="Shoes" />
                     </figure>
                 </div>
@@ -64,7 +64,7 @@ const CardCategory = () => {
                     <figure>
                         <img
                             className=''
-                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbH141TM62ZQ1jzKNw4cAGcd85M6l5rPSoSA&s"
+                            src="https://res.cloudinary.com/dpbpyzl96/image/upload/v1732672464/apweb/categorias/p25fdimvekebue4oura0.jpg"
                             alt="Shoes" />
                     </figure>
                 </div>
@@ -77,7 +77,7 @@ const CardCategory = () => {
                     <figure>
                         <img
                             className=''
-                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbH141TM62ZQ1jzKNw4cAGcd85M6l5rPSoSA&s"
+                            src="https://res.cloudinary.com/dpbpyzl96/image/upload/v1732672183/apweb/categorias/yenzmeacznb5i0sjoohb.jpg"
                             alt="Shoes" />
                     </figure>
                 </div>
@@ -90,7 +90,7 @@ const CardCategory = () => {
                     <figure>
                         <img
                             className=''
-                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbH141TM62ZQ1jzKNw4cAGcd85M6l5rPSoSA&s"
+                            src="https://res.cloudinary.com/dpbpyzl96/image/upload/v1732672987/apweb/categorias/wumywjbhylxi1jxbmn2y.png"
                             alt="Shoes" />
                     </figure>
                 </div>
@@ -116,7 +116,7 @@ const CardCategory = () => {
                     <figure>
                         <img
                             className=''
-                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbH141TM62ZQ1jzKNw4cAGcd85M6l5rPSoSA&s"
+                            src="https://res.cloudinary.com/dpbpyzl96/image/upload/v1732672510/apweb/categorias/nicrh71xpwqllmypukpl.jpg"
                             alt="Shoes" />
                     </figure>
                 </div>
