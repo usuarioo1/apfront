@@ -12,7 +12,7 @@ const CardCategory = () => {
                     <figure>
                         <img
                             className=''
-                            src="https://res.cloudinary.com/dpbpyzl96/image/upload/v1729644121/apweb/categorias/kceeikppxfbnmmvvf24n.jpg"
+                            src="https://res.cloudinary.com/dc9kszgso/image/upload/v1732043343/artesanias%20pachy/aros/x100u2qplydrkuwwxxbr.jpg"
                             alt="Shoes" />
                     </figure>
                 </div>
