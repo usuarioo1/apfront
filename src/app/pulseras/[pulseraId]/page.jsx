@@ -41,10 +41,11 @@ const DetallesPulsera = ({ params }) => {
                 <div className="w-full md:w-3/4 p-4 md:pl-8 flex flex-col justify-start items-start">
                     <h2 className="text-gray-800 font-semibold text-3xl">{pulsera.name}</h2>
                     <p className="text-gray-600 mt-2">Código: {pulsera.codigo || 'No disponible'}</p>
+                    <p className="text-gray-600 mt-2"> stock :{pulsera.stock}</p>
                     <hr className="border-gray-300 my-2 w-full" />
                     <div className="flex items-center mt-2">
                         <p className="text-gray-900 font-bold text-xl mr-4">Precio: ${pulsera.precio}</p>
-                        <p className="text-gray-600 mt-2"> stock :{pulsera.stock}</p>
+                        
                         <button onClick={handleAddToCart} className="bg-blue-700 hover:bg-blue-800 text-white font-bold py-2 px-6 rounded-full transition-colors duration-300">
                             Agregar al carrito
                         </button>

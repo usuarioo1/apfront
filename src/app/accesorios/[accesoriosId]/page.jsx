@@ -4,7 +4,7 @@ import { CartContext } from '@/contexts/CartContext';
 import { getAccesoriosById } from '../accesoriosApi';
 
 
-const DetallesAccesorios = () => {
+const DetallesAccesorios = ({params}) => {
 
     const { accesoriosId } = params;  // Tomamos el id del aro desde los parámetros de la ruta
     const [accesorio, setAccesorio] = useState(null);
