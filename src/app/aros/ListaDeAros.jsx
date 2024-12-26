@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useEffect, useState, useContext, use } from 'react'
 import { getAros } from './arosApi' // Cambiamos arosApi
 import Link from 'next/link'
 import { CartContext } from '@/contexts/CartContext' // Importamos el contexto
@@ -23,6 +23,20 @@ export default function ListaDeAros() {
 
         fetchAros()
     }, [])
+
+    useEffect(() => {
+        // Deshabilitar clic derecho en imágenes
+        const disableRightClickOnImages = (e) => {
+            if (e.target.tagName === 'IMG') {
+                e.preventDefault()
+            };
+        };
+
+        document.addEventListener('contextmenu', disableRightClickOnImages);
+        return () => {
+            document.removeEventListener('contextmenu', disableRightClickOnImages);
+        };
+    }, []);
 
     if (loading) {
         return (

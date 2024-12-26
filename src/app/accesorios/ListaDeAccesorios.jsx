@@ -25,6 +25,20 @@ const ListaDeAccesorios = () => {
         fetchAccesorios()
     }, [])
 
+    useEffect(() => {
+        // Deshabilitar clic derecho en imágenes
+        const disableRightClickOnImages = (e) => {
+            if (e.target.tagName === 'IMG') {
+                e.preventDefault()
+            }
+        };
+            document.addEventListener('contextmenu', disableRightClickOnImages);
+            return () => {  // Removemos el evento al desmontar el componente   
+                document.removeEventListener('contextmenu', disableRightClickOnImages);  
+            };
+        }, []);
+
+
     if (loading) {
         return (
             <div className="flex justify-center items-center min-h-screen">

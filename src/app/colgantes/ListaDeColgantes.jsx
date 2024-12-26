@@ -24,6 +24,21 @@ export default function ListaDeColgantes() {
         fetchColgantes();
     }, []);
 
+    useEffect(() => {
+        // Deshabilitar clic derecho en imágenes
+        const disableRightClickOnImages = (e) => {
+            if (e.target.tagName === 'IMG') {
+                e.preventDefault();
+            }
+        };
+
+        document.addEventListener('contextmenu', disableRightClickOnImages);
+
+        return () => {
+            document.removeEventListener('contextmenu', disableRightClickOnImages);
+        };
+    }, []);
+
     if (loading) {
         return (
             <div className="flex justify-center items-center min-h-screen">
@@ -52,6 +67,7 @@ export default function ListaDeColgantes() {
                                     src={colgante.img}
                                     alt={colgante.name}
                                     className="absolute inset-0 w-full h-full object-cover"
+                                    onContextMenu={(e) => e.preventDefault()} // Bloquear clic derecho en esta imagen
                                 />
                             </div>
                         </Link>
@@ -65,6 +81,7 @@ export default function ListaDeColgantes() {
                                     </p>
                                 </strong>
                                 <p className="text-center text-gray-600 mb-2">stock : {colgante.stock}</p>
+                                <p className='text-center text-red-600'>No incluye cadena</p>
                             </div>
                             <button
                                 className="w-full bg-blue-600 text-white text-sm py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors duration-300 mt-4"
@@ -77,6 +94,5 @@ export default function ListaDeColgantes() {
                 ))}
             </div>
         </div>
-
     );
 }

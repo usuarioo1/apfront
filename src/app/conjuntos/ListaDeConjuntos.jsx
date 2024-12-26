@@ -28,6 +28,21 @@ const ListaDeConjuntos = () => {
         fetchConjuntos();
     }, []);
 
+    useEffect(() => {
+        // Deshabilitar clic derecho en imágenes
+        const disableRightClickOnImages = (e) => {
+            if (e.target.tagName === 'IMG') {
+                e.preventDefault();
+            }
+        };
+
+        document.addEventListener('contextmenu', disableRightClickOnImages);
+
+        return () => {
+            document.removeEventListener('contextmenu', disableRightClickOnImages);
+        };
+    }, []);
+
     if (loading) {
         return (
             <div className="flex justify-center items-center min-h-screen">
@@ -70,6 +85,7 @@ const ListaDeConjuntos = () => {
                                     </p>
                                 </strong>
                                 <p className="text-center text-gray-600 mb-2">stock : {conjunto.stock}</p>
+                                <p className='text-center text-red-600'>No incluye cadena</p>
                             </div>
                             <button
                                 className="w-full bg-blue-600 text-white text-sm py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors duration-300 mt-4"

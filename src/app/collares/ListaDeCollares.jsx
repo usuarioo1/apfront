@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext, use } from 'react';
 import { getCollares } from './collaresApi';  // Función para obtener todos los collares
 import Link from 'next/link';
 import { CartContext } from '@/contexts/CartContext';  // Importamos el contexto del carrito
@@ -22,6 +22,21 @@ export default function ListaDeCollares() {
         };
 
         fetchCollares();
+    }, []);
+
+    useEffect(() => {
+        // Deshabilitar clic derecho en imágenes
+        const disableRightClickOnImages = (e) => {
+            if (e.target.tagName === 'IMG') {
+                e.preventDefault();
+            }
+        };
+
+        document.addEventListener('contextmenu', disableRightClickOnImages);
+
+        return () => {
+            document.removeEventListener('contextmenu', disableRightClickOnImages);
+        };
     }, []);
 
     if (loading) {

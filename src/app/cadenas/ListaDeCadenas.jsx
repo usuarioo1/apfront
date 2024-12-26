@@ -24,6 +24,21 @@ export default function ListaDeCadenas() {
         fetchCadenas();
     }, []);
 
+    useEffect(() => {
+        // Deshabilitar clic derecho en imágenes
+        const disableRightClickOnImages = (e) => {
+            if (e.target.tagName === 'IMG') {
+                e.preventDefault();
+            }
+        };
+
+        document.addEventListener('contextmenu', disableRightClickOnImages);
+
+        return () => {
+            document.removeEventListener('contextmenu', disableRightClickOnImages);
+        };
+    }, []);
+
     if (loading) {
         return (
             <div className="flex justify-center items-center min-h-screen">
@@ -31,6 +46,10 @@ export default function ListaDeCadenas() {
             </div>
         );
     }
+
+  
+    
+
 
     // Función para añadir una cadena al carrito
     const handleAddToCart = (cadena) => {
