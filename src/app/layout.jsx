@@ -54,7 +54,7 @@ export default function RootLayout({ children }) {
           
           <Footer />
           <FloatingWhatsAppButton 
-          phoneNumber="1234567890"
+          phoneNumber="+56938677974"
           message="Hola, me gustaría obtener más información."
         />
         </body>
