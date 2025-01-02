@@ -3,7 +3,7 @@ import "./globals.css";
 import Navbar from '@/components/Navbar';
 import Footer from "@/components/Footer";
 import { CartContextProvider } from "@/contexts/CartContext";
-import FloatingWhatsAppButton from "@/components/whatsappButton";
+import FloatingWhatsAppButton from "@/components/WhatsappButton";
 
 const inter = Inter({ subsets: ["latin"] });
 
