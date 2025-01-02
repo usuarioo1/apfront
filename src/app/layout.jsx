@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from '@/components/Navbar';
 import Footer from "@/components/Footer";
 import { CartContextProvider } from "@/contexts/CartContext";
+import FloatingWhatsAppButton from "@/components/whatsappButton";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -50,7 +51,12 @@ export default function RootLayout({ children }) {
         <body className={inter.className}>
           <Navbar />
           {children}
+          
           <Footer />
+          <FloatingWhatsAppButton 
+          phoneNumber="1234567890"
+          message="Hola, me gustaría obtener más información."
+        />
         </body>
       </CartContextProvider>
     </html>

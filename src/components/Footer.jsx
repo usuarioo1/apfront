@@ -22,6 +22,7 @@ const Footer = () => {
                     <p>Monjitas 873 LOCAL 577,</p>
                     <p>Galería Plaza de Armas,</p>
                     <p>Santiago, Chile</p>
+                    <p>telefono: +56 9 3867 7974</p>
                 </nav>
 
                 {/* Larger Responsive Image */}
