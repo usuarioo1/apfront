@@ -20,8 +20,9 @@ const CheckoutPage = () => {
         // Calcular el total sin el costo de envío
         const total = cartItems.reduce((acc, item) => acc + item.precio * item.quantity, 0);
         const totalConDescuento = total > 100000 ? total / 1.5 : total;
-        // Sumar el costo de envío al total
-        return (parseFloat(totalConDescuento) + costoEnvio).toFixed(0); // Redondear el total a entero
+        // Solo sumar el costo de envío si no es compra por mayor
+        const envio = total > 100000 ? 0 : costoEnvio;
+        return (parseFloat(totalConDescuento) + envio).toFixed(0); // Redondear el total a entero
     };
 
     return (
@@ -60,8 +61,13 @@ const CheckoutPage = () => {
                             )}
                             {/* Mostrar el costo de envío */}
                             <div className="mt-4">
-                                <strong><p className="text-sm text-gray-600">Costo de Envío: ${costoEnvio}</p></strong>
-                                
+                                <strong>
+                                    {cartItems.reduce((acc, item) => acc + item.precio * item.quantity, 0) > 100000 ? (
+                                        <p className="text-sm text-green-600 font-medium">¡Envío gratis!</p>
+                                    ) : (
+                                        <p className="text-sm text-gray-600">Costo de Envío: ${costoEnvio}</p>
+                                    )}
+                                </strong>
                             </div>
                         </div>
                     )}

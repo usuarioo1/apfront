@@ -86,7 +86,8 @@ export default function Component() {
         setIsLoading(true); // Activar el estado de carga al enviar
 
         // Calcular costo de envío
-        const costoEnvio = costosEnvio[formData.region] || 0;
+        const total = cartItems.reduce((acc, item) => acc + item.precio * item.quantity, 0);
+        const costoEnvio = total > 100000 ? 0 : (costosEnvio[formData.region] || 0);
 
         // Guardar el costo de envío en el localStorage
         localStorage.setItem('costoEnvio', costoEnvio.toString());
@@ -266,20 +267,26 @@ export default function Component() {
                                 {/* Calcular y mostrar costos de envío */}
                                 <div className="flex justify-between items-center mt-4">
                                     <p className="text-gray-800 font-semibold">Costo de Envío:</p>
-                                    <p className="text-gray-800">
-                                        ${costosEnvio[formData.region] || 0} {/* Muestra solo el costo de envío basado en la región */}
-                                    </p>
+                                    <div className="text-right">
+                                        {isMayorCompra() ? (
+                                            <p className="text-green-600 font-medium">¡Envío gratis!</p>
+                                        ) : (
+                                            <p className="text-gray-800">${costosEnvio[formData.region] || 0}</p>
+                                        )}
+                                    </div>
                                 </div>
 
                                 {/* Mostrar total con costo de envío */}
                                 <div className="flex justify-between items-center mt-4">
                                     <p className="text-gray-800 font-semibold">Total:</p>
-                                    <p className="text-gray-800">
-                                        ${Math.round(calcularTotal()) + (costosEnvio[formData.region] || 0)} {/* Solo se suma el costo de envío aquí */}
-                                    </p>
-                                    {isMayorCompra() && (
-                                        <span className="text-sm text-gray-500"> (Compra por mayor)</span>
-                                    )}
+                                    <div className="text-right">
+                                        <p className="text-gray-800">
+                                            ${Math.round(calcularTotal()) + (isMayorCompra() ? 0 : (costosEnvio[formData.region] || 0))}
+                                        </p>
+                                        {isMayorCompra() && (
+                                            <span className="text-sm text-green-600">Compra por mayor - Envío gratis</span>
+                                        )}
+                                    </div>
                                 </div>
 
                             </div>
