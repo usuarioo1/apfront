@@ -55,33 +55,41 @@ export default function ListaDeAnillos() {
     return (
         <div className="p-4 bg-gray-100 min-h-screen">
             <h1 className="text-3xl font-bold mb-8 text-center text-gray-800">Aprovecha nuestras ofertas</h1>
-            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {anillos.map((anillo) => (
-                    <div
-                        key={anillo._id}
-                        className="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg flex flex-col justify-between"
-                    >
-                        <Link href={`/ofertas/${anillo._id}`}>
-                            <div className="aspect-square relative">
+                    <div key={anillo._id} className="card bg-gradient-to-br from-gray-100 to-gray-200 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col h-[520px]">
+                        <figure className="px-4 pt-4 flex-shrink-0">
+                            <Link href={`/ofertas/${anillo._id}`} className="w-full">
                                 <img
                                     src={anillo.img}
                                     alt={anillo.name}
-                                    className="absolute inset-0 w-full h-full object-cover"
+                                    className="rounded-xl h-56 w-full object-cover hover:scale-105 transition-transform duration-300"
                                 />
+                            </Link>
+                        </figure>
+                        <div className="card-body p-4 bg-white rounded-b-2xl flex flex-col flex-grow">
+                            <h2 className="card-title justify-center text-xl font-medium text-gray-800 line-clamp-1">
+                                {anillo.name}
+                            </h2>
+                            <div className="space-y-2 mt-2">
+                                <div className="flex justify-between items-center px-3 py-1.5 bg-gray-50 rounded-lg">
+                                    <span className="text-sm text-gray-600">Precio oferta:</span>
+                                    <span className="font-semibold text-gray-800">${anillo.precio}</span>
+                                </div>
+                                <div className="flex justify-between items-center px-3 py-1.5 bg-gray-50 rounded-lg">
+                                    <span className="text-sm text-gray-600">Stock:</span>
+                                    <span className="font-semibold text-gray-800">{anillo.stock}</span>
+                                </div>
+                                <p className="text-center text-green-600 font-medium bg-green-50 py-1.5 rounded-lg">¡Precio especial!</p>
                             </div>
-                        </Link>
-                        <div className="p-4 flex flex-col flex-grow">
-                            <div className="flex-grow">
-                                <h2 className="text-lg font-semibold text-gray-800 mb-2 text-center">{anillo.name}</h2>
-                                <p className="text-center text-gray-600">Precio: ${anillo.precio}</p>
-                                <p className="text-center text-gray-600 mb-2">stock : {anillo.stock}</p>
+                            <div className="card-actions justify-center mt-auto">
+                                <button
+                                    onClick={() => handleAddToCart(anillo)}
+                                    className="btn btn-primary w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800 border-none shadow-md hover:shadow-lg"
+                                >
+                                    Añadir al Carrito
+                                </button>
                             </div>
-                            <button
-                                className="w-full bg-blue-600 text-white text-sm py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors duration-300 mt-4"
-                                onClick={() => handleAddToCart(anillo)}
-                            >
-                                Añadir al Carrito
-                            </button>
                         </div>
                     </div>
                 ))}

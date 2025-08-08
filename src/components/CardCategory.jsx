@@ -3,125 +3,124 @@ import Link from 'next/link';
 
 const CardCategory = () => {
     return (
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 justify-items-center my-9">
-            <Link href='/aros'>
-                <div className="card bg-white w-96 shadow-xl">
-                    <div className="card-body">
-                        <h2 className="text-center text-2xl font-bold">AROS</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 justify-items-center my-9 p-4">
+            <Link href='/aros' className="hover:scale-105 transition-transform duration-300">
+                <div className="card bg-gradient-to-br from-gray-200 to-gray-300 w-80 shadow-sm hover:shadow-xl transition-shadow">
+                    <div className="card-body p-4">
+                        <h2 className="card-title justify-center text-xl text-gray-700">AROS</h2>
                     </div>
-                    <figure>
+                    <figure className="px-4 pb-4">
                         <img
-                            className=''
+                            className='rounded-xl h-48 w-full object-cover'
                             src="https://res.cloudinary.com/dc9kszgso/image/upload/v1732043343/artesanias%20pachy/aros/x100u2qplydrkuwwxxbr.jpg"
-                            alt="Shoes" />
+                            alt="Aros" />
                     </figure>
                 </div>
             </Link>
-            <Link href='/colgantes'>
-                <div className="card bg-white w-96 shadow-xl">
-                    <div className="card-body">
-                        <h2 className="text-center text-2xl font-bold">COLGANTES</h2>
+            <Link href='/colgantes' className="hover:scale-105 transition-transform duration-300">
+                <div className="card bg-gradient-to-br from-gray-200 to-gray-300 w-80 shadow-sm hover:shadow-xl transition-shadow">
+                    <div className="card-body p-4">
+                        <h2 className="card-title justify-center text-xl text-gray-700">COLGANTES</h2>
                     </div>
-                    <figure>
+                    <figure className="px-4 pb-4">
                         <img
-                            className=''
+                            className='rounded-xl h-48 w-full object-cover'
                             src="https://res.cloudinary.com/dpbpyzl96/image/upload/v1729644005/apweb/categorias/aytpslpajger7xqgphuw.jpg"
-                            alt="Shoes" />
+                            alt="Colgantes" />
                     </figure>
                 </div>
             </Link>
-            <Link href='/pulseras'>
-                <div className="card bg-white w-96 shadow-xl">
-                    <div className="card-body">
-                        <h2 className="text-center text-2xl font-bold">PULSERAS</h2>
+            <Link href='/pulseras' className="hover:scale-105 transition-transform duration-300">
+                <div className="card bg-gradient-to-br from-gray-200 to-gray-300 w-80 shadow-sm hover:shadow-xl transition-shadow">
+                    <div className="card-body p-4">
+                        <h2 className="card-title justify-center text-xl text-gray-700">PULSERAS</h2>
                     </div>
-                    <figure>
+                    <figure className="px-4 pb-4">
                         <img
-                            className=''
+                            className='rounded-xl h-48 w-full object-cover'
                             src="https://res.cloudinary.com/dpbpyzl96/image/upload/v1732673059/apweb/categorias/n7ig73ogksba81il4vf6.jpg"
-                            alt="Shoes" />
+                            alt="Pulseras" />
                     </figure>
                 </div>
             </Link>
-            <Link href='/conjuntos'>
-                <div className="card bg-white w-96 shadow-xl">
-                    <div className="card-body">
-                        <h2 className="text-center text-2xl font-bold">CONJUNTOS</h2>
+            <Link href='/conjuntos' className="hover:scale-105 transition-transform duration-300">
+                <div className="card bg-gradient-to-br from-gray-200 to-gray-300 w-80 shadow-sm hover:shadow-xl transition-shadow">
+                    <div className="card-body p-4">
+                        <h2 className="card-title justify-center text-xl text-gray-700">CONJUNTOS</h2>
                     </div>
-                    <figure>
+                    <figure className="px-4 pb-4">
                         <img
-                            className=''
+                            className='rounded-xl h-48 w-full object-cover'
                             src="https://res.cloudinary.com/dpbpyzl96/image/upload/v1729643715/apweb/categorias/gfvdovj17bxnqwpxsc8r.jpg"
-                            alt="Shoes" />
+                            alt="Conjuntos" />
                     </figure>
                 </div>
             </Link>
-            <Link href='/collares'>
-                <div className="card bg-white w-96 shadow-xl">
-                    <div className="card-body">
-                        <h2 className="text-center text-2xl font-bold">COLLARES</h2>
+            <Link href='/collares' className="hover:scale-105 transition-transform duration-300">
+                <div className="card bg-gradient-to-br from-gray-200 to-gray-300 w-80 shadow-sm hover:shadow-xl transition-shadow">
+                    <div className="card-body p-4">
+                        <h2 className="card-title justify-center text-xl text-gray-700">COLLARES</h2>
                     </div>
-                    <figure>
+                    <figure className="px-4 pb-4">
                         <img
-                            className=''
+                            className='rounded-xl h-48 w-full object-cover'
                             src="https://res.cloudinary.com/dpbpyzl96/image/upload/v1732672464/apweb/categorias/p25fdimvekebue4oura0.jpg"
-                            alt="Shoes" />
+                            alt="Collares" />
                     </figure>
                 </div>
             </Link>
-            <Link href='/figuras'>
-                <div className="card bg-white w-96 shadow-xl">
-                    <div className="card-body">
-                        <h2 className="text-center text-2xl font-bold">FIGURAS</h2>
+            <Link href='/figuras' className="hover:scale-105 transition-transform duration-300">
+                <div className="card bg-gradient-to-br from-gray-200 to-gray-300 w-80 shadow-sm hover:shadow-xl transition-shadow">
+                    <div className="card-body p-4">
+                        <h2 className="card-title justify-center text-xl text-gray-700">FIGURAS</h2>
                     </div>
-                    <figure>
+                    <figure className="px-4 pb-4">
                         <img
-                            className=''
+                            className='rounded-xl h-48 w-full object-cover'
                             src="https://res.cloudinary.com/dpbpyzl96/image/upload/v1732672183/apweb/categorias/yenzmeacznb5i0sjoohb.jpg"
-                            alt="Shoes" />
+                            alt="Figuras" />
                     </figure>
                 </div>
             </Link>
-            <Link href='/ofertas'>
-                <div className="card bg-white w-96 shadow-xl">
-                    <div className="card-body">
-                        <h2 className="text-center text-2xl font-bold">Ofertas</h2>
+            <Link href='/ofertas' className="hover:scale-105 transition-transform duration-300">
+                <div className="card bg-gradient-to-br from-gray-200 to-gray-300 w-80 shadow-sm hover:shadow-xl transition-shadow">
+                    <div className="card-body p-4">
+                        <h2 className="card-title justify-center text-xl text-gray-700">OFERTAS</h2>
                     </div>
-                    <figure>
+                    <figure className="px-4 pb-4">
                         <img
-                            className=''
+                            className='rounded-xl h-48 w-full object-cover'
                             src="https://res.cloudinary.com/dpbpyzl96/image/upload/v1732672987/apweb/categorias/wumywjbhylxi1jxbmn2y.png"
-                            alt="Shoes" />
+                            alt="Ofertas" />
                     </figure>
                 </div>
             </Link>
-            <Link href='/cadenas'>
-                <div className="card bg-white w-96 shadow-xl">
-                    <div className="card-body">
-                        <h2 className="text-center text-2xl font-bold">Cadenas</h2>
+            <Link href='/cadenas' className="hover:scale-105 transition-transform duration-300">
+                <div className="card bg-gradient-to-br from-gray-200 to-gray-300 w-80 shadow-sm hover:shadow-xl transition-shadow">
+                    <div className="card-body p-4">
+                        <h2 className="card-title justify-center text-xl text-gray-700">CADENAS</h2>
                     </div>
-                    <figure>
+                    <figure className="px-4 pb-4">
                         <img
-                            className=''
+                            className='rounded-xl h-48 w-full object-cover'
                             src="https://res.cloudinary.com/dc9kszgso/image/upload/v1731939414/artesanias%20pachy/cadenas/uehrmjiwwopvyoq1kunr.webp"
                             alt="Shoes" />
                     </figure>
                 </div>
             </Link>
-            <Link href='/accesorios'>
-                <div className="card bg-white w-96 shadow-xl">
-                    <div className="card-body">
-                        <h2 className="text-center text-2xl font-bold">Accesorios</h2>
+            <Link href='/accesorios' className="hover:scale-105 transition-transform duration-300">
+                <div className="card bg-gradient-to-br from-gray-200 to-gray-300 w-80 shadow-sm hover:shadow-xl transition-shadow">
+                    <div className="card-body p-4">
+                        <h2 className="card-title justify-center text-xl text-gray-700">ACCESORIOS</h2>
                     </div>
-                    <figure>
+                    <figure className="px-4 pb-4">
                         <img
-                            className=''
+                            className='rounded-xl h-48 w-full object-cover'
                             src="https://res.cloudinary.com/dpbpyzl96/image/upload/v1732672510/apweb/categorias/nicrh71xpwqllmypukpl.jpg"
-                            alt="Shoes" />
+                            alt="Accesorios" />
                     </figure>
                 </div>
             </Link>
-
         </div>
     )
 }
