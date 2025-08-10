@@ -107,7 +107,10 @@ export default function Component() {
             const result = await response.json();
             console.log('Resultado backend:', result);
 
-            if (response.ok) {
+            if (response.ok && result.order?._id) {
+                // Guardar el orderId en localStorage para usarlo en el checkout
+                localStorage.setItem('orderId', result.order._id);
+                localStorage.setItem('costoEnvio', dataToSend.costoEnvio); // Por si lo necesitas en checkout
                 router.push('/checkout');
             }
         } catch (error) {

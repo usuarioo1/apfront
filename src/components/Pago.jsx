@@ -8,10 +8,13 @@ const Pago = ({ total }) => {  // Recibe el total como prop
 
     const createPreference = async () => {
         try {
+            // Recuperar el orderId de localStorage
+            const orderId = localStorage.getItem('orderId');
             const response = await axios.post(apiCreatePreference, {
                 title: "Productos del carrito",
                 quantity: 1,
-                price: total  // Usa el total del carrito en lugar de un valor fijo
+                price: total,  // Usa el total del carrito en lugar de un valor fijo
+                orderId // Enviar el orderId como external_reference
             });
 
             const { id } = response.data;
