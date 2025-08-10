@@ -25,7 +25,8 @@ export default function Component() {
         "Los Ríos",
         "Los Lagos",
         "Aysén del General Carlos Ibáñez del Campo",
-        "Magallanes y de la Antártica Chilena"
+        "Magallanes y de la Antártica Chilena",
+        "sin envio"
     ];
 
     const costosEnvio = {
@@ -44,7 +45,8 @@ export default function Component() {
         "Los Ríos": 9500,
         "Los Lagos": 10000,
         "Aysén del General Carlos Ibáñez del Campo": 12500,
-        "Magallanes y de la Antártica Chilena": 16000
+        "Magallanes y de la Antártica Chilena": 16000,
+        "sin envio": 0
     };
 
     const [formData, setFormData] = useState({
