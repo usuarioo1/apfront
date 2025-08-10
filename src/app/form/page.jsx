@@ -1,13 +1,14 @@
 'use client';
 import React, { useContext, useState } from 'react';
-import { useRouter } from 'next/navigation'; // Importar useRouter para redirigir
+import { useRouter } from 'next/navigation';
 import { CartContext } from '@/contexts/CartContext';
 import { apiSaveOrder } from '@/utils/api';
 import FranjaInformativa from '@/components/WholeSale';
 
 export default function Component() {
-    const { cartItems } = useContext(CartContext); // Obtener los productos del carrito
-    const router = useRouter(); // Definir useRouter para redireccionar después del submit
+    const { cartItems } = useContext(CartContext);
+    const router = useRouter();
+
     const regiones = [
         "Arica y Parinacota",
         "Tarapacá",
@@ -27,7 +28,6 @@ export default function Component() {
         "Magallanes y de la Antártica Chilena"
     ];
 
-    // Costos de envío ficticios
     const costosEnvio = {
         "Arica y Parinacota": 10500,
         "Tarapacá": 10000,
@@ -57,83 +57,75 @@ export default function Component() {
         referencia: '',
     });
 
-    const [isLoading, setIsLoading] = useState(false); // Estado para el botón de carga
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData(prevState => ({
-            ...prevState,
-            [name]: value
-        }));
+        setFormData(prev => ({ ...prev, [name]: value }));
     };
 
     const calcularTotal = () => {
         const totalProductos = cartItems.reduce((acc, item) => acc + item.precio * item.quantity, 0);
         const descuento = totalProductos > 100000 ? 1.5 : 1;
-        const totalConDescuento = totalProductos / descuento;
-
-        return totalConDescuento; // Solo devuelve el total de los productos con descuento, sin el costo de envío.
+        return totalProductos / descuento;
     };
-
 
     const isMayorCompra = () => {
         const total = cartItems.reduce((acc, item) => acc + item.precio * item.quantity, 0);
-        return total > 100000; // Devuelve true si el total es mayor a 100000
+        return total > 100000;
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setIsLoading(true); // Activar el estado de carga al enviar
+        setIsLoading(true);
 
-        // Calcular costo de envío
         const total = cartItems.reduce((acc, item) => acc + item.precio * item.quantity, 0);
         const costoEnvio = total > 100000 ? 0 : (costosEnvio[formData.region] || 0);
 
-        // Guardar el costo de envío en el localStorage
-        localStorage.setItem('costoEnvio', costoEnvio.toString());
+        // Mapear cartItems para incluir _id, name, quantity, precio (lo que pide backend)
+        const cartItemsConId = cartItems.map(item => ({
+            _id: item._id,   // muy importante para backend
+            name: item.name,
+            quantity: item.quantity,
+            precio: item.precio
+        }));
 
-        // Datos a enviar al backend
         const dataToSend = {
-            ...formData, // Información del formulario
-            cartItems,   // Productos seleccionados del carrito
-            total: calcularTotal(), // Total de la compra con la lógica aplicada
-            costoEnvio, // Costo de envío
+            ...formData,
+            cartItems: cartItemsConId,
+            total: calcularTotal(),
+            costoEnvio,
         };
 
         try {
             const response = await fetch(apiSaveOrder, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(dataToSend),
             });
 
             const result = await response.json();
-            console.log('Resultado del backend:', result);
+            console.log('Resultado backend:', result);
 
-            // Si el envío es exitoso, redirigir a la página de checkout
             if (response.ok) {
-                router.push('/checkout'); // Redirigir después de guardar la orden
+                router.push('/checkout');
             }
         } catch (error) {
-            console.error('Error al enviar los datos:', error);
+            console.error('Error al enviar datos:', error);
         } finally {
-            setIsLoading(false); // Desactivar el estado de carga
+            setIsLoading(false);
         }
     };
-
 
     return (
         <div>
             <FranjaInformativa />
             <div className="container mx-auto mt-10 p-6">
                 <div className="flex flex-col lg:flex-row">
-                    {/* Formulario de contacto */}
+                    {/* Formulario */}
                     <div className="lg:w-2/3 p-6 bg-white rounded-lg shadow-xl">
                         <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">Formulario de Contacto</h2>
                         <form onSubmit={handleSubmit} className="space-y-4">
-                            {/* Campos del formulario */}
                             <div>
                                 <label htmlFor="nombre" className="block text-sm font-medium text-gray-700">Nombre</label>
                                 <input
@@ -192,10 +184,8 @@ export default function Component() {
                                     className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                                 >
                                     <option value="">Seleccione una región</option>
-                                    {regiones.map((region, index) => (
-                                        <option key={index} value={region}>
-                                            {region}
-                                        </option>
+                                    {regiones.map((region, idx) => (
+                                        <option key={idx} value={region}>{region}</option>
                                     ))}
                                 </select>
                             </div>
@@ -219,15 +209,15 @@ export default function Component() {
                                     onChange={handleChange}
                                     rows={3}
                                     className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                                ></textarea>
+                                />
                             </div>
                             <div>
                                 <button
                                     type="submit"
+                                    disabled={isLoading}
                                     className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                                    disabled={isLoading} // Desactivar el botón mientras está en carga
                                 >
-                                    {isLoading ? 'Procesando...' : 'Finalizar Compra'} {/* Mostrar "Procesando..." mientras carga */}
+                                    {isLoading ? 'Procesando...' : 'Finalizar Compra'}
                                 </button>
                             </div>
                         </form>
@@ -240,11 +230,8 @@ export default function Component() {
                             <p className="text-gray-600">Tu carrito está vacío</p>
                         ) : (
                             <div>
-                                {cartItems.map((item) => {
-                                    const precioFinal = isMayorCompra()
-                                        ? item.precio / 1.5
-                                        : item.precio;
-
+                                {cartItems.map(item => {
+                                    const precioFinal = isMayorCompra() ? item.precio / 1.5 : item.precio;
                                     return (
                                         <div key={item._id} className="mb-4 flex justify-between items-center">
                                             <div className="flex-1">
@@ -263,8 +250,6 @@ export default function Component() {
                                         </div>
                                     );
                                 })}
-
-                                {/* Calcular y mostrar costos de envío */}
                                 <div className="flex justify-between items-center mt-4">
                                     <p className="text-gray-800 font-semibold">Costo de Envío:</p>
                                     <div className="text-right">
@@ -275,8 +260,6 @@ export default function Component() {
                                         )}
                                     </div>
                                 </div>
-
-                                {/* Mostrar total con costo de envío */}
                                 <div className="flex justify-between items-center mt-4">
                                     <p className="text-gray-800 font-semibold">Total:</p>
                                     <div className="text-right">
@@ -288,12 +271,9 @@ export default function Component() {
                                         )}
                                     </div>
                                 </div>
-
                             </div>
                         )}
                     </div>
-
-
                 </div>
             </div>
         </div>
