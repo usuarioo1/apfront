@@ -6,7 +6,7 @@ import { CartContextProvider } from "@/contexts/CartContext";
 import FloatingWhatsAppButton from "@/components/WhatsappButton";
 import dynamic from "next/dynamic";
 
-const FacebookPixel = dynamic(import('@/components/FacebookaPixel'));
+const FacebookPixel = dynamic(import('@/components/FacebookPixel'));
 
 const inter = Inter({ subsets: ["latin"] });
 

@@ -2,12 +2,12 @@ import Image from 'next/image'
 import Script from 'next/script'
 import React from 'react'
 
-const FacebookaPixel = () => {
+const FacebookPixel = () => {
   return (
     <>
-    
-<Script strategy='afterInteractive' id='facebook-pixel' dangerouslySetInnerHTML={
-    {__html: `
+
+      <Script strategy='afterInteractive' id='facebook-pixel' dangerouslySetInnerHTML={
+        { __html: `
         
         !function(f,b,e,v,n,t,s)
 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -33,4 +33,4 @@ alt='facebook pixel'
   )
 }
 
-export default FacebookaPixel
+export default FacebookPixel
