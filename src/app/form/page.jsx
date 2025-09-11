@@ -26,7 +26,7 @@ export default function Component() {
         "Los Lagos",
         "Aysén del General Carlos Ibáñez del Campo",
         "Magallanes y de la Antártica Chilena",
-        "sin envio"
+        //"sin envio"
     ];
 
     const costosEnvio = {

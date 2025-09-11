@@ -97,8 +97,9 @@ const Navbar = () => {
                     {/* Carrito y Menú Mobile */}
                     <div className="flex items-center space-x-2 sm:space-x-4">
                         {/* Carrito */}
-                        <div className="relative group">
-                            <button className="p-1.5 sm:p-2 text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-full transition-all duration-200">
+                        <div className="relative flex items-center">
+                            {/* Enlace directo al carrito para todos los dispositivos */}
+                            <Link href="/cart" className="p-1.5 sm:p-2 text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-full transition-all duration-200">
                                 <div className="relative">
                                     <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
@@ -109,10 +110,10 @@ const Navbar = () => {
                                         </span>
                                     )}
                                 </div>
-                            </button>
+                            </Link>
                             
-                            {/* Carrito Dropdown - Solo visible en desktop */}
-                            <div className="hidden lg:block absolute right-0 mt-2 w-72 bg-white rounded-xl shadow-lg border border-gray-100 p-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform translate-y-2 group-hover:translate-y-0">
+                            {/* Carrito Dropdown - Solo visible en desktop y con hover */}
+                            <div className="hidden lg:block absolute top-full right-0 mt-2 w-72 bg-white rounded-xl shadow-lg border border-gray-100 p-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform translate-y-2 group-hover:translate-y-0">
                                 <div className="text-center py-4">
                                     <p className="font-semibold text-gray-900 mb-2">
                                         {cantidadTotal} {cantidadTotal === 1 ? 'Producto' : 'Productos'}
