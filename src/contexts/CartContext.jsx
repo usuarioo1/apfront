@@ -1,117 +1,77 @@
-// Ejemplo de cómo agregar eventos en tu CartContext
-'use client';
-
-import { createContext, useState, useEffect } from 'react';
+'use client'
+import { createContext, useReducer } from "react";
 
 export const CartContext = createContext();
 
-export const CartContextProvider = ({ children }) => {
-    const [cartItems, setCartItems] = useState([]);
+const initialState = {
+    cartItems: [],
+}
 
-    // Función para agregar productos al carrito
-    const addToCart = (product) => {
-        const existingItem = cartItems.find(item => item._id === product._id);
+function reducer(state, action) {
+    switch (action.type) {
+        case 'ADD_ITEM':
+            const existingItemIndex = state.cartItems.findIndex(item => item._id === action.item._id);
+
+            if (existingItemIndex !== -1) {
+                // Si el producto ya existe en el carrito, aumenta la cantidad
+                const updatedCartItems = [...state.cartItems];
+                updatedCartItems[existingItemIndex] = {
+                    ...updatedCartItems[existingItemIndex],
+                    quantity: updatedCartItems[existingItemIndex].quantity + 1
+                };
+                return { ...state, cartItems: updatedCartItems };
+            } else {
+                // Si es un nuevo producto, agrégalo al carrito
+                return { ...state, cartItems: [...state.cartItems, { ...action.item, quantity: 1 }] };
+            }
+
+        case 'REMOVE_ITEM':
+            const existingItem = state.cartItems.find(item => item._id === action.id);
+            if (existingItem.quantity > 1) {
+                // Si la cantidad del producto es mayor que 1, reducimos la cantidad en 1
+                const updatedCartItems = state.cartItems.map(item =>
+                    item._id === action.id ? { ...item, quantity: item.quantity - 1 } : item
+                );
+                return { ...state, cartItems: updatedCartItems };
+            } else {
+                // Si la cantidad del producto es 1, lo eliminamos del carrito
+                const newCartItems = state.cartItems.filter(item => item._id !== action.id);
+                return { ...state, cartItems: newCartItems };
+            }
+        default:
+            return state;
+    }
+}
+
+export function CartContextProvider({ children }) {
+    const [state, dispatch] = useReducer(reducer, initialState);
+
+    const addItem = (item) => {
+        dispatch({ type: 'ADD_ITEM', item });
         
-        if (existingItem) {
-            setCartItems(cartItems.map(item =>
-                item._id === product._id
-                    ? { ...item, quantity: item.quantity + 1 }
-                    : item
-            ));
-        } else {
-            setCartItems([...cartItems, { ...product, quantity: 1 }]);
-        }
-
-        // Disparar evento AddToCart de Facebook Pixel
+        // Disparar evento AddToCart de Facebook Pixel (opcional)
         if (typeof window !== 'undefined' && window.fbq) {
             window.fbq('track', 'AddToCart', {
-                value: product.precio,
+                value: item.precio,
                 currency: 'CLP',
-                content_ids: [product._id],
-                content_name: product.name,
+                content_ids: [item._id],
+                content_name: item.name,
                 content_type: 'product',
                 contents: [{
-                    id: product._id,
+                    id: item._id,
                     quantity: 1,
-                    item_price: product.precio
+                    item_price: item.precio
                 }]
             });
         }
     };
 
-    // Función para ver contenido (cuando se ve un producto)
-    const viewContent = (product) => {
-        if (typeof window !== 'undefined' && window.fbq) {
-            window.fbq('track', 'ViewContent', {
-                value: product.precio,
-                currency: 'CLP',
-                content_ids: [product._id],
-                content_name: product.name,
-                content_type: 'product'
-            });
-        }
-    };
-
-    // Función para buscar productos
-    const search = (searchTerm) => {
-        if (typeof window !== 'undefined' && window.fbq) {
-            window.fbq('track', 'Search', {
-                search_string: searchTerm
-            });
-        }
-    };
-
-    // Función para completar compra (llamar después de pago exitoso)
-    const completePurchase = (orderData) => {
-        if (typeof window !== 'undefined' && window.fbq && cartItems.length > 0) {
-            const total = cartItems.reduce((acc, item) => acc + item.precio * item.quantity, 0);
-            const contents = cartItems.map(item => ({
-                id: item._id,
-                quantity: item.quantity,
-                item_price: item.precio
-            }));
-
-            window.fbq('track', 'Purchase', {
-                value: total,
-                currency: 'CLP',
-                contents: contents,
-                num_items: cartItems.reduce((acc, item) => acc + item.quantity, 0)
-            });
-        }
-    };
-
-    // Otras funciones del carrito...
-    const removeFromCart = (productId) => {
-        setCartItems(cartItems.filter(item => item._id !== productId));
-    };
-
-    const updateQuantity = (productId, newQuantity) => {
-        if (newQuantity === 0) {
-            removeFromCart(productId);
-        } else {
-            setCartItems(cartItems.map(item =>
-                item._id === productId
-                    ? { ...item, quantity: newQuantity }
-                    : item
-            ));
-        }
-    };
-
-    const clearCart = () => {
-        setCartItems([]);
+    const removeItem = (id) => {
+        dispatch({ type: 'REMOVE_ITEM', id });
     };
 
     return (
-        <CartContext.Provider value={{
-            cartItems,
-            addToCart,
-            removeFromCart,
-            updateQuantity,
-            clearCart,
-            viewContent,
-            search,
-            completePurchase
-        }}>
+        <CartContext.Provider value={{ cartItems: state.cartItems, addItem, removeItem }}>
             {children}
         </CartContext.Provider>
     );
