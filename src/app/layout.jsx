@@ -4,6 +4,9 @@ import Navbar from '@/components/Navbar';
 import Footer from "@/components/Footer";
 import { CartContextProvider } from "@/contexts/CartContext";
 import FloatingWhatsAppButton from "@/components/WhatsappButton";
+import dynamic from "next/dynamic";
+
+const FacebookPixel = dynamic(import('@/components/FacebookPixel'));
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -50,6 +53,7 @@ export default function RootLayout({ children }) {
       <CartContextProvider>
         <body className={inter.className}>
           <Navbar />
+          <FacebookPixel />
           {children}
           
           <Footer />
