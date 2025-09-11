@@ -4,9 +4,7 @@ import Navbar from '@/components/Navbar';
 import Footer from "@/components/Footer";
 import { CartContextProvider } from "@/contexts/CartContext";
 import FloatingWhatsAppButton from "@/components/WhatsappButton";
-import dynamic from "next/dynamic";
-
-const FacebookPixel = dynamic(import('@/components/FacebookPixel'));
+import FacebookPixel from "@/components/FacebookPixel";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,11 +16,11 @@ export const metadata = {
     title: "Artesanías Pachy - Joyas de Lapislázuli",
     description: "Encuentra joyas únicas hechas de lapislázuli en Artesanías Pachy. Explora nuestra selección artesanal en anillos, collares y más.",
     type: "website",
-    url: "https://www.artesaniaspachy.cl",  // Cambia esto a la URL de tu sitio
+    url: "https://www.artesaniaspachy.cl",
     images: [
       {
-        url: "https://res.cloudinary.com/dpbpyzl96/image/upload/v1728514810/apweb/logo/pb5gdsfxr9kmgcuyewe6.png", // Cambia esto por la URL de una imagen representativa de tu página
-        width:464,
+        url: "https://res.cloudinary.com/dpbpyzl96/image/upload/v1728514810/apweb/logo/pb5gdsfxr9kmgcuyewe6.png",
+        width: 464,
         height: 30,
         alt: "Artesanías Pachy - Joyas de Lapislázuli",
       },
@@ -49,18 +47,18 @@ export default function RootLayout({ children }) {
         <meta name="twitter:description" content={metadata.openGraph.description} />
         <meta name="twitter:image" content={metadata.openGraph.images[0].url} />
         <title>{metadata.title}</title>
+        {/* Facebook Pixel debe ir en el head */}
+        <FacebookPixel />
       </head>
       <CartContextProvider>
         <body className={inter.className}>
           <Navbar />
-          <FacebookPixel />
           {children}
-          
           <Footer />
           <FloatingWhatsAppButton 
-          phoneNumber="+56938677974"
-          message="Hola, me gustaría obtener más información."
-        />
+            phoneNumber="+56938677974"
+            message="Hola, me gustaría obtener más información."
+          />
         </body>
       </CartContextProvider>
     </html>

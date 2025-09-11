@@ -5,24 +5,60 @@ import { CartContext } from '@/contexts/CartContext';
 import Pago from '@/components/Pago';
 
 const CheckoutPage = () => {
-    const { cartItems } = useContext(CartContext); // Obtener los productos del carrito
-    const [costoEnvio, setCostoEnvio] = useState(0); // Estado para almacenar el costo de envío
+    const { cartItems } = useContext(CartContext);
+    const [costoEnvio, setCostoEnvio] = useState(0);
 
     // Recuperar el costo de envío desde localStorage cuando el componente se monte
     useEffect(() => {
         const costo = localStorage.getItem('costoEnvio');
         if (costo) {
-            setCostoEnvio(parseInt(costo, 10)); // Establecer el costo de envío
+            setCostoEnvio(parseInt(costo, 10));
         }
     }, []);
 
+    // Disparar evento InitiateCheckout cuando se carga la página de checkout
+    useEffect(() => {
+        if (cartItems.length > 0 && typeof window !== 'undefined' && window.fbq) {
+            const total = calcularTotal();
+            const contents = cartItems.map(item => ({
+                id: item._id,
+                quantity: item.quantity,
+                item_price: item.precio
+            }));
+
+            window.fbq('track', 'InitiateCheckout', {
+                value: parseFloat(total),
+                currency: 'CLP',
+                contents: contents,
+                num_items: cartItems.reduce((acc, item) => acc + item.quantity, 0)
+            });
+        }
+    }, [cartItems]);
+
     const calcularTotal = () => {
-        // Calcular el total sin el costo de envío
         const total = cartItems.reduce((acc, item) => acc + item.precio * item.quantity, 0);
         const totalConDescuento = total > 100000 ? total / 1.5 : total;
-        // Solo sumar el costo de envío si no es compra por mayor
         const envio = total > 100000 ? 0 : costoEnvio;
-        return (parseFloat(totalConDescuento) + envio).toFixed(0); // Redondear el total a entero
+        return (parseFloat(totalConDescuento) + envio).toFixed(0);
+    };
+
+    // Función para disparar evento cuando se intenta pagar
+    const handlePaymentAttempt = (paymentMethod) => {
+        if (typeof window !== 'undefined' && window.fbq) {
+            const total = calcularTotal();
+            const contents = cartItems.map(item => ({
+                id: item._id,
+                quantity: item.quantity,
+                item_price: item.precio
+            }));
+
+            window.fbq('track', 'AddPaymentInfo', {
+                value: parseFloat(total),
+                currency: 'CLP',
+                contents: contents,
+                payment_method: paymentMethod
+            });
+        }
     };
 
     return (
@@ -32,7 +68,9 @@ const CheckoutPage = () => {
                 <div className="lg:w-1/2 p-6 bg-white rounded-lg shadow-xl">
                     <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">Completar Pago-Online</h2>
                     {/* Componente Pago, que activa Mercado Pago */}
-                    <Pago total={calcularTotal()} />
+                    <div onClick={() => handlePaymentAttempt('mercadopago')}>
+                        <Pago total={calcularTotal()} />
+                    </div>
                 </div>
 
                 {/* Columna derecha: Resumen de la compra */}
@@ -75,7 +113,13 @@ const CheckoutPage = () => {
             </div>
 
             {/* Botón para abrir el modal */}
-            <button className="btn mt-6 text-white" onClick={() => document.getElementById('my_modal_1').showModal()}>
+            <button 
+                className="btn mt-6 text-white" 
+                onClick={() => {
+                    handlePaymentAttempt('bank_transfer');
+                    document.getElementById('my_modal_1').showModal();
+                }}
+            >
                 Pago Con transferencia
             </button>
 
@@ -99,7 +143,6 @@ const CheckoutPage = () => {
                     <p className="py-4">Presiona la tecla ESC o haz clic en el botón a continuación para cerrar</p>
                     <div className="modal-action">
                         <form method="dialog">
-                            {/* Si hay un botón en el formulario, cerrará el modal */}
                             <button className="btn text-white">Cerrar</button>
                         </form>
                     </div>
