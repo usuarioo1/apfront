@@ -197,7 +197,12 @@ export default function Component() {
                             </div>
                             <div>
                                 <label htmlFor="comuna" className="block text-sm font-medium text-gray-700">Comuna</label>
-                                <input type="text" id='comuna' name='comuna' value={formData.comuna} onChange={handleChange} className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" />
+                                <input type="text" 
+                                id='comuna' 
+                                name='comuna' 
+                                value={formData.comuna} 
+                                onChange={handleChange} 
+                                className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" />
                             </div>
                             <div>
                                 <label htmlFor="direccion" className="block text-sm font-medium text-gray-700">Dirección</label>
