@@ -87,6 +87,8 @@ export default function Component() {
         // Mapear cartItems para incluir _id, name, quantity, precio (lo que pide backend)
         const cartItemsConId = cartItems.map(item => ({
             _id: item._id,   // muy importante para backend
+            codigo: item.codigo,
+            img: item.img,
             name: item.name,
             quantity: item.quantity,
             precio: item.precio
