@@ -1,5 +1,7 @@
 'use client';
 import React, { useState, useEffect, useContext } from 'react';
+import Zoom from 'react-medium-image-zoom';
+import 'react-medium-image-zoom/dist/styles.css';
 import { CartContext } from '@/contexts/CartContext';  // Contexto del carrito
 import { getFiguraById } from '../figurasApi';  // Función para obtener la figura por ID
 
@@ -37,7 +39,15 @@ const DetallesFigura = ({ params }) => {
     return (
         <div className="bg-white shadow-lg rounded-lg overflow-hidden w-9/12 m-auto mt-24 mb-20">
             <div className="w-full md:flex">
-                <img className="h-full w-full object-contain md:w-1/4 md:h-auto" src={figura.img} alt={figura.name} />
+                <div className="md:w-1/4 w-full flex items-center justify-center p-4">
+                    <Zoom>
+                        <img
+                            className="object-contain w-full h-72 md:h-80 rounded-lg cursor-zoom-in"
+                            src={figura.img}
+                            alt={figura.name}
+                        />
+                    </Zoom>
+                </div>
                 <div className="w-full md:w-3/4 p-4 md:pl-8 flex flex-col justify-start items-start">
                     <h2 className="text-gray-800 font-semibold text-3xl">{figura.name}</h2>
                     <p className="text-gray-600 mt-2">Código: {figura.codigo || 'No disponible'}</p>
