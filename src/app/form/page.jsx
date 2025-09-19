@@ -9,6 +9,22 @@ export default function Component() {
     const { cartItems } = useContext(CartContext);
     const router = useRouter();
 
+    // Estado para factura
+    const [conFactura, setConFactura] = useState(false);
+    const [facturaData, setFacturaData] = useState({
+        razonSocial: '',
+        rutEmpresa: '',
+        direccionEmpresa: '',
+        comunaEmpresa: '',
+        giroEmpresa: '',
+        regionEmpresa: '',
+    });
+
+    const handleFacturaChange = (e) => {
+        const { name, value } = e.target;
+        setFacturaData(prev => ({ ...prev, [name]: value }));
+    };
+
     const regiones = [
         "Arica y Parinacota",
         "Tarapacá",
@@ -100,6 +116,7 @@ export default function Component() {
             cartItems: cartItemsConId,
             total: calcularTotal(),
             costoEnvio,
+            conFactura: conFactura ? [facturaData] : [],
         };
 
         try {
@@ -132,8 +149,92 @@ export default function Component() {
                 <div className="flex flex-col lg:flex-row">
                     {/* Formulario */}
                     <div className="lg:w-2/3 p-6 bg-white rounded-lg shadow-xl">
-                        <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">Formulario de Contacto</h2>
+                        <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">Formulario de Envío</h2>
                         <form onSubmit={handleSubmit} className="space-y-4">
+                            {/* Checkbox para factura */}
+                            <div>
+                                <label className="inline-flex items-center">
+                                    <input
+                                        type="checkbox"
+                                        checked={conFactura}
+                                        onChange={() => setConFactura(!conFactura)}
+                                        className="form-checkbox h-5 w-5 text-indigo-600"
+                                    />
+                                    <span className="ml-2 text-gray-700 font-medium">¿Necesitas factura?</span>
+                                </label>
+                            </div>
+                            {/* Formulario de factura */}
+                            {conFactura && (
+                                <div className="bg-gray-50 p-4 rounded-lg border border-gray-200 space-y-3">
+                                    <h3 className="font-semibold text-gray-800 mb-2">Datos para Factura</h3>
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700">Razón Social</label>
+                                        <input
+                                            type="text"
+                                            name="razonSocial"
+                                            value={facturaData.razonSocial}
+                                            onChange={handleFacturaChange}
+                                            className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm"
+                                            required
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700">RUT Empresa</label>
+                                        <input
+                                            type="text"
+                                            name="rutEmpresa"
+                                            value={facturaData.rutEmpresa}
+                                            onChange={handleFacturaChange}
+                                            className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm"
+                                            required
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700">Dirección Empresa</label>
+                                        <input
+                                            type="text"
+                                            name="direccionEmpresa"
+                                            value={facturaData.direccionEmpresa}
+                                            onChange={handleFacturaChange}
+                                            className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm"
+                                            required
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700">Comuna Empresa</label>
+                                        <input
+                                            type="text"
+                                            name="comunaEmpresa"
+                                            value={facturaData.comunaEmpresa}
+                                            onChange={handleFacturaChange}
+                                            className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm"
+                                            required
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700">Región Empresa</label>
+                                        <input
+                                            type="text"
+                                            name="regionEmpresa"
+                                            value={facturaData.regionEmpresa}
+                                            onChange={handleFacturaChange}
+                                            className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm"
+                                            required
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700">Giro Empresa</label>
+                                        <input
+                                            type="text"
+                                            name="giroEmpresa"
+                                            value={facturaData.giroEmpresa}
+                                            onChange={handleFacturaChange}
+                                            className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm"
+                                            required
+                                        />
+                                    </div>
+                                </div>
+                            )}
                             <div>
                                 <label htmlFor="nombre" className="block text-sm font-medium text-gray-700">Nombre</label>
                                 <input
