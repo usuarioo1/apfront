@@ -23,7 +23,8 @@ const Navbar = () => {
         { href: "/aros", name: "Aros" },
         { href: "/figuras", name: "Figuras" },
         { href: "/cadenas", name: "Cadenas" },
-        { href: "/accesorios", name: "Accesorios" }
+        { href: "/accesorios", name: "Accesorios" },
+        { href: "/catalogo", name: "Todos los productos" }
     ];
 
     return (

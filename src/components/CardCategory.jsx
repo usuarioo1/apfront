@@ -43,6 +43,11 @@ const CardCategory = () => {
             title: 'ACCESORIOS',
             image: 'https://res.cloudinary.com/dpbpyzl96/image/upload/v1732672510/apweb/categorias/nicrh71xpwqllmypukpl.jpg'
         },
+        {
+            href:'/catalogo',
+            title: 'Todos los productos',
+            image:'https://res.cloudinary.com/dc9kszgso/image/upload/v1758588353/Gemini_Generated_Image_od5bs1od5bs1od5b_onkkyg.png'
+        }
         // {
         //     href: '/ofertas',
         //     title: 'OFERTAS',
