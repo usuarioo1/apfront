@@ -99,7 +99,7 @@ export default function Component() {
         setIsLoading(true);
 
         const total = cartItems.reduce((acc, item) => acc + item.precio * item.quantity, 0);
-        const costoEnvio = total > 150000 ? 0 : (costosEnvio[formData.region] || 0);
+        const costoEnvio = total > 50000 ? 0 : (costosEnvio[formData.region] || 0);
 
         // Mapear cartItems para incluir _id, name, quantity, precio (lo que pide backend)
         const cartItemsConId = cartItems.map(item => ({
