@@ -5,7 +5,7 @@ export async function GET(request) {
     try {
         // Obtenemos la URL del backend desde las variables de entorno del SERVIDOR
         // Nota: NO usa NEXT_PUBLIC_ por lo que no se expone al cliente
-        const backendUrl = process.env.API_URL || 'https://apback.onrender.com';
+        const backendUrl = process.env.API_URL_ACCESORIOS 
         
         // Realizamos la petición al backend desde el servidor
         const res = await fetch(`${backendUrl}/accesorios`, {
