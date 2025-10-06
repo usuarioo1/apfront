@@ -1,18 +1,27 @@
-import { apiAccesorios } from "@/utils/api";
+// ✅ AHORA: Llamamos a nuestras propias API routes (seguras)
+// ❌ ANTES: Llamábamos directamente a apback.onrender.com (inseguro)
 
-export async function getAccesorios(){
-    const res = await fetch(apiAccesorios);
+export async function getAccesorios() {
+    // Llamamos a NUESTRA API route en lugar del backend directamente
+    const res = await fetch('/api/accesorios');
     const data = await res.json();
-    return data.info; //accedo a info que es la categoria superior de la categoria
+    
+    // Verificamos que la respuesta sea exitosa
+    if (!data.success && data.error) {
+        throw new Error(data.error);
+    }
+    
+    return data.info; // Retornamos los datos como antes
 }
 
 export const getAccesoriosById = async(id) => {
     try {
-        const responde = await fetch(`${apiAccesorios}/${id}`);
-        const data = await responde.json();
+        // Llamamos a NUESTRA API route con el ID
+        const response = await fetch(`/api/accesorios/${id}`);
+        const data = await response.json();
 
         if (data && data.success && data.info) {
-            return data.info;  // Retorna el objeto 'info', que contiene los detalles del anillo
+            return data.info;  // Retorna el objeto 'info'
         } else {
             console.error('Accesorio no encontrado en la respuesta');
             return null;
