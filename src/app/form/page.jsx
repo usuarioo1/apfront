@@ -83,38 +83,41 @@ export default function Component() {
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
+    // Cyber Monday: 10% de descuento en todos los productos
+    const CYBER_DESCUENTO = 0.10;
     const calcularTotal = () => {
-        const totalProductos = cartItems.reduce((acc, item) => acc + item.precio * item.quantity, 0);
-        const descuento = totalProductos > 100000 ? 1.5 : 1;
-        return totalProductos / descuento;
+        const totalProductos = cartItems.reduce((acc, item) => acc + (item.precio * (1 - CYBER_DESCUENTO)) * item.quantity, 0);
+        return totalProductos;
     };
 
-    const isMayorCompra = () => {
-        const total = cartItems.reduce((acc, item) => acc + item.precio * item.quantity, 0);
-        return total > 100000;
-    };
+    // Ya no se usa isMayorCompra para Cyber Monday
+    // const isMayorCompra = () => {
+    //     const total = cartItems.reduce((acc, item) => acc + item.precio * item.quantity, 0);
+    //     return total > 100000;
+    // };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsLoading(true);
 
-        const total = cartItems.reduce((acc, item) => acc + item.precio * item.quantity, 0);
-        const costoEnvio = total > 50000 ? 0 : (costosEnvio[formData.region] || 0);
+        // Calcular total y costo de envío con descuento Cyber Monday
+        const total = calcularTotal();
+        const costoEnvio = total > 150000 ? 0 : (costosEnvio[formData.region] || 0);
 
-        // Mapear cartItems para incluir _id, name, quantity, precio (lo que pide backend)
+        // Mapear cartItems para incluir precio con descuento
         const cartItemsConId = cartItems.map(item => ({
-            _id: item._id,   // muy importante para backend
+            _id: item._id,
             codigo: item.codigo,
             img: item.img,
             name: item.name,
             quantity: item.quantity,
-            precio: item.precio
+            precio: Math.round(item.precio * (1 - CYBER_DESCUENTO)),
         }));
 
         const dataToSend = {
             ...formData,
             cartItems: cartItemsConId,
-            total: calcularTotal(),
+            total: Math.round(total),
             costoEnvio,
             conFactura: conFactura ? [facturaData] : [],
         };
@@ -349,13 +352,13 @@ export default function Component() {
                         ) : (
                             <div>
                                 {cartItems.map(item => {
-                                    const precioFinal = isMayorCompra() ? item.precio / 1.5 : item.precio;
+                                    const precioCyber = Math.round(item.precio * (1 - CYBER_DESCUENTO));
                                     return (
                                         <div key={item._id} className="mb-4 flex justify-between items-center">
                                             <div className="flex-1">
                                                 <p className="text-gray-700 font-medium">{item.name} x {item.quantity}</p>
                                                 <p className="text-gray-600 mt-1">
-                                                    Precio: ${precioFinal.toFixed(0)} <span className="text-sm text-gray-500">(c/u)</span>
+                                                    Precio: ${precioCyber} <span className="text-xs text-pink-600 font-semibold">Cyber Monday -10%</span>
                                                 </p>
                                             </div>
                                             <div className="ml-4">
@@ -371,7 +374,7 @@ export default function Component() {
                                 <div className="flex justify-between items-center mt-4">
                                     <p className="text-gray-800 font-semibold">Costo de Envío:</p>
                                     <div className="text-right">
-                                        {isMayorCompra() ? (
+                                        {calcularTotal() > 150000 ? (
                                             <p className="text-green-600 font-medium">¡Envío gratis!</p>
                                         ) : (
                                             <p className="text-gray-800">${costosEnvio[formData.region] || 0}</p>
@@ -382,11 +385,8 @@ export default function Component() {
                                     <p className="text-gray-800 font-semibold">Total:</p>
                                     <div className="text-right">
                                         <p className="text-gray-800">
-                                            ${Math.round(calcularTotal()) + (isMayorCompra() ? 0 : (costosEnvio[formData.region] || 0))}
+                                            ${Math.round(calcularTotal()) + (calcularTotal() > 150000 ? 0 : (costosEnvio[formData.region] || 0))} <span className="text-xs text-pink-600 font-semibold">Cyber Monday -10%</span>
                                         </p>
-                                        {isMayorCompra() && (
-                                            <span className="text-sm text-green-600">Compra por mayor - Envío gratis</span>
-                                        )}
                                     </div>
                                 </div>
                             </div>

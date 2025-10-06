@@ -7,32 +7,21 @@ import FranjaInformativa from '@/components/WholeSale';
 const Carrito = () => {
     const { cartItems, addItem, removeItem } = useContext(CartContext);
 
-    // Calcular el total del carrito
-    const calcularTotal = () => {
-        return cartItems.reduce((acc, item) => acc + item.precio * item.quantity, 0);
-    };
-
-    // Obtener los datos del carrito con descuento si aplica
-    const obtenerCarritoConDescuento = () => {
-        const total = calcularTotal();
-        const aplicarDescuento = total > 100000;
-
-        // Si aplica descuento, calcular los precios individuales con descuento
+    // Cyber Monday: 10% de descuento en todos los productos
+    const CYBER_DESCUENTO = 0.10;
+    const obtenerCarritoConCyberMonday = () => {
         const itemsConDescuento = cartItems.map((item) => ({
             ...item,
-            precioDescuento: aplicarDescuento ? Math.round(item.precio / 1.5) : item.precio,
+            precioDescuento: Math.round(item.precio * (1 - CYBER_DESCUENTO)),
         }));
-
-        // Calcular el nuevo total con los precios descontados
         const totalConDescuento = itemsConDescuento.reduce(
             (acc, item) => acc + item.precioDescuento * item.quantity,
             0
         );
-
-        return { items: itemsConDescuento, total: totalConDescuento, esMayor: aplicarDescuento };
+        return { items: itemsConDescuento, total: totalConDescuento };
     };
 
-    const { items: cartItemsConDescuento, total, esMayor } = obtenerCarritoConDescuento();
+    const { items: cartItemsConDescuento, total } = obtenerCarritoConCyberMonday();
 
     return (
         <div>
@@ -66,7 +55,7 @@ const Carrito = () => {
                                         <img src={item.img} alt={item.name} className="w-16 h-16 object-cover rounded" />
                                     </td>
                                     <td className="p-4 text-gray-700">
-                                        ${item.precioDescuento} {esMayor && <span className="text-sm text-gray-500">(precio por mayor)</span>}
+                                        ${item.precioDescuento} <span className="text-xs text-pink-600 font-semibold">Cyber Monday -10%</span>
                                     </td>
                                     <td className="p-4 text-gray-700">
                                         <div className="flex items-center justify-center">
@@ -85,7 +74,7 @@ const Carrito = () => {
                                             </button>
                                         </div>
                                     </td>
-                                    <td className="p-4 text-gray-700">${item.precioDescuento * item.quantity}</td>
+                                    <td className="p-4 text-gray-700">${item.precioDescuento * item.quantity} <span className="text-xs text-pink-600 font-semibold">Cyber Monday</span></td>
                                 </tr>
                             ))}
                         </tbody>
@@ -94,7 +83,7 @@ const Carrito = () => {
             )}
             <div className="mt-8 text-center">
                 <h2 className="text-2xl font-semibold text-gray-800">
-                    Total: ${total} {esMayor && <span className="text-sm text-gray-500">(precio por mayor)</span>}
+                    Total: ${total} <span className="text-sm text-pink-600 font-semibold">Cyber Monday -10%</span>
                 </h2>
                 <button className="mt-4 px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
                     <Link href={'/form'}>Continuar con la Compra</Link>
