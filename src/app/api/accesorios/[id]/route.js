@@ -32,8 +32,7 @@ export async function GET(request, { params }) {
         }
 
         const data = await res.json();
-        
-        return NextResponse.json(data, {
+        return NextResponse.json({ success: true, info: data }, {
             status: 200,
             headers: {
                 'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=120'
