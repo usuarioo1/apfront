@@ -8,10 +8,12 @@ import { getArosById } from '../arosApi'; // Usamos la función para obtener el 
 const DetallesAro = ({ params }) => {
     const { aroId } = params;  // Tomamos el id del aro desde los parámetros de la ruta
     const [aro, setAro] = useState(null);
+    const [loading, setLoading] = useState(true);
     const { addItem } = useContext(CartContext);  // Para añadir al carrito
 
     useEffect(() => {
         const fetchAro = async () => {
+            setLoading(true);
             try {
                 const data = await getArosById(aroId);  // Llamamos a la función para obtener los detalles del aro por ID
                 if (data) {
@@ -21,12 +23,21 @@ const DetallesAro = ({ params }) => {
                 }
             } catch (error) {
                 console.error("Error al obtener el aro:", error);
+            } finally {
+                setLoading(false);
             }
         };
-
         fetchAro();
     }, [aroId]);
 
+    if (loading) {
+        return (
+            <div className="flex flex-col justify-center items-center h-96">
+                <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-blue-700 mb-4"></div>
+                <h2 className="text-2xl text-gray-600">Cargando...</h2>
+            </div>
+        );
+    }
     if (!aro) {
         return <div><h2>Aro no encontrado</h2></div>;  // Muestra un mensaje si el aro no se encuentra
     }

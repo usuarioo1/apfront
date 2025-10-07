@@ -8,10 +8,12 @@ import { getConjuntoById } from '../conjuntosApi';  // Función para obtener el 
 const DetallesConjunto = ({ params }) => {
     const { conjuntoId } = params;  // Tomamos el ID del conjunto desde los parámetros de la ruta
     const [conjunto, setConjunto] = useState(null);
+    const [loading, setLoading] = useState(true);
     const { addItem } = useContext(CartContext);  // Para añadir el conjunto al carrito
 
     useEffect(() => {
         const fetchConjunto = async () => {
+            setLoading(true);
             try {
                 const data = await getConjuntoById(conjuntoId);  // Obtenemos el conjunto por su ID
                 if (data) {
@@ -21,12 +23,21 @@ const DetallesConjunto = ({ params }) => {
                 }
             } catch (error) {
                 console.error('Error al obtener el conjunto:', error);
+            } finally {
+                setLoading(false);
             }
         };
-
         fetchConjunto();
     }, [conjuntoId]);
 
+    if (loading) {
+        return (
+            <div className="flex flex-col justify-center items-center h-96">
+                <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-blue-700 mb-4"></div>
+                <h2 className="text-2xl text-gray-600">Cargando...</h2>
+            </div>
+        );
+    }
     if (!conjunto) {
         return <div><h2>Conjunto no encontrado</h2></div>;  // Muestra un mensaje si no se encuentra el conjunto
     }

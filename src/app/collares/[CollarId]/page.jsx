@@ -6,14 +6,16 @@ import { CartContext } from '@/contexts/CartContext';
 import { getCollaresById } from '../collaresApi';  // Función para obtener el collar por ID
 
 const DetallesCollar = ({ params }) => {
-    const { collarId } = params;  // Tomamos el ID del collar desde los parámetros de la ruta
+    const { CollarId } = params;  // Tomamos el ID del collar desde los parámetros de la ruta
     const [collar, setCollar] = useState(null);
+    const [loading, setLoading] = useState(true);
     const { addItem } = useContext(CartContext);  // Para añadir el collar al carrito
 
     useEffect(() => {
         const fetchCollar = async () => {
+            setLoading(true);
             try {
-                const data = await getCollaresById(collarId);  // Obtenemos el collar por su ID
+                const data = await getCollaresById(CollarId);  // Obtenemos el collar por su ID
                 if (data) {
                     setCollar(data);  // Guardamos los detalles del collar en el estado
                 } else {
@@ -21,12 +23,21 @@ const DetallesCollar = ({ params }) => {
                 }
             } catch (error) {
                 console.error('Error al obtener el collar:', error);
+            } finally {
+                setLoading(false);
             }
         };
-
         fetchCollar();
-    }, [collarId]);
+    }, [CollarId]);
 
+    if (loading) {
+        return (
+            <div className="flex flex-col justify-center items-center h-96">
+                <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-blue-700 mb-4"></div>
+                <h2 className="text-2xl text-gray-600">Cargando...</h2>
+            </div>
+        );
+    }
     if (!collar) {
         return <div><h2>Collar no encontrado</h2></div>;  // Muestra un mensaje si el collar no se encuentra
     }
