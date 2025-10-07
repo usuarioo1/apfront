@@ -34,8 +34,8 @@ const DetallesAccesorios = ({params}) => {
     }
 
     const handleAddToCart = () => {
-        addItem(accesorio);  // Añadimos el aro al carrito
-        console.log('Aro añadido al carrito:', aro);
+        addItem(accesorio);  // Añadimos el accesorio al carrito
+        console.log('Accesorio añadido al carrito:', accesorio);
     };
 
 

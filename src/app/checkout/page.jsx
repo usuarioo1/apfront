@@ -35,12 +35,23 @@ const CheckoutPage = () => {
         }
     }, [cartItems]);
 
-    // Cyber Monday: 10% de descuento en todos los productos
+    // Cyber Monday: 10% de descuento + descuento por mayor si aplica
     const CYBER_DESCUENTO = 0.10;
     const calcularTotal = () => {
-        const total = cartItems.reduce((acc, item) => acc + (item.precio * (1 - CYBER_DESCUENTO)) * item.quantity, 0);
-        const envio = total > 150000 ? 0 : costoEnvio;
-        return (Math.round(total) + envio).toFixed(0);
+        // Primero aplicamos Cyber Monday (-10%)
+        const totalConCyber = cartItems.reduce((acc, item) => acc + (item.precio * (1 - CYBER_DESCUENTO)) * item.quantity, 0);
+        
+        // Si el total es > 100,000, aplicamos descuento por mayor (dividir por 1.5)
+        const aplicarMayor = totalConCyber > 100000;
+        const totalFinal = aplicarMayor ? totalConCyber / 1.5 : totalConCyber;
+        const envio = totalFinal > 150000 ? 0 : costoEnvio;
+        
+        return (Math.round(totalFinal) + envio).toFixed(0);
+    };
+
+    const esMayorCompra = () => {
+        const totalConCyber = cartItems.reduce((acc, item) => acc + (item.precio * (1 - CYBER_DESCUENTO)) * item.quantity, 0);
+        return totalConCyber > 100000;
     };
 
     // Función para disparar evento cuando se intenta pagar
@@ -82,16 +93,25 @@ const CheckoutPage = () => {
                     ) : (
                         <div>
                             {cartItems.map((item) => {
-                                const precioCyber = Math.round(item.precio * (1 - CYBER_DESCUENTO));
+                                const precioCyber = item.precio * (1 - CYBER_DESCUENTO);
+                                const precioFinal = esMayorCompra() ? precioCyber / 1.5 : precioCyber;
                                 return (
                                     <div key={item._id} className="mb-4">
                                         <p className="text-gray-700 font-medium">{item.name} x {item.quantity}</p>
-                                        <p className="text-gray-600">Precio: ${precioCyber} <span className="text-xs text-pink-600 font-semibold">Cyber Monday -10%</span></p>
+                                        <p className="text-gray-600">
+                                            Precio: ${Math.round(precioFinal)} 
+                                            <span className="text-xs text-pink-600 font-semibold block">Cyber Monday -10%</span>
+                                            {esMayorCompra() && <span className="text-xs text-green-600 font-semibold block">Por mayor adicional</span>}
+                                        </p>
                                     </div>
                                 );
                             })}
                             <hr className="my-4" />
-                            <p className="text-lg font-semibold text-gray-800">Total: ${calcularTotal()} <span className="text-xs text-pink-600 font-semibold">Cyber Monday -10%</span></p>
+                            <p className="text-lg font-semibold text-gray-800">
+                                Total: ${calcularTotal()} 
+                                <span className="text-xs text-pink-600 font-semibold block">Cyber Monday -10%</span>
+                                {esMayorCompra() && <span className="text-xs text-green-600 font-semibold block">+ Descuento por mayor</span>}
+                            </p>
                             {/* Mostrar el costo de envío */}
                             <div className="mt-4">
                                 <strong>

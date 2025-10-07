@@ -1,26 +1,25 @@
-import { apiPulseras } from "@/utils/api";
-
+// Usar la API interna para no exponer variables de entorno
 export async function getPulseras() {
-    const res = await fetch(apiPulseras);
+    const res = await fetch('/api/pulseras');
     const data = await res.json();
-    return data.info; // Accede a la propiedad "info"
+    if (!data.success && data.error) {
+        throw new Error(data.error);
+    }
+    return data.info;
 }
 
-// anillosApi.js
 export const getPulseraById = async (id) => {
     try {
-        const response = await fetch(`${apiPulseras}/${id}`);  // Ajusta la ruta según tu backend
+        const response = await fetch(`/api/pulseras/${id}`);
         const data = await response.json();
-
-        // Asegurarse de que la propiedad 'info' existe en el objeto de respuesta
         if (data && data.success && data.info) {
-            return data.info;  // Retorna el objeto 'info', que contiene los detalles del anillo
+            return data.info;
         } else {
-            console.error('figura no encontrado en la respuesta');
+            console.error('Pulsera no encontrada en la respuesta');
             return null;
         }
     } catch (error) {
-        console.error('Error fetching figura by id:', error);
+        console.error('Error fetching Pulsera by id:', error);
         return null;
     }
 };

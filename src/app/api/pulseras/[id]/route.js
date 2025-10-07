@@ -12,7 +12,7 @@ export async function GET(request, { params }) {
             throw new Error(`Backend responded with status: ${res.status}`);
         }
         const data = await res.json();
-        return NextResponse.json({ success: true, info: data }, { status: 200 });
+        return NextResponse.json(data, { status: 200 });
     } catch (error) {
         return NextResponse.json({ success: false, error: 'Error al obtener la pulsera', message: error.message }, { status: 500 });
     }

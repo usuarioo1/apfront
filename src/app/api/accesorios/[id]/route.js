@@ -32,7 +32,9 @@ export async function GET(request, { params }) {
         }
 
         const data = await res.json();
-        return NextResponse.json({ success: true, info: data }, {
+        // El backend ya devuelve { success: true, info: producto }
+        // Solo pasamos la respuesta tal como viene
+        return NextResponse.json(data, {
             status: 200,
             headers: {
                 'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=120'
