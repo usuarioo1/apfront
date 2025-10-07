@@ -1,26 +1,25 @@
-import { apiFiguras } from "@/utils/api";
-
+// Usar la API interna para no exponer variables de entorno
 export async function getFiguras() {
-    const res = await fetch(apiFiguras);
+    const res = await fetch('/api/figuras');
     const data = await res.json();
-    return data.info; // Accede a la propiedad "info"
+    if (!data.success && data.error) {
+        throw new Error(data.error);
+    }
+    return data.info;
 }
 
-// anillosApi.js
 export const getFiguraById = async (id) => {
     try {
-        const response = await fetch(`${apiFiguras}/${id}`);
+        const response = await fetch(`/api/figuras/${id}`);
         const data = await response.json();
-
-        // Asegúrate de que la propiedad 'info' existe en el objeto de respuesta
-        if (data && data.info) {
-            return data.info;  // Retorna el objeto 'info', que contiene los detalles de la figura
+        if (data && data.success && data.info) {
+            return data.info;
         } else {
             console.error('Figura no encontrada en la respuesta');
             return null;
         }
     } catch (error) {
-        console.error('Error fetching figura by id:', error);
+        console.error('Error fetching Figura by id:', error);
         return null;
     }
 };
