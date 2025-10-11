@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 import { CartContextProvider } from "@/contexts/CartContext";
 import FloatingWhatsAppButton from "@/components/WhatsappButton";
 import FacebookPixel from "@/components/FacebookPixel";
-import CyberMondayBanner from "@/components/CyberMondayBanner";
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -53,7 +53,7 @@ export default function RootLayout({ children }) {
       </head>
       <CartContextProvider>
         <body className={inter.className}>
-          <CyberMondayBanner />
+          
 
           <Navbar />
           

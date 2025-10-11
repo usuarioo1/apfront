@@ -83,45 +83,34 @@ export default function Component() {
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
-    // Cyber Monday: 10% de descuento + descuento por mayor si aplica
-    const CYBER_DESCUENTO = 0.10;
     const calcularTotal = () => {
-        // Primero aplicamos Cyber Monday (-10%)
-        const totalConCyber = cartItems.reduce((acc, item) => acc + (item.precio * (1 - CYBER_DESCUENTO)) * item.quantity, 0);
-        
-        // Si el total es > 100,000, aplicamos descuento por mayor (dividir por 1.5)
-        const aplicarMayor = totalConCyber > 100000;
-        const totalFinal = aplicarMayor ? totalConCyber / 1.5 : totalConCyber;
-        
-        return totalFinal;
+        const totalProductos = cartItems.reduce((acc, item) => acc + item.precio * item.quantity, 0);
+        const descuento = totalProductos > 100000 ? 1.5 : 1;
+        return totalProductos / descuento;
     };
 
-    const esMayorCompra = () => {
-        const totalConCyber = cartItems.reduce((acc, item) => acc + (item.precio * (1 - CYBER_DESCUENTO)) * item.quantity, 0);
-        return totalConCyber > 100000;
+    const isMayorCompra = () => {
+        const total = cartItems.reduce((acc, item) => acc + item.precio * item.quantity, 0);
+        return total > 100000;
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsLoading(true);
 
-        // Calcular total y costo de envío con descuentos combinados
-        const total = calcularTotal();
+        // Calcular total y costo de envío con descuento si aplica
+        const total = cartItems.reduce((acc, item) => acc + item.precio * item.quantity, 0);
         const costoEnvio = total > 150000 ? 0 : (costosEnvio[formData.region] || 0);
 
-        // Mapear cartItems para incluir precios con descuentos aplicados
-        const cartItemsConId = cartItems.map(item => {
-            const precioCyber = item.precio * (1 - CYBER_DESCUENTO);
-            const precioFinal = esMayorCompra() ? precioCyber / 1.5 : precioCyber;
-            return {
-                _id: item._id,
-                codigo: item.codigo,
-                img: item.img,
-                name: item.name,
-                quantity: item.quantity,
-                precio: Math.round(precioFinal),
-            };
-        });
+        // Mapear cartItems para incluir _id, name, quantity, precio (lo que pide backend)
+        const cartItemsConId = cartItems.map(item => ({
+            _id: item._id,   // muy importante para backend
+            codigo: item.codigo,
+            img: item.img,
+            name: item.name,
+            quantity: item.quantity,
+            precio: item.precio
+        }));
 
         const dataToSend = {
             ...formData,
@@ -361,16 +350,13 @@ export default function Component() {
                         ) : (
                             <div>
                                 {cartItems.map(item => {
-                                    const precioCyber = item.precio * (1 - CYBER_DESCUENTO);
-                                    const precioFinal = esMayorCompra() ? precioCyber / 1.5 : precioCyber;
+                                    const precioFinal = isMayorCompra() ? item.precio / 1.5 : item.precio;
                                     return (
                                         <div key={item._id} className="mb-4 flex justify-between items-center">
                                             <div className="flex-1">
                                                 <p className="text-gray-700 font-medium">{item.name} x {item.quantity}</p>
                                                 <p className="text-gray-600 mt-1">
-                                                    Precio: ${Math.round(precioFinal)} 
-                                                    <span className="text-xs text-pink-600 font-semibold block">Cyber Monday -10%</span>
-                                                    {esMayorCompra() && <span className="text-xs text-green-600 font-semibold block">Por mayor adicional</span>}
+                                                    Precio: ${precioFinal.toFixed(0)} <span className="text-sm text-gray-500">(c/u)</span>
                                                 </p>
                                             </div>
                                             <div className="ml-4">
@@ -386,7 +372,7 @@ export default function Component() {
                                 <div className="flex justify-between items-center mt-4">
                                     <p className="text-gray-800 font-semibold">Costo de Envío:</p>
                                     <div className="text-right">
-                                        {calcularTotal() > 150000 ? (
+                                        {isMayorCompra() ? (
                                             <p className="text-green-600 font-medium">¡Envío gratis!</p>
                                         ) : (
                                             <p className="text-gray-800">${costosEnvio[formData.region] || 0}</p>
@@ -397,10 +383,11 @@ export default function Component() {
                                     <p className="text-gray-800 font-semibold">Total:</p>
                                     <div className="text-right">
                                         <p className="text-gray-800">
-                                            ${Math.round(calcularTotal()) + (calcularTotal() > 150000 ? 0 : (costosEnvio[formData.region] || 0))} 
-                                            <span className="text-xs text-pink-600 font-semibold block">Cyber Monday -10%</span>
-                                            {esMayorCompra() && <span className="text-xs text-green-600 font-semibold block">+ Descuento por mayor</span>}
+                                            ${Math.round(calcularTotal()) + (isMayorCompra() ? 0 : (costosEnvio[formData.region] || 0))}
                                         </p>
+                                        {isMayorCompra() && (
+                                            <span className="text-sm text-green-600">Compra por mayor - Envío gratis</span>
+                                        )}
                                     </div>
                                 </div>
                             </div>
