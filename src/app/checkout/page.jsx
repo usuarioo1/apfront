@@ -84,7 +84,7 @@ const CheckoutPage = () => {
 
                 {/* Columna derecha: Resumen de la compra */}
                 <div className="lg:w-1/2 p-6 bg-gray-100 rounded-lg shadow-xl lg:ml-6 mt-6 lg:mt-0">
-                    <h2 className="text-xl font-bold mb-4 text-gray-800">Resumen de la Compra</h2>
+                    <h2 className="text-xl font-bold mb-4 text-gray-800">Resumen de Compra</h2>
                     {cartItems.length === 0 ? (
                         <p className="text-gray-600">Tu carrito está vacío</p>
                     ) : (
