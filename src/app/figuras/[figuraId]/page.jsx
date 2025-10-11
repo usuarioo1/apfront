@@ -8,10 +8,12 @@ import { getFiguraById } from '../figurasApi';  // Función para obtener la figu
 const DetallesFigura = ({ params }) => {
     const { figuraId } = params;  // Obtenemos el ID de la figura desde los parámetros
     const [figura, setFigura] = useState(null);
+    const [loading, setLoading] = useState(true);
     const { addItem } = useContext(CartContext);  // Para añadir la figura al carrito
 
     useEffect(() => {
         const fetchFigura = async () => {
+            setLoading(true);
             try {
                 const data = await getFiguraById(figuraId);  // Obtenemos la figura por su ID
                 if (data) {
@@ -21,12 +23,21 @@ const DetallesFigura = ({ params }) => {
                 }
             } catch (error) {
                 console.error('Error al obtener la figura:', error);
+            } finally {
+                setLoading(false);
             }
         };
-
         fetchFigura();
     }, [figuraId]);
 
+    if (loading) {
+        return (
+            <div className="flex flex-col justify-center items-center h-96">
+                <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-blue-700 mb-4"></div>
+                <h2 className="text-2xl text-gray-600">Cargando...</h2>
+            </div>
+        );
+    }
     if (!figura) {
         return <div><h2>Figura no encontrada</h2></div>;  // Mensaje si no se encuentra la figura
     }

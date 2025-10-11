@@ -24,7 +24,7 @@ export default function CyberMondayBanner() {
 
     return (
         <div className="w-full bg-gradient-to-r from-pink-600 to-indigo-600 text-white text-center py-2 font-bold text-lg shadow-md z-50">
-            ¡Cyber Monday! 10% de descuento en todos los productos hasta el miércoles 🎉
+            ¡Cyber Monday! 10% de descuento en todos los productos hasta hoy jueve, ultimas horas, aprovecha!
         </div>
     );
 }

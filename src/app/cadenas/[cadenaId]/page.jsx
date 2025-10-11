@@ -8,11 +8,12 @@ import { getCadenasById } from '../cadenasApi';
 const DetallesCadenas = ({params}) => {
     const {cadenaId} = params;
     const [cadena ,setCadena] = useState(null);
+    const [loading, setLoading] = useState(true);
     const {addItem} = useContext(CartContext);
 
     useEffect(() => {
         const fetchCadenas = async () => {
-
+            setLoading(true);
             try {
                 const data = await getCadenasById(cadenaId)
                 if(data){
@@ -22,12 +23,21 @@ const DetallesCadenas = ({params}) => {
                 }
             } catch (error) {
                 console.error('no se puso obtener la cadena por id', error)
+            } finally {
+                setLoading(false);
             }
         };
-
         fetchCadenas();
     },[cadenaId]);
 
+    if(loading){
+        return (
+            <div className="flex flex-col justify-center items-center h-96">
+                <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-blue-700 mb-4"></div>
+                <h2 className="text-2xl text-gray-600">Cargando...</h2>
+            </div>
+        );
+    }
     if(!cadena){
         return <div><h2>Cadena no encontrada</h2></div>
     }

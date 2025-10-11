@@ -9,10 +9,12 @@ import { useRouter } from 'next/router';
 const DetallesColgante = ({ params }) => {
     const { colganteId } = params; // Tomamos el ID del colgante desde los parámetros de la ruta
     const [colgante, setColgante] = useState(null);
+    const [loading, setLoading] = useState(true);
     const { addItem } = useContext(CartContext); // Para añadir al carrito
 
     useEffect(() => {
         const fetchColgante = async () => {
+            setLoading(true);
             try {
                 const data = await getColgantesById(colganteId); // Obtenemos el colgante por ID
                 if (data) {
@@ -22,12 +24,21 @@ const DetallesColgante = ({ params }) => {
                 }
             } catch (error) {
                 console.error('Error al obtener el colgante:', error);
+            } finally {
+                setLoading(false);
             }
         };
-
         fetchColgante();
     }, [colganteId]);
 
+    if (loading) {
+        return (
+            <div className="flex flex-col justify-center items-center h-96">
+                <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-blue-700 mb-4"></div>
+                <h2 className="text-2xl text-gray-600">Cargando...</h2>
+            </div>
+        );
+    }
     if (!colgante) {
         return (
             <div>
