@@ -1,5 +1,5 @@
 import React from 'react';
-import CyberMondayBanner from './CyberMondayBanner';
+
 const Catalogo = ({ imageUrl }) => {
   return (
     <div>
@@ -12,7 +12,7 @@ const Catalogo = ({ imageUrl }) => {
       <span className="relative">Catálogo</span>
       
     </div>
-    <CyberMondayBanner />
+    
     </div>
     
   );
