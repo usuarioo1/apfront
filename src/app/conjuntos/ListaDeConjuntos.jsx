@@ -79,7 +79,7 @@ const ListaDeConjuntos = () => {
                             <div className="space-y-2 mt-2">
                                 <div className="flex justify-between items-center px-3 py-1.5 bg-gray-50 rounded-lg">
                                     <span className="text-sm text-gray-600">Precio detalle:</span>
-                                    <span className="font-semibold text-gray-800">${conjunto.precio}</span>
+                                    <span className="font-semibold text-gray-800">${Math.round(conjunto.precio)}</span>
                                 </div>
                                 <div className="flex justify-between items-center px-3 py-1.5 bg-gray-50 rounded-lg">
                                     <span className="text-sm text-gray-600">Precio mayor:</span>
