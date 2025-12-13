@@ -112,8 +112,6 @@ export default function RootLayout({ children }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#1e40af" />
         <link rel="canonical" href="https://www.artesaniaspachy.cl" />
-        {/* Facebook Pixel debe ir en el head */}
-        <FacebookPixel />
         {/* Structured Data JSON-LD */}
         <script
           type="application/ld+json"
@@ -121,6 +119,7 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className={inter.className}>
+        <FacebookPixel />
         <CartContextProvider>
           <Navbar />
           
