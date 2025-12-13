@@ -1,6 +1,19 @@
 import FranjaInformativa from "@/components/WholeSale";
 import ListaDePulseras from "./ListaDePulseras";
 
+export const metadata = {
+  title: "Pulseras de Lapislázuli - Diseños Únicos y Elegantes",
+  description: "Descubre nuestra colección de pulseras artesanales de lapislázuli chileno. Diseños exclusivos que combinan belleza natural y elegancia. Venta por mayor y menor.",
+  keywords: ["pulseras lapislázuli", "brazaletes lapislázuli", "pulseras artesanales", "joyería chilena", "comprar pulseras lapislázuli"],
+  openGraph: {
+    title: "Pulseras de Lapislázuli | Artesanías Pachy",
+    description: "Pulseras artesanales de lapislázuli chileno. Diseños únicos para cada estilo."
+  },
+  alternates: {
+    canonical: "https://www.artesaniaspachy.cl/pulseras"
+  }
+};
+
 const page = () => {
 
 

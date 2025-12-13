@@ -71,7 +71,7 @@ const DetallesColgante = ({ params }) => {
                     <p className="text-gray-600 mt-2">Stock: {colgante.stock}</p>
                     <hr className="border-gray-300 my-2 w-full" />
                     <div className="flex items-center mt-2">
-                        <p className="text-gray-900 font-bold text-xl mr-4">Precio: ${colgante.precio}</p>
+                        <p className="text-gray-900 font-bold text-xl mr-4">Precio: ${Math.round(colgante.precio)}</p>
                         <button
                             onClick={handleAddToCart}
                             className="bg-blue-700 hover:bg-blue-800 text-white font-bold py-2 px-6 rounded-full transition-colors duration-300"

@@ -4,12 +4,16 @@ import Zoom from 'react-medium-image-zoom';
 import 'react-medium-image-zoom/dist/styles.css';
 import { CartContext } from '@/contexts/CartContext';
 import { getArosById } from '../arosApi'; // Usamos la función para obtener el aro por ID
+import { useProductSEO } from '@/utils/seo';
 
 const DetallesAro = ({ params }) => {
     const { aroId } = params;  // Tomamos el id del aro desde los parámetros de la ruta
     const [aro, setAro] = useState(null);
     const [loading, setLoading] = useState(true);
     const { addItem } = useContext(CartContext);  // Para añadir al carrito
+
+    // Hook SEO personalizado
+    useProductSEO(aro, 'Aros', aroId);
 
     useEffect(() => {
         const fetchAro = async () => {
@@ -66,7 +70,7 @@ const DetallesAro = ({ params }) => {
                     <p className="text-gray-600 mt-2"> stock :{aro.stock}</p>
                     <hr className="border-gray-300 my-2 w-full" />
                     <div className="flex items-center mt-2">
-                        <p className="text-gray-900 font-bold text-xl mr-4">Precio: ${aro.precio}</p>
+                        <p className="text-gray-900 font-bold text-xl mr-4">Precio: ${Math.round(aro.precio)}</p>
                         
                         <button onClick={handleAddToCart} className="bg-blue-700 hover:bg-blue-800 text-white font-bold py-2 px-6 rounded-full transition-colors duration-300">Agregar al carrito</button>
                     </div>

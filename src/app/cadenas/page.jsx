@@ -1,6 +1,18 @@
 import FranjaInformativa from "@/components/WholeSale";
 import ListaDeCadenas from "./ListaDeCadenas";
 
+export const metadata = {
+  title: "Cadenas de Lapislázuli - Elegancia en Cada Detalle",
+  description: "Encuentra cadenas artesanales de lapislázuli chileno. Diseños sofisticados con piedras preciosas naturales. Calidad y elegancia garantizadas.",
+  keywords: ["cadenas lapislázuli", "cadenas artesanales", "joyería lapislázuli", "cadenas piedra natural", "comprar cadenas"],
+  openGraph: {
+    title: "Cadenas de Lapislázuli | Artesanías Pachy",
+    description: "Cadenas artesanales de lapislázuli chileno. Sofisticación natural."
+  },
+  alternates: {
+    canonical: "https://www.artesaniaspachy.cl/cadenas"
+  }
+};
 
 const page = () => {
 

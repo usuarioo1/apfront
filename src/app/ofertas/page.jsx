@@ -1,5 +1,18 @@
 import ListaDeAnillos from "./ListaDeAnillos";
 
+export const metadata = {
+  title: "Ofertas - Anillos de Lapislázuli en Promoción",
+  description: "Aprovecha nuestras ofertas especiales en anillos de lapislázuli chileno. Joyas artesanales de calidad a precios increíbles. ¡No te pierdas estas oportunidades!",
+  keywords: ["ofertas lapislázuli", "anillos en oferta", "promociones joyería", "descuentos lapislázuli", "anillos baratos"],
+  openGraph: {
+    title: "Ofertas Especiales | Artesanías Pachy",
+    description: "Ofertas exclusivas en anillos de lapislázuli. Aprovecha ahora."
+  },
+  alternates: {
+    canonical: "https://www.artesaniaspachy.cl/ofertas"
+  }
+};
+
 const page = () => {
 
 

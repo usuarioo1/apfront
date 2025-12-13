@@ -1,6 +1,19 @@
 import FranjaInformativa from "@/components/WholeSale";
 import ListaDeColgantes from "./ListaDeColgantes";
 
+export const metadata = {
+  title: "Colgantes de Lapislázuli - Belleza Natural Artesanal",
+  description: "Explora nuestra selección de colgantes de lapislázuli chileno. Piezas únicas talladas a mano con piedras naturales. Perfectos para regalar o lucir con estilo.",
+  keywords: ["colgantes lapislázuli", "dijes lapislázuli", "colgantes artesanales", "joyería natural", "comprar colgantes lapislázuli"],
+  openGraph: {
+    title: "Colgantes de Lapislázuli | Artesanías Pachy",
+    description: "Colgantes artesanales de lapislázuli. Belleza natural en cada pieza."
+  },
+  alternates: {
+    canonical: "https://www.artesaniaspachy.cl/colgantes"
+  }
+};
+
 const page = () => {
 
 

@@ -1,6 +1,18 @@
 import React from 'react';
 import Link from 'next/link';
 
+export const metadata = {
+  title: "Términos y Condiciones - Artesanías Pachy",
+  description: "Conoce los términos y condiciones de uso del sitio web de Artesanías Pachy. Información sobre compras, envíos y políticas de la tienda.",
+  robots: {
+    index: true,
+    follow: true
+  },
+  alternates: {
+    canonical: "https://www.artesaniaspachy.cl/terminos"
+  }
+};
+
 const Page = () => {
   return (
     <div className="p-8 bg-gray-100">

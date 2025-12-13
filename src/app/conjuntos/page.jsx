@@ -1,6 +1,19 @@
 import FranjaInformativa from "@/components/WholeSale";
 import ListaDeConjuntos from "./ListaDeConjuntos";
 
+export const metadata = {
+  title: "Conjuntos de Lapislázuli - Sets Completos de Joyería",
+  description: "Descubre nuestros conjuntos completos de joyería de lapislázuli chileno. Sets coordinados de collar, aros y más. Perfectos para ocasiones especiales.",
+  keywords: ["conjuntos lapislázuli", "sets joyería", "joyería completa", "regalos lapislázuli", "conjuntos artesanales"],
+  openGraph: {
+    title: "Conjuntos de Lapislázuli | Artesanías Pachy",
+    description: "Sets completos de joyería de lapislázuli. Armonía y elegancia."
+  },
+  alternates: {
+    canonical: "https://www.artesaniaspachy.cl/conjuntos"
+  }
+};
+
 const page = () => {
 
 

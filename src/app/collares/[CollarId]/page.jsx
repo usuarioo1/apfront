@@ -4,18 +4,22 @@ import Zoom from 'react-medium-image-zoom';
 import 'react-medium-image-zoom/dist/styles.css';
 import { CartContext } from '@/contexts/CartContext';
 import { getCollaresById } from '../collaresApi';  // Función para obtener el collar por ID
+import { useProductSEO } from '@/utils/seo';
 
 const DetallesCollar = ({ params }) => {
-    const { CollarId } = params;  // Tomamos el ID del collar desde los parámetros de la ruta
+    const { collarId } = params;  // Tomamos el ID del collar desde los parámetros de la ruta
     const [collar, setCollar] = useState(null);
     const [loading, setLoading] = useState(true);
     const { addItem } = useContext(CartContext);  // Para añadir el collar al carrito
+
+    // Hook SEO personalizado
+    useProductSEO(collar, 'Collares', collarId);
 
     useEffect(() => {
         const fetchCollar = async () => {
             setLoading(true);
             try {
-                const data = await getCollaresById(CollarId);  // Obtenemos el collar por su ID
+                const data = await getCollaresById(collarId);  // Obtenemos el collar por su ID
                 if (data) {
                     setCollar(data);  // Guardamos los detalles del collar en el estado
                 } else {
@@ -28,7 +32,7 @@ const DetallesCollar = ({ params }) => {
             }
         };
         fetchCollar();
-    }, [CollarId]);
+    }, [collarId]);
 
     if (loading) {
         return (

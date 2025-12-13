@@ -1,10 +1,8 @@
 'use client'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { apiContactos } from '@/utils/api';
-
-
 
 export default function ContactForm() {
     const [formData, setFormData] = useState({
@@ -13,6 +11,16 @@ export default function ContactForm() {
         phone: '',
         message: ''
     });
+
+    // Agregar meta tags dinámicamente para componentes client
+    useEffect(() => {
+        document.title = 'Contacto - Artesanías Pachy | Joyería de Lapislázuli';
+        
+        const metaDescription = document.querySelector('meta[name="description"]');
+        if (metaDescription) {
+            metaDescription.setAttribute('content', 'Contáctanos para consultas sobre nuestras joyas de lapislázuli chileno. Estamos aquí para ayudarte con tus preguntas sobre productos, envíos y más.');
+        }
+    }, []);
 
     const handleChange = (e) => {
         const { name, value } = e.target;

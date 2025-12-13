@@ -10,14 +10,48 @@ import FacebookPixel from "@/components/FacebookPixel";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Artesanías Pachy - Joyas de Lapislázuli",
-  description: "Descubre la belleza del lapislázuli en Artesanías Pachy. Ofrecemos una selección exclusiva de joyas artesanales, cuidadosamente elaboradas con este mineral único de Chile. Encuentra anillos, collares y más, creados para resaltar la elegancia y mística del lapislázuli.",
-  keywords: "lapislázuli, joyas artesanales, anillos de lapislázuli, collares de lapislázuli, Artesanías Pachy, joyería chilena",
+  metadataBase: new URL('https://www.artesaniaspachy.cl'),
+  title: {
+    default: "Artesanías Pachy - Joyas de Lapislázuli Chileno | Joyería Artesanal",
+    template: "%s | Artesanías Pachy"
+  },
+  description: "Descubre la belleza del lapislázuli chileno en Artesanías Pachy. Ofrecemos una selección exclusiva de joyas artesanales: anillos, collares, aros, pulseras y más. Joyería única elaborada con piedras preciosas de calidad superior.",
+  keywords: [
+    "lapislázuli", 
+    "joyas artesanales", 
+    "anillos de lapislázuli", 
+    "collares de lapislázuli",
+    "aros de lapislázuli",
+    "pulseras de lapislázuli",
+    "Artesanías Pachy", 
+    "joyería chilena",
+    "piedras preciosas chile",
+    "joyas de lapislázuli",
+    "joyería artesanal",
+    "comprar lapislázuli",
+    "joyas naturales"
+  ],
+  authors: [{ name: "Artesanías Pachy" }],
+  creator: "Artesanías Pachy",
+  publisher: "Artesanías Pachy",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
   openGraph: {
-    title: "Artesanías Pachy - Joyas de Lapislázuli",
-    description: "Encuentra joyas únicas hechas de lapislázuli en Artesanías Pachy. Explora nuestra selección artesanal en anillos, collares y más.",
     type: "website",
+    locale: "es_CL",
     url: "https://www.artesaniaspachy.cl",
+    siteName: "Artesanías Pachy",
+    title: "Artesanías Pachy - Joyas de Lapislázuli Chileno",
+    description: "Encuentra joyas únicas hechas de lapislázuli en Artesanías Pachy. Explora nuestra selección artesanal en anillos, collares, aros, pulseras y más.",
     images: [
       {
         url: "https://res.cloudinary.com/dpbpyzl96/image/upload/v1728514810/apweb/logo/pb5gdsfxr9kmgcuyewe6.png",
@@ -27,29 +61,64 @@ export const metadata = {
       },
     ],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Artesanías Pachy - Joyas de Lapislázuli Chileno",
+    description: "Descubre joyas artesanales únicas de lapislázuli chileno",
+    images: ["https://res.cloudinary.com/dpbpyzl96/image/upload/v1728514810/apweb/logo/pb5gdsfxr9kmgcuyewe6.png"],
+  },
+  verification: {
+    google: "google-site-verification-code", // Reemplazar con código real de Google Search Console
+  },
+  alternates: {
+    canonical: "https://www.artesaniaspachy.cl",
+  },
 };
 
 export default function RootLayout({ children }) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Artesanías Pachy",
+    "image": "https://res.cloudinary.com/dpbpyzl96/image/upload/v1728514810/apweb/logo/pb5gdsfxr9kmgcuyewe6.png",
+    "description": "Joyería artesanal de lapislázuli chileno. Anillos, collares, aros, pulseras y más.",
+    "url": "https://www.artesaniaspachy.cl",
+    "telephone": "+56938677974",
+    "priceRange": "$$",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "CL",
+      "addressLocality": "Chile"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "addressCountry": "CL"
+    },
+    "sameAs": [
+      "https://www.facebook.com/artesaniaspachy",
+      "https://www.instagram.com/artesaniaspachy"
+    ],
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+56938677974",
+      "contactType": "customer service",
+      "availableLanguage": ["Spanish"]
+    }
+  };
+
   return (
     <html lang="es">
       <head>
-        <meta name="description" content={metadata.description} />
-        <meta name="keywords" content={metadata.keywords} />
-        <meta property="og:title" content={metadata.openGraph.title} />
-        <meta property="og:description" content={metadata.openGraph.description} />
-        <meta property="og:type" content={metadata.openGraph.type} />
-        <meta property="og:url" content={metadata.openGraph.url} />
-        <meta property="og:image" content={metadata.openGraph.images[0].url} />
-        <meta property="og:image:width" content={metadata.openGraph.images[0].width.toString()} />
-        <meta property="og:image:height" content={metadata.openGraph.images[0].height.toString()} />
-        <meta property="og:image:alt" content={metadata.openGraph.images[0].alt} />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={metadata.openGraph.title} />
-        <meta name="twitter:description" content={metadata.openGraph.description} />
-        <meta name="twitter:image" content={metadata.openGraph.images[0].url} />
-        <title>{metadata.title}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="theme-color" content="#1e40af" />
+        <link rel="canonical" href="https://www.artesaniaspachy.cl" />
         {/* Facebook Pixel debe ir en el head */}
         <FacebookPixel />
+        {/* Structured Data JSON-LD */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
       </head>
       <CartContextProvider>
         <body className={inter.className}>
