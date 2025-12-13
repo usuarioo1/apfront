@@ -13,10 +13,6 @@ const nextConfig = {
     compress: true,
     // Habilitar compresión brotli para mejor SEO
     poweredByHeader: false,
-    // Generar sitemap automáticamente
-    experimental: {
-        optimizeCss: true,
-    },
 };
 
 export default nextConfig;
