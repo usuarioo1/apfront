@@ -120,10 +120,8 @@ export default function RootLayout({ children }) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <CartContextProvider>
-        <body className={inter.className}>
-          
-
+      <body className={inter.className}>
+        <CartContextProvider>
           <Navbar />
           
           {children}
@@ -133,8 +131,8 @@ export default function RootLayout({ children }) {
             phoneNumber="+56938677974"
             message="Hola, me gustaría obtener más información."
           />
-        </body>
-      </CartContextProvider>
+        </CartContextProvider>
+      </body>
     </html>
   );
 }
