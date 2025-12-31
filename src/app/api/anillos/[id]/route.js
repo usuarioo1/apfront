@@ -4,12 +4,19 @@ export async function GET(request, { params }) {
     try {
         const backendUrl = process.env.API_URL_ANILLOS;
         const { id } = params;
-        const res = await fetch(`${backendUrl}/anillos/${id}`);
+        const res = await fetch(`${backendUrl}/anillos/${id}`, {
+            cache: 'no-store'
+        });
         if (!res.ok) {
             throw new Error(`Backend responded with status: ${res.status}`);
         }
         const data = await res.json();
-        return NextResponse.json(data, { status: 200 });
+        return NextResponse.json(data, { 
+            status: 200,
+            headers: {
+                'Cache-Control': 'no-store, no-cache, must-revalidate, max-age=0'
+            }
+        });
     } catch (error) {
         return NextResponse.json({ success: false, error: 'Error al obtener el anillo', message: error.message }, { status: 500 });
     }

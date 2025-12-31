@@ -18,7 +18,7 @@ export async function GET(request, { params }) {
         
         // Realizamos la petición al backend
         const res = await fetch(`${backendUrl}/accesorios/${id}`, {
-            next: { revalidate: 60 }
+            cache: 'no-store'
         });
 
         if (!res.ok) {
@@ -37,7 +37,7 @@ export async function GET(request, { params }) {
         return NextResponse.json(data, {
             status: 200,
             headers: {
-                'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=120'
+                'Cache-Control': 'no-store, no-cache, must-revalidate, max-age=0'
             }
         });
 

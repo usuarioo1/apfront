@@ -7,7 +7,8 @@ export async function GET(request) {
         const backendUrl = process.env.API_URL_COLGANTES;
         // Realizamos la petición al backend desde el servidor
         const res = await fetch(`${backendUrl}/colgantes`, {
-            next: { revalidate: 60 }
+            next: { revalidate: 10 },
+            cache: 'no-store'
         });
 
         if (!res.ok) {
@@ -18,7 +19,7 @@ export async function GET(request) {
         return NextResponse.json(data, {
             status: 200,
             headers: {
-                'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=120'
+                'Cache-Control': 'no-store, no-cache, must-revalidate, max-age=0'
             }
         });
     } catch (error) {
