@@ -66,6 +66,11 @@ export default function CatalogoProductoIdPage() {
         return <div className="text-center mt-20 text-xl">Producto no encontrado</div>;
     }
 
+    const precioDetalle = Number(producto.precio);
+    const precioMayor = Number(producto.precio_por_mayor);
+    const precioDetalleFinal = Number.isFinite(precioDetalle) ? precioDetalle : 0;
+    const precioMayorFinal = Number.isFinite(precioMayor) ? precioMayor : precioDetalleFinal;
+
     return (
         <div className="max-w-2xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden mt-16 p-6">
             <Zoom>
@@ -77,8 +82,8 @@ export default function CatalogoProductoIdPage() {
                     <p className="text-gray-600 mb-1">Código: {producto.codigo || ""}</p>
                     <p className="text-gray-600 mb-1">Stock: {producto.stock}</p>
                     <div className="my-2">
-                        <span className="text-gray-900 font-bold text-lg mr-4">Precio: ${producto.precio}</span>
-                        <span className="text-blue-700 font-semibold text-base mr-4">Por mayor: ${Math.round(producto.precio / 1.5)}</span>
+                        <span className="text-gray-900 font-bold text-lg mr-4">Precio: ${Math.round(precioDetalleFinal)}</span>
+                        <span className="text-blue-700 font-semibold text-base mr-4">Por mayor: ${Math.round(precioMayorFinal)}</span>
                     </div>
                 </div>
                 <button

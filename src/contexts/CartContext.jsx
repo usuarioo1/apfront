@@ -7,17 +7,35 @@ const initialState = {
     cartItems: [],
 }
 
+const getStockLimit = (item) => {
+    const stock = Number(item?.stock);
+    return Number.isFinite(stock) && stock >= 0 ? stock : null;
+};
+
 function reducer(state, action) {
     switch (action.type) {
         case 'ADD_ITEM':
             const existingItemIndex = state.cartItems.findIndex(item => item._id === action.item._id);
 
+            const stockLimit = getStockLimit(action.item);
+            if (stockLimit !== null && stockLimit <= 0) {
+                // No permitir agregar productos sin stock
+                return state;
+            }
+
             if (existingItemIndex !== -1) {
-                // Si el producto ya existe en el carrito, aumenta la cantidad
+                // Si el producto ya existe en el carrito, aumenta la cantidad hasta el stock máximo
                 const updatedCartItems = [...state.cartItems];
+                const existingItem = updatedCartItems[existingItemIndex];
+                const existingStockLimit = getStockLimit(existingItem);
+
+                if (existingStockLimit !== null && existingItem.quantity >= existingStockLimit) {
+                    return state;
+                }
+
                 updatedCartItems[existingItemIndex] = {
-                    ...updatedCartItems[existingItemIndex],
-                    quantity: updatedCartItems[existingItemIndex].quantity + 1
+                    ...existingItem,
+                    quantity: existingItem.quantity + 1
                 };
                 return { ...state, cartItems: updatedCartItems };
             } else {
@@ -47,6 +65,19 @@ export function CartContextProvider({ children }) {
     const [state, dispatch] = useReducer(reducer, initialState);
 
     const addItem = (item) => {
+        const stockLimit = getStockLimit(item);
+        if (stockLimit !== null && stockLimit <= 0) {
+            return false;
+        }
+
+        const existingItem = state.cartItems.find(cartItem => cartItem._id === item._id);
+        if (existingItem) {
+            const existingStockLimit = getStockLimit(existingItem);
+            if (existingStockLimit !== null && existingItem.quantity >= existingStockLimit) {
+                return false;
+            }
+        }
+
         dispatch({ type: 'ADD_ITEM', item });
         
         // Disparar evento AddToCart de Facebook Pixel (opcional)
@@ -64,6 +95,8 @@ export function CartContextProvider({ children }) {
                 }]
             });
         }
+
+        return true;
     };
 
     const removeItem = (id) => {

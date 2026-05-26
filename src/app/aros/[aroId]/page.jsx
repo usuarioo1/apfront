@@ -51,34 +51,54 @@ const DetallesAro = ({ params }) => {
         console.log('Aro añadido al carrito:', aro);
     };
 
+    const precioMayor = Number(aro.precio_por_mayor);
+    const precioDetalle = Number(aro.precio);
+    const precioMayorFinal = Number.isFinite(precioMayor) ? precioMayor : (Number.isFinite(precioDetalle) ? precioDetalle : 0);
+
     return (
-        <div className="bg-white shadow-lg rounded-lg overflow-hidden w-9/12 m-auto mt-24 mb-20">
-            <div className="w-full md:flex">
-                <div className="md:w-1/4 w-full flex items-center justify-center p-4">
-                    <Zoom>
-                        <img
-                            className="object-contain w-full h-72 md:h-80 rounded-lg cursor-zoom-in"
-                            src={aro.img}
-                            alt={aro.name}
-                            onContextMenu={(e) => e.preventDefault()}
-                        />
-                    </Zoom>
-                </div>
-                <div className="w-full md:w-3/4 p-4 md:pl-8 flex flex-col justify-start items-start">
-                    <h2 className="text-gray-800 font-semibold text-3xl">{aro.name}</h2>
-                    <p className="text-gray-600 mt-2">Código: {aro.codigo || 'No disponible'}</p>
-                    <p className="text-gray-600 mt-2"> stock :{aro.stock}</p>
-                    <hr className="border-gray-300 my-2 w-full" />
-                    <div className="flex items-center mt-2">
-                        <p className="text-gray-900 font-bold text-xl mr-4">Precio: ${Math.round(aro.precio)}</p>
-                        
-                        <button onClick={handleAddToCart} className="bg-blue-700 hover:bg-blue-800 text-white font-bold py-2 px-6 rounded-full transition-colors duration-300">Agregar al carrito</button>
+        <div className="px-4 sm:px-6 lg:px-8 py-10 bg-zinc-100 min-h-screen">
+            <div className="max-w-6xl mx-auto rounded-2xl border border-zinc-200 bg-white overflow-hidden shadow-sm">
+                <div className="grid md:grid-cols-[380px_1fr]">
+                    <div className="bg-zinc-50 p-4 sm:p-6">
+                        <Zoom>
+                            <img
+                                className="w-full aspect-square object-contain rounded-xl cursor-zoom-in"
+                                src={aro.img}
+                                alt={aro.name}
+                                onContextMenu={(e) => e.preventDefault()}
+                            />
+                        </Zoom>
                     </div>
-                    <hr className="border-gray-300 my-2 w-full" />
-                    <strong><p className="text-gray-900 font-bold text-xl mr-4">Por mayor: ${Math.round(aro.precio/1.5)}</p></strong>
-                    <hr className="border-gray-300 my-2 w-full" />
-                    <p className="text-gray-600 mt-2">{aro.descripcion}</p>
-                    
+                    <div className="p-5 sm:p-7 flex flex-col">
+                        <h1 className="text-2xl sm:text-3xl font-semibold text-zinc-900">{aro.name}</h1>
+                        <p className="text-zinc-500 mt-2 text-sm">Código: {aro.codigo || 'No disponible'}</p>
+
+                        <div className="mt-4 space-y-2 text-sm">
+                            <div className="flex justify-between items-center border-b border-zinc-100 pb-2">
+                                <span className="text-zinc-500">Detalle</span>
+                                <span className="font-semibold text-zinc-900">${Math.round(aro.precio)}</span>
+                            </div>
+                            <div className="flex justify-between items-center border-b border-zinc-100 pb-2">
+                                <span className="text-zinc-500">Mayor</span>
+                                <span className="font-semibold text-zinc-900">${Math.round(precioMayorFinal)}</span>
+                            </div>
+                            <div className="flex justify-between items-center">
+                                <span className="text-zinc-500">Stock</span>
+                                <span className="font-medium text-zinc-700">{aro.stock}</span>
+                            </div>
+                        </div>
+
+                        <button
+                            onClick={handleAddToCart}
+                            className="mt-5 w-full sm:w-auto rounded-full border border-zinc-900 bg-zinc-900 text-white py-2.5 px-6 text-sm font-medium hover:bg-zinc-800 transition-colors duration-200"
+                        >
+                            Agregar al carrito
+                        </button>
+
+                        <div className="mt-5 pt-4 border-t border-zinc-100">
+                            <p className="text-sm leading-relaxed text-zinc-600">{aro.descripcion}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

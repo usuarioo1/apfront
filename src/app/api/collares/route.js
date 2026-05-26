@@ -7,7 +7,7 @@ export async function GET(request) {
         const backendUrl = process.env.API_URL_COLLARES;
         // Realizamos la petición al backend desde el servidor
         const res = await fetch(`${backendUrl}/collares`, {
-            next: { revalidate: 60 }
+            cache: 'no-store'
         });
 
         if (!res.ok) {
@@ -15,12 +15,7 @@ export async function GET(request) {
         }
 
         const data = await res.json();
-        return NextResponse.json(data, {
-            status: 200,
-            headers: {
-                'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=120'
-            }
-        });
+        return NextResponse.json(data, { status: 200 });
     } catch (error) {
         console.error('Error fetching collares:', error);
         return NextResponse.json(

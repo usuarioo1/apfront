@@ -9,6 +9,11 @@ const ListaDeFiguras = () => {
     const [loading, setLoading] = useState(true); // Estado de carga
     const { addItem } = useContext(CartContext); // Usamos la función addItem desde el contexto
 
+    const parsePrice = (value) => {
+        const numberValue = Number(value);
+        return Number.isFinite(numberValue) ? numberValue : null;
+    };
+
     useEffect(() => {
         const fetchFiguras = async () => {
             try {
@@ -61,46 +66,52 @@ const ListaDeFiguras = () => {
         <div className="p-4 bg-gray-100 min-h-screen">
             <h1 className="text-3xl font-bold mb-8 text-center text-gray-800">Lista de Figuras</h1>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                {figuras.map((figura) => (
-                    <div key={figura.id} className="card bg-gradient-to-br from-gray-100 to-gray-200 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col h-[520px]">
-                        <figure className="px-4 pt-4 flex-shrink-0">
-                            <Link href={`/figuras/${figura._id}`} className="w-full">
-                                <img
-                                    src={figura.img}
-                                    alt={figura.name}
-                                    className="rounded-xl h-56 w-full object-cover hover:scale-105 transition-transform duration-300"
-                                />
+                {figuras.map((figura) => {
+                    const precioMayor = parsePrice(figura.precio_por_mayor);
+                    const precioDetalle = parsePrice(figura.precio) ?? 0;
+                    const precioMayorTexto = `$${Math.round(precioMayor ?? precioDetalle)}`;
+
+                    return (
+                        <div key={figura.id} className="rounded-2xl border border-zinc-200 bg-white overflow-hidden flex flex-col h-full transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+                            <Link href={`/figuras/${figura._id}`} className="block">
+                                <div className="aspect-square bg-zinc-50 p-3">
+                                    <img
+                                        src={figura.img}
+                                        alt={figura.name}
+                                        className="w-full h-full object-contain"
+                                    />
+                                </div>
                             </Link>
-                        </figure>
-                        <div className="card-body p-4 bg-white rounded-b-2xl flex flex-col flex-grow">
-                            <h2 className="card-title justify-center text-xl font-medium text-gray-800 line-clamp-1">
-                                {figura.name}
-                            </h2>
-                            <div className="space-y-2 mt-2">
-                                <div className="flex justify-between items-center px-3 py-1.5 bg-gray-50 rounded-lg">
-                                    <span className="text-sm text-gray-600">Precio detalle:</span>
-                                    <span className="font-semibold text-gray-800">${figura.precio}</span>
+                            <div className="p-4 flex flex-col flex-grow">
+                                <h2 className="text-base font-semibold text-zinc-900 line-clamp-2 min-h-[48px]">
+                                    {figura.name}
+                                </h2>
+                                <div className="mt-3 space-y-2 text-sm">
+                                    <div className="flex justify-between items-center border-b border-zinc-100 pb-2">
+                                        <span className="text-zinc-500">Detalle</span>
+                                        <span className="font-semibold text-zinc-900">${Math.round(precioDetalle)}</span>
+                                    </div>
+                                    <div className="flex justify-between items-center border-b border-zinc-100 pb-2">
+                                        <span className="text-zinc-500">Mayor</span>
+                                        <span className="font-semibold text-zinc-900">{precioMayorTexto}</span>
+                                    </div>
+                                    <div className="flex justify-between items-center">
+                                        <span className="text-zinc-500">Stock</span>
+                                        <span className="font-medium text-zinc-700">{figura.stock}</span>
+                                    </div>
                                 </div>
-                                <div className="flex justify-between items-center px-3 py-1.5 bg-gray-50 rounded-lg">
-                                    <span className="text-sm text-gray-600">Precio mayor:</span>
-                                    <span className="font-semibold text-gray-800">${Math.round(figura.precio / 1.5)}</span>
+                                <div className="mt-4">
+                                    <button
+                                        onClick={() => handleAddToCart(figura)}
+                                        className="w-full rounded-full border border-zinc-900 bg-zinc-900 text-white py-2.5 text-sm font-medium hover:bg-zinc-800 transition-colors duration-200"
+                                    >
+                                        Añadir al Carrito
+                                    </button>
                                 </div>
-                                <div className="flex justify-between items-center px-3 py-1.5 bg-gray-50 rounded-lg">
-                                    <span className="text-sm text-gray-600">Stock:</span>
-                                    <span className="font-semibold text-gray-800">{figura.stock}</span>
-                                </div>
-                            </div>
-                            <div className="card-actions justify-center mt-auto">
-                                <button
-                                    onClick={() => handleAddToCart(figura)}
-                                    className="btn btn-primary w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800 border-none shadow-md hover:shadow-lg"
-                                >
-                                    Añadir al Carrito
-                                </button>
                             </div>
                         </div>
-                    </div>
-                ))}
+                    );
+                })}
             </div>
         </div>
 
