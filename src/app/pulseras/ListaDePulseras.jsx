@@ -82,6 +82,7 @@ const ListaDePulseras = () => {
                                     />
                                 </div>
                             </Link>
+<<<<<<< HEAD
                             <div className="p-4 flex flex-col flex-grow">
                                 <h2 className="text-base font-semibold text-zinc-900 line-clamp-2 min-h-[48px]">
                                     {pulsera.name}
@@ -99,6 +100,17 @@ const ListaDePulseras = () => {
                                         <span className="text-zinc-500">Stock</span>
                                         <span className="font-medium text-zinc-700">{pulsera.stock}</span>
                                     </div>
+=======
+                        </figure>
+                        <div className="card-body p-4 bg-white rounded-b-2xl flex flex-col flex-grow">
+                            <h2 className="card-title justify-center text-xl font-medium text-gray-800 line-clamp-1">
+                                {pulsera.name}
+                            </h2>
+                            <div className="space-y-2 mt-2">
+                                <div className="flex justify-between items-center px-3 py-1.5 bg-gray-50 rounded-lg">
+                                    <span className="text-sm text-gray-600">Precio detalle:</span>
+                                    <span className="font-semibold text-gray-800">${Math.round(pulsera.precio)}</span>
+>>>>>>> 5e60b9f1973f6644a1165f08fc5d480daf8228db
                                 </div>
                                 <div className="mt-4">
                                     <button

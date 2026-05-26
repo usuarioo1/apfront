@@ -52,10 +52,32 @@ const DetallesPulsera = ({ params }) => {
         console.log('Pulsera añadida al carrito:', pulsera);
     };
 
+<<<<<<< HEAD
     const parsePrice = (value) => {
         const numberValue = Number(value);
         return Number.isFinite(numberValue) ? numberValue : null;
     };
+=======
+    return (
+        <div className="bg-white shadow-lg rounded-lg overflow-hidden w-9/12 m-auto mt-24 mb-20">
+            <div className="w-full md:flex">
+                <div className="md:w-1/4 w-full flex items-center justify-center p-4">
+                    <Zoom>
+                        <img
+                            className="object-contain w-full h-72 md:h-80 rounded-lg cursor-zoom-in"
+                            src={pulsera.img}
+                            alt={pulsera.name}
+                        />
+                    </Zoom>
+                </div>
+                <div className="w-full md:w-3/4 p-4 md:pl-8 flex flex-col justify-start items-start">
+                    <h2 className="text-gray-800 font-semibold text-3xl">{pulsera.name}</h2>
+                    <p className="text-gray-600 mt-2">Código: {pulsera.codigo || 'No disponible'}</p>
+                    <p className="text-gray-600 mt-2"> stock :{pulsera.stock}</p>
+                    <hr className="border-gray-300 my-2 w-full" />
+                    <div className="flex items-center mt-2">
+                        <p className="text-gray-900 font-bold text-xl mr-4">Precio: ${Math.round(pulsera.precio)}</p>
+>>>>>>> 5e60b9f1973f6644a1165f08fc5d480daf8228db
 
     const precioDetalle = parsePrice(pulsera.precio);
     const precioMayor = parsePrice(pulsera.precio_por_mayor);
