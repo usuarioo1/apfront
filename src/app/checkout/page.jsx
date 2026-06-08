@@ -8,6 +8,33 @@ const CheckoutPage = () => {
     const { cartItems } = useContext(CartContext);
     const [costoEnvio, setCostoEnvio] = useState(0);
 
+    const getPrecioBase = (item) => {
+        const precio = Number(item.precio);
+        return Number.isFinite(precio) ? precio : 0;
+    };
+
+    const getPrecioMayor = (item) => {
+        const precioMayor = Number(item.precio_por_mayor);
+        if (Number.isFinite(precioMayor) && precioMayor > 0) {
+            return precioMayor;
+        }
+
+        return getPrecioBase(item);
+    };
+
+    const getSubtotal = () => cartItems.reduce((acc, item) => acc + getPrecioBase(item) * item.quantity, 0);
+
+    const isMayorCompra = () => getSubtotal() > 100000;
+
+    const calcularSubtotalConMayor = () => {
+        const aplicarMayor = isMayorCompra();
+
+        return cartItems.reduce((acc, item) => {
+            const precioUnitario = aplicarMayor ? getPrecioMayor(item) : getPrecioBase(item);
+            return acc + precioUnitario * item.quantity;
+        }, 0);
+    };
+
     // Recuperar el costo de envío desde localStorage cuando el componente se monte
     useEffect(() => {
         const costo = localStorage.getItem('costoEnvio');
@@ -19,12 +46,40 @@ const CheckoutPage = () => {
     // Disparar evento InitiateCheckout cuando se carga la página de checkout
     useEffect(() => {
         if (cartItems.length > 0 && typeof window !== 'undefined' && window.fbq) {
-            const total = calcularTotal();
-            const contents = cartItems.map(item => ({
-                id: item._id,
-                quantity: item.quantity,
-                item_price: item.precio
-            }));
+            const subtotal = cartItems.reduce((acc, item) => {
+                const precio = Number(item.precio);
+                const precioBase = Number.isFinite(precio) ? precio : 0;
+                return acc + precioBase * item.quantity;
+            }, 0);
+
+            const aplicarMayor = subtotal > 100000;
+            const subtotalConMayor = cartItems.reduce((acc, item) => {
+                const precio = Number(item.precio);
+                const precioBase = Number.isFinite(precio) ? precio : 0;
+                const precioMayor = Number(item.precio_por_mayor);
+                const precioUnitario = aplicarMayor && Number.isFinite(precioMayor) && precioMayor > 0
+                    ? precioMayor
+                    : precioBase;
+
+                return acc + precioUnitario * item.quantity;
+            }, 0);
+
+            const envio = subtotalConMayor > 150000 ? 0 : costoEnvio;
+            const total = (Math.round(subtotalConMayor) + envio).toFixed(0);
+            const contents = cartItems.map(item => {
+                const precio = Number(item.precio);
+                const precioBase = Number.isFinite(precio) ? precio : 0;
+                const precioMayor = Number(item.precio_por_mayor);
+                const itemPrice = aplicarMayor && Number.isFinite(precioMayor) && precioMayor > 0
+                    ? precioMayor
+                    : precioBase;
+
+                return {
+                    id: item._id,
+                    quantity: item.quantity,
+                    item_price: itemPrice
+                };
+            });
 
             window.fbq('track', 'InitiateCheckout', {
                 value: parseFloat(total),
@@ -33,32 +88,24 @@ const CheckoutPage = () => {
                 num_items: cartItems.reduce((acc, item) => acc + item.quantity, 0)
             });
         }
-    }, [cartItems]);
+    }, [cartItems, costoEnvio]);
 
     const calcularTotal = () => {
-        const subtotal = cartItems.reduce((acc, item) => acc + item.precio * item.quantity, 0);
-        
-        // Si el total es > 100,000, aplicamos descuento por mayor (dividir por 1.5)
-        const aplicarMayor = subtotal > 100000;
-        const totalFinal = aplicarMayor ? subtotal / 1.5 : subtotal;
-        const envio = totalFinal > 150000 ? 0 : costoEnvio;
-        
-        return (Math.round(totalFinal) + envio).toFixed(0);
-    };
+        const subtotalConMayor = calcularSubtotalConMayor();
+        const envio = subtotalConMayor > 150000 ? 0 : costoEnvio;
 
-    const isMayorCompra = () => {
-        const subtotal = cartItems.reduce((acc, item) => acc + item.precio * item.quantity, 0);
-        return subtotal > 100000;
+        return (Math.round(subtotalConMayor) + envio).toFixed(0);
     };
 
     // Función para disparar evento cuando se intenta pagar
     const handlePaymentAttempt = (paymentMethod) => {
         if (typeof window !== 'undefined' && window.fbq) {
             const total = calcularTotal();
+            const aplicarMayor = isMayorCompra();
             const contents = cartItems.map(item => ({
                 id: item._id,
                 quantity: item.quantity,
-                item_price: item.precio
+                item_price: aplicarMayor ? getPrecioMayor(item) : getPrecioBase(item)
             }));
 
             window.fbq('track', 'AddPaymentInfo', {
@@ -90,12 +137,12 @@ const CheckoutPage = () => {
                     ) : (
                         <div>
                             {cartItems.map((item) => {
-                                const precioFinal = isMayorCompra() ? item.precio / 1.5 : item.precio;
+                                const precioFinal = isMayorCompra() ? getPrecioMayor(item) : getPrecioBase(item);
                                 return (
                                     <div key={item._id} className="mb-4">
                                         <p className="text-gray-700 font-medium">{item.name} x {item.quantity}</p>
                                         <p className="text-gray-600">
-                                            Precio: ${Math.round(precioFinal)} 
+                                            Precio: ${Math.round(precioFinal)}
                                             {isMayorCompra() && <span className="text-xs text-green-600 font-semibold block">Precio por mayor</span>}
                                         </p>
                                     </div>
@@ -103,7 +150,7 @@ const CheckoutPage = () => {
                             })}
                             <hr className="my-4" />
                             <p className="text-lg font-semibold text-gray-800">
-                                Total: ${calcularTotal()} 
+                                Total: ${calcularTotal()}
                                 {isMayorCompra() && <span className="text-xs text-green-600 font-semibold block">Descuento por mayor aplicado</span>}
                             </p>
                             {/* Mostrar el costo de envío */}
@@ -122,8 +169,8 @@ const CheckoutPage = () => {
             </div>
 
             {/* Botón para abrir el modal */}
-            <button 
-                className="btn mt-6 text-white" 
+            <button
+                className="btn mt-6 text-white"
                 onClick={() => {
                     handlePaymentAttempt('bank_transfer');
                     document.getElementById('my_modal_1').showModal();

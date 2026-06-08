@@ -10,7 +10,9 @@ export async function getPulseras() {
 
 export const getPulseraById = async (id) => {
     try {
-        const response = await fetch(`/api/pulseras/${id}`);
+        const response = await fetch(`/api/pulseras/${id}`, {
+            cache: 'no-store'
+        });
         const data = await response.json();
         if (data && data.success && data.info) {
             return data.info;

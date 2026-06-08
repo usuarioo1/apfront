@@ -7,7 +7,6 @@ export async function GET(request) {
         const backendUrl = process.env.API_URL_CONJUNTOS;
         // Realizamos la petición al backend desde el servidor
         const res = await fetch(`${backendUrl}/conjuntos`, {
-            next: { revalidate: 10 },
             cache: 'no-store'
         });
 

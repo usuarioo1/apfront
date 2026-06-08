@@ -83,15 +83,31 @@ export default function Component() {
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
-    const calcularTotal = () => {
-        const totalProductos = cartItems.reduce((acc, item) => acc + item.precio * item.quantity, 0);
-        const descuento = totalProductos > 100000 ? 1.5 : 1;
-        return totalProductos / descuento;
+    const getPrecioBase = (item) => {
+        const precio = Number(item.precio);
+        return Number.isFinite(precio) ? precio : 0;
     };
 
-    const isMayorCompra = () => {
-        const total = cartItems.reduce((acc, item) => acc + item.precio * item.quantity, 0);
-        return total > 100000;
+    const getPrecioMayor = (item) => {
+        const precioMayor = Number(item.precio_por_mayor);
+        if (Number.isFinite(precioMayor) && precioMayor > 0) {
+            return precioMayor;
+        }
+
+        return getPrecioBase(item);
+    };
+
+    const getSubtotal = () => cartItems.reduce((acc, item) => acc + getPrecioBase(item) * item.quantity, 0);
+
+    const isMayorCompra = () => getSubtotal() > 100000;
+
+    const calcularTotal = () => {
+        const aplicarMayor = isMayorCompra();
+
+        return cartItems.reduce((acc, item) => {
+            const precioUnitario = aplicarMayor ? getPrecioMayor(item) : getPrecioBase(item);
+            return acc + precioUnitario * item.quantity;
+        }, 0);
     };
 
     const handleSubmit = async (e) => {
@@ -99,7 +115,8 @@ export default function Component() {
         setIsLoading(true);
 
         // Calcular total y costo de envío con descuento si aplica
-        const total = cartItems.reduce((acc, item) => acc + item.precio * item.quantity, 0);
+        const total = calcularTotal();
+        const aplicarMayor = isMayorCompra();
         const costoEnvio = total > 150000 ? 0 : (costosEnvio[formData.region] || 0);
 
         // Mapear cartItems para incluir _id, name, quantity, precio (lo que pide backend)
@@ -109,7 +126,7 @@ export default function Component() {
             img: item.img,
             name: item.name,
             quantity: item.quantity,
-            precio: item.precio
+            precio: aplicarMayor ? getPrecioMayor(item) : getPrecioBase(item)
         }));
 
         const dataToSend = {
@@ -301,12 +318,12 @@ export default function Component() {
                             </div>
                             <div>
                                 <label htmlFor="comuna" className="block text-sm font-medium text-gray-700">Comuna</label>
-                                <input type="text" 
-                                id='comuna' 
-                                name='comuna' 
-                                value={formData.comuna} 
-                                onChange={handleChange} 
-                                className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" />
+                                <input type="text"
+                                    id='comuna'
+                                    name='comuna'
+                                    value={formData.comuna}
+                                    onChange={handleChange}
+                                    className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" />
                             </div>
                             <div>
                                 <label htmlFor="direccion" className="block text-sm font-medium text-gray-700">Dirección</label>
@@ -350,7 +367,7 @@ export default function Component() {
                         ) : (
                             <div>
                                 {cartItems.map(item => {
-                                    const precioFinal = isMayorCompra() ? item.precio / 1.5 : item.precio;
+                                    const precioFinal = isMayorCompra() ? getPrecioMayor(item) : getPrecioBase(item);
                                     return (
                                         <div key={item._id} className="mb-4 flex justify-between items-center">
                                             <div className="flex-1">

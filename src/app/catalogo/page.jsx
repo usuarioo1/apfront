@@ -17,6 +17,11 @@ const CatalogoMasivo = () => {
 	const [loading, setLoading] = useState(true);
 	const { addItem } = useContext(CartContext);
 
+	const parsePrice = (value) => {
+		const numberValue = Number(value);
+		return Number.isFinite(numberValue) ? numberValue : null;
+	};
+
 	useEffect(() => {
 		const fetchAll = async () => {
 			setLoading(true);
@@ -58,34 +63,48 @@ const CatalogoMasivo = () => {
 		<div className="p-4 bg-gray-100 min-h-screen">
 			<h1 className="text-3xl font-bold mb-8 text-center text-gray-800">Catálogo Completo</h1>
 			<div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-				{productos.map((producto) => (
-					<div
-						key={producto._id || producto.id}
-						className="bg-white rounded-lg shadow-md overflow-hidden flex flex-col min-h-[410px] h-full"
-						style={{ minHeight: '410px' }}
-					>
-						<Link href={`/catalogo/${producto._id || producto.id}`}>
-							<img src={producto.img} alt={producto.name} className="object-cover w-full h-48 hover:scale-105 transition-transform duration-200" />
-						</Link>
-						<div className="p-4 flex flex-col flex-1">
-							<h2 className="text-lg font-semibold text-gray-800 mb-2 line-clamp-2">{producto.name}</h2>
-							<p className="text-gray-600 text-sm mb-1">{producto.codigo || ''}</p>
-							<div className="mb-2">
-								<span className="text-gray-900 font-bold text-base mr-2">Precio: ${producto.precio}</span>
-								<span className="text-blue-700 font-semibold text-sm mr-2">Por mayor: ${Math.round(producto.precio / 1.5)}</span>
-							</div>
-							<div className="mt-auto flex flex-col gap-2">
-								<button
-									onClick={() => addItem(producto)}
-									className="bg-blue-700 hover:bg-blue-800 text-white font-bold py-1 px-4 rounded-full transition-colors duration-300"
-								>
-									Agregar al carrito
-								</button>
-								<Link href={`/catalogo/${producto._id || producto.id}`} className="text-blue-700 hover:underline font-medium text-center">Ver detalle</Link>
+				{productos.map((producto) => {
+					const precioDetalle = parsePrice(producto.precio) ?? 0;
+					const precioMayor = parsePrice(producto.precio_por_mayor);
+					const precioMayorFinal = precioMayor ?? precioDetalle;
+
+					return (
+						<div key={producto._id || producto.id} className="rounded-2xl border border-zinc-200 bg-white overflow-hidden flex flex-col h-full transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+							<Link href={`/catalogo/${producto._id || producto.id}`} className="block">
+								<div className="aspect-square bg-zinc-50 p-3">
+									<img src={producto.img} alt={producto.name} className="w-full h-full object-contain" />
+								</div>
+							</Link>
+							<div className="p-4 flex flex-col flex-grow">
+								<h2 className="text-base font-semibold text-zinc-900 line-clamp-2 min-h-[48px]">{producto.name}</h2>
+								<p className="text-zinc-500 text-sm mt-2">{producto.codigo || ''}</p>
+								<div className="mt-3 space-y-2 text-sm">
+									<div className="flex justify-between items-center border-b border-zinc-100 pb-2">
+										<span className="text-zinc-500">Detalle</span>
+										<span className="font-semibold text-zinc-900">${Math.round(precioDetalle)}</span>
+									</div>
+									<div className="flex justify-between items-center border-b border-zinc-100 pb-2">
+										<span className="text-zinc-500">Mayor</span>
+										<span className="font-semibold text-zinc-900">${Math.round(precioMayorFinal)}</span>
+									</div>
+									<div className="flex justify-between items-center">
+										<span className="text-zinc-500">Stock</span>
+										<span className="font-medium text-zinc-700">{producto.stock}</span>
+									</div>
+								</div>
+								<div className="mt-4 flex flex-col gap-2">
+									<button
+										onClick={() => addItem(producto)}
+										className="w-full rounded-full border border-zinc-900 bg-zinc-900 text-white py-2.5 text-sm font-medium hover:bg-zinc-800 transition-colors duration-200"
+									>
+										Agregar al carrito
+									</button>
+									<Link href={`/catalogo/${producto._id || producto.id}`} className="text-zinc-700 hover:text-zinc-900 hover:underline text-sm font-medium text-center">Ver detalle</Link>
+								</div>
 							</div>
 						</div>
-					</div>
-				))}
+					);
+				})}
 			</div>
 		</div>
 	);

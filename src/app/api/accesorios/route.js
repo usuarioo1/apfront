@@ -5,11 +5,10 @@ export async function GET(request) {
     try {
         // Obtenemos la URL del backend desde las variables de entorno del SERVIDOR
         // Nota: NO usa NEXT_PUBLIC_ por lo que no se expone al cliente
-        const backendUrl = process.env.API_URL_ACCESORIOS 
-        
+        const backendUrl = process.env.API_URL_ACCESORIOS
+
         // Realizamos la petición al backend desde el servidor
         const res = await fetch(`${backendUrl}/accesorios`, {
-            next: { revalidate: 10 },
             cache: 'no-store'
         });
 
@@ -18,7 +17,7 @@ export async function GET(request) {
         }
 
         const data = await res.json();
-        
+
         // Retornamos los datos al cliente
         return NextResponse.json(data, {
             status: 200,
@@ -29,12 +28,12 @@ export async function GET(request) {
 
     } catch (error) {
         console.error('Error fetching accesorios:', error);
-        
+
         return NextResponse.json(
-            { 
-                success: false, 
+            {
+                success: false,
                 error: 'Error al obtener los accesorios',
-                message: error.message 
+                message: error.message
             },
             { status: 500 }
         );
